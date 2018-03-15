@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FF0A4B6F-49B8-4FAB-810D-2C6A76317287}</ProjectGuid>
+    <ProjectGuid>{00AF9A4D-E362-4233-9C2E-17AD44858260}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BookingService.Tests</RootNamespace>
@@ -60,12 +60,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookingService\BookingService.csproj">
-      <Project>{B365E4B0-F9E7-4B93-B73E-AEF7DC41A22F}</Project>
+      <Project>{5A8E4038-8226-4998-BDC7-0FA0422B18A6}</Project>
       <Name>BookingService</Name>
     </ProjectReference>
   </ItemGroup>

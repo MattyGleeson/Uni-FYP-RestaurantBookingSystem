@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{895D3F61-AC3B-4DC9-876B-10C6212330BC}</ProjectGuid>
+    <ProjectGuid>{6B0E5633-CA21-4CBC-B109-C1A3BCF2C757}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MenuService.Tests</RootNamespace>
@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MenuService\MenuService.csproj">
-      <Project>{572B35CA-74FD-461E-BE7C-C6DF43B8BCF0}</Project>
+      <Project>{B8FC29E2-40C6-4573-8276-0247E7F1174B}</Project>
       <Name>MenuService</Name>
     </ProjectReference>
   </ItemGroup>

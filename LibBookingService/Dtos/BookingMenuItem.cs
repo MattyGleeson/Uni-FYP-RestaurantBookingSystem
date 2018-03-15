@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LibBookingService.Dtos
 {
-    public class BookingMenuItem
+    public class BookingMenuItem : Dto
     {
         public virtual int BookingId { get; set; }
 

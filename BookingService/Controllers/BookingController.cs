@@ -1,5 +1,4 @@
 ﻿using BookingService.Data;
-using LibBookingService;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,14 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace BookingService.Controllers
 {
-    /// <summary>
-    /// Booking service controller containing the endpoints used to GET, POST, PUT and DELETE.
-    /// </summary>
     public class BookingController : ApiController
     {
         private BookingSystemDb _db;
@@ -49,7 +44,7 @@ namespace BookingService.Controllers
 
             return bookings.Any() ?
                 Request.CreateResponse(HttpStatusCode.OK, bookings) :
-                Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Selection Boxes");
+                Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Bookings");
         }
 
         /// <summary>
@@ -207,8 +202,71 @@ namespace BookingService.Controllers
                 PaymentMadeDate = b.paymentMadeDate,
                 NoCustomers = b.noCustomers,
                 Comments = b.comments,
-                Cancelled = b.cancelled
+                Cancelled = b.cancelled,
+                Tables = GetTablesForBooking(b),
+                Payments = GetPaymentsForBooking(b),
+                MenuItems = GetBookingMenuItemsForBooking(b)
             };
+        }
+
+        /// <summary>
+        /// Returns a list of tables from the booking parameter.
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
+        private IEnumerable<LibBookingService.Dtos.Table> GetTablesForBooking(Booking booking)
+        {
+            IEnumerable<Table> bookingTables = booking.TableBookings.Where(b => !b.deleted).Select(b => b.Table).Where(b => !b.deleted);
+            if (bookingTables.Any())
+                return bookingTables.Select(t => new LibBookingService.Dtos.Table
+                {
+                    Id = t.id,
+                    RestaurantId = t.restaurant_id,
+                    NoSeats = t.noSeats,
+                    AdditionalNotes = t.additionalNotes,
+                    Active = t.active
+                });
+            return Enumerable.Empty<LibBookingService.Dtos.Table>();
+        }
+
+        /// <summary>
+        /// Returns a list of payments from the booking parameter.
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
+        private IEnumerable<LibBookingService.Dtos.Payment> GetPaymentsForBooking(Booking booking)
+        {
+            IEnumerable<Payment> bookingPayments = booking.Payments.Where(p => !p.deleted);
+            if (bookingPayments.Any())
+                return bookingPayments.Select(p => new LibBookingService.Dtos.Payment
+                {
+                    Id = p.id,
+                    BookingId = booking.id,
+                    CustomerId = p.customer_id,
+                    PaymentMethodId = p.paymentMethod_id,
+                    Amount = p.amount,
+                    Comments = p.comments
+                });
+            return Enumerable.Empty<LibBookingService.Dtos.Payment>();
+        }
+
+        /// <summary>
+        /// Returns a list of booking menu items from the booking parameter.
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
+        private IEnumerable<LibBookingService.Dtos.BookingMenuItem> GetBookingMenuItemsForBooking(Booking booking)
+        {
+            IEnumerable<BookingMenuItem> bookingMenuItems = booking.BookingMenuItems.Where(p => !p.deleted);
+            if (bookingMenuItems.Any())
+                return bookingMenuItems.Select(mi => new LibBookingService.Dtos.BookingMenuItem
+                {
+                    Id = mi.id,
+                    BookingId = booking.id,
+                    MenuItemId = mi.menuItem_id,
+                    Quantity = mi.quantity
+                });
+            return Enumerable.Empty<LibBookingService.Dtos.BookingMenuItem>();
         }
     }
 }
