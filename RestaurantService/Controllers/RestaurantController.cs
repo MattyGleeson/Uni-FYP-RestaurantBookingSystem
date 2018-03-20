@@ -112,7 +112,7 @@ namespace RestaurantService.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("Delete/{id:int?")]
+        [Route("Delete/{id:int?}")]
         [HttpDelete]
         public async Task<HttpResponseMessage> Delete(int id)
         {
@@ -135,16 +135,16 @@ namespace RestaurantService.Controllers
         /// <summary>
         /// Puts a restaurant to the database.
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <param name="r"></param>
         /// <returns></returns>
-        [Route("Update/{id:int?")]
+        [Route("Update/{id:int?}")]
         [HttpPut]
-        public async Task<HttpResponseMessage> Update(int Id, LibBookingService.Dtos.Restaurant r)
+        public async Task<HttpResponseMessage> Update(int id, LibBookingService.Dtos.Restaurant r)
         {
             try
             {
-                Restaurant restaurant = await _db.Restaurants.Where(rr => rr.id == Id).FirstOrDefaultAsync();
+                Restaurant restaurant = await _db.Restaurants.Where(rr => rr.id == id).FirstOrDefaultAsync();
 
                 restaurant.company_id = r.CompanyId;
                 restaurant.name = r.Name;

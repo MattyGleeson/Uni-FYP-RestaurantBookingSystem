@@ -130,7 +130,7 @@ namespace BookingService.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("Delete/{id:int?")]
+        [Route("Delete/{id:int?}")]
         [HttpDelete]
         public async Task<HttpResponseMessage> Delete(int id)
         {
@@ -156,7 +156,7 @@ namespace BookingService.Controllers
         /// <param name="Id"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Route("Update/{id:int?")]
+        [Route("Update/{id:int?}")]
         [HttpPut]
         public async Task<HttpResponseMessage> Update(int Id, LibBookingService.Dtos.Booking b)
         {

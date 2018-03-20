@@ -17,7 +17,5 @@ namespace LibBookingService.Dtos
         public virtual int NoSeats { get; set; }
 
         public virtual bool Active { get; set; }
-
-        public virtual IEnumerable<Booking> TableBookings { get; set; }
     }
 }
