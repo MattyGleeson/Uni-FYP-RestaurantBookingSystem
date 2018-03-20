@@ -13,9 +13,9 @@ namespace RestaurantService.Data
         public MenuItem()
         {
             BookingMenuItems = new HashSet<BookingMenuItem>();
-            RestaurantMenus = new HashSet<RestaurantMenu>();
             MenuItemDietInfoes = new HashSet<MenuItemDietInfo>();
             MenuItemTypes = new HashSet<MenuItemType>();
+            RestaurantMenuItems = new HashSet<RestaurantMenuItem>();
         }
 
         public int id { get; set; }
@@ -33,12 +33,12 @@ namespace RestaurantService.Data
         public virtual ICollection<BookingMenuItem> BookingMenuItems { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RestaurantMenu> RestaurantMenus { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MenuItemDietInfo> MenuItemDietInfoes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MenuItemType> MenuItemTypes { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantMenuItem> RestaurantMenuItems { get; set; }
     }
 }

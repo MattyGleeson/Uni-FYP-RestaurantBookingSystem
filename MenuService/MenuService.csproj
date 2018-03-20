@@ -95,8 +95,23 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Data\Booking.cs" />
+    <Compile Include="Data\BookingMenuItem.cs" />
     <Compile Include="Data\BookingSystemDb.cs" />
+    <Compile Include="Data\Company.cs" />
     <Compile Include="Data\Core\GenericDbContext.cs" />
+    <Compile Include="Data\Customer.cs" />
+    <Compile Include="Data\DietInfo.cs" />
+    <Compile Include="Data\MenuItem.cs" />
+    <Compile Include="Data\MenuItemDietInfo.cs" />
+    <Compile Include="Data\MenuItemType.cs" />
+    <Compile Include="Data\Payment.cs" />
+    <Compile Include="Data\PaymentMethod.cs" />
+    <Compile Include="Data\Restaurant.cs" />
+    <Compile Include="Data\RestaurantMenuItem.cs" />
+    <Compile Include="Data\Table.cs" />
+    <Compile Include="Data\TableBooking.cs" />
+    <Compile Include="Data\Type.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -114,6 +129,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibBookingService\LibBookingService.csproj">
+      <Project>{311a7f42-50a5-4265-bbcd-28f5d8eb2015}</Project>
+      <Name>LibBookingService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

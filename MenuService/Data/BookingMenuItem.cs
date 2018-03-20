@@ -9,7 +9,6 @@ namespace MenuService.Data
     [Table("BookingMenuItem")]
     public partial class BookingMenuItem
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public int quantity { get; set; }

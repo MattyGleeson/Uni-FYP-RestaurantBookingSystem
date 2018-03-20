@@ -15,7 +15,6 @@ namespace BookingService.Data
             MenuItemTypes = new HashSet<MenuItemType>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]

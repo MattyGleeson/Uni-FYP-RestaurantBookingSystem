@@ -24,7 +24,7 @@ namespace BookingService.Data
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
         public virtual DbSet<Restaurant> Restaurants { get; set; }
-        public virtual DbSet<RestaurantMenu> RestaurantMenus { get; set; }
+        public virtual DbSet<RestaurantMenuItem> RestaurantMenuItems { get; set; }
         public virtual DbSet<Table> Tables { get; set; }
         public virtual DbSet<TableBooking> TableBookings { get; set; }
         public virtual DbSet<Type> Types { get; set; }
@@ -180,12 +180,6 @@ namespace BookingService.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MenuItem>()
-                .HasMany(e => e.RestaurantMenus)
-                .WithRequired(e => e.MenuItem)
-                .HasForeignKey(e => e.facility_id)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<MenuItem>()
                 .HasMany(e => e.MenuItemDietInfoes)
                 .WithRequired(e => e.MenuItem)
                 .HasForeignKey(e => e.menuItem_id)
@@ -193,6 +187,12 @@ namespace BookingService.Data
 
             modelBuilder.Entity<MenuItem>()
                 .HasMany(e => e.MenuItemTypes)
+                .WithRequired(e => e.MenuItem)
+                .HasForeignKey(e => e.menuItem_id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MenuItem>()
+                .HasMany(e => e.RestaurantMenuItems)
                 .WithRequired(e => e.MenuItem)
                 .HasForeignKey(e => e.menuItem_id)
                 .WillCascadeOnDelete(false);
@@ -240,9 +240,9 @@ namespace BookingService.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<Restaurant>()
-                .HasMany(e => e.RestaurantMenus)
+                .HasMany(e => e.RestaurantMenuItems)
                 .WithRequired(e => e.Restaurant)
-                .HasForeignKey(e => e.hotel_id)
+                .HasForeignKey(e => e.restaurant_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Restaurant>()

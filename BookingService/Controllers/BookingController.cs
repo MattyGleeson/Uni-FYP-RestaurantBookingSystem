@@ -35,6 +35,7 @@ namespace BookingService.Controllers
         /// Gets all bookings from the database.
         /// </summary>
         /// <returns></returns>
+        [Route("All")]
         [HttpGet]
         public async Task<HttpResponseMessage> Get()
         {
@@ -52,6 +53,7 @@ namespace BookingService.Controllers
         /// </summary>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Route("Create")]
         [HttpPost]
         public async Task<HttpResponseMessage> Post(LibBookingService.Dtos.Booking b)
         {
@@ -128,6 +130,7 @@ namespace BookingService.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Route("Delete/{id:int?")]
         [HttpDelete]
         public async Task<HttpResponseMessage> Delete(int id)
         {
@@ -151,8 +154,9 @@ namespace BookingService.Controllers
         /// Puts a booking to the database.
         /// </summary>
         /// <param name="Id"></param>
-        /// <param name="postObject"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
+        [Route("Update/{id:int?")]
         [HttpPut]
         public async Task<HttpResponseMessage> Update(int Id, LibBookingService.Dtos.Booking b)
         {

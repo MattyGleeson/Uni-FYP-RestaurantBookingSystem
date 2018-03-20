@@ -12,7 +12,7 @@ namespace MenuService.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Restaurant()
         {
-            RestaurantMenus = new HashSet<RestaurantMenu>();
+            RestaurantMenuItems = new HashSet<RestaurantMenuItem>();
             Tables = new HashSet<Table>();
         }
 
@@ -49,7 +49,7 @@ namespace MenuService.Data
         public virtual Company Company { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RestaurantMenu> RestaurantMenus { get; set; }
+        public virtual ICollection<RestaurantMenuItem> RestaurantMenuItems { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Table> Tables { get; set; }

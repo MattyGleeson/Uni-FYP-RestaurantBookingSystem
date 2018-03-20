@@ -1,4 +1,4 @@
-namespace BookingService.Data
+namespace MenuService.Data
 {
     using System;
     using System.Collections.Generic;
@@ -6,14 +6,14 @@ namespace BookingService.Data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("RestaurantMenu")]
-    public partial class RestaurantMenu
+    [Table("RestaurantMenuItem")]
+    public partial class RestaurantMenuItem
     {
         public int id { get; set; }
 
-        public int facility_id { get; set; }
+        public int restaurant_id { get; set; }
 
-        public int hotel_id { get; set; }
+        public int menuItem_id { get; set; }
 
         public bool deleted { get; set; }
 

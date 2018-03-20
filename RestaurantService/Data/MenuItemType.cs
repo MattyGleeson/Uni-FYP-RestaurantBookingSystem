@@ -9,7 +9,6 @@ namespace RestaurantService.Data
     [Table("MenuItemType")]
     public partial class MenuItemType
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public int menuItem_id { get; set; }

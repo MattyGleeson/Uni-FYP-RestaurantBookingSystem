@@ -8,7 +8,7 @@ namespace BookingService.Data.Core
 {
     public class GenericDbContext : DbContext
     {
-        public GenericDbContext (string nameOrConnectionString) : base(nameOrConnectionString)
+        public GenericDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
         }
 

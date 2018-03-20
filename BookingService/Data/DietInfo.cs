@@ -15,7 +15,6 @@ namespace BookingService.Data
             MenuItemDietInfoes = new HashSet<MenuItemDietInfo>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]
