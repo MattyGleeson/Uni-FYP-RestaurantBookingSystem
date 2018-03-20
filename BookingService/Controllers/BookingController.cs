@@ -51,32 +51,32 @@ namespace BookingService.Controllers
         /// <summary>
         /// Posts a booking Dto to the database.
         /// </summary>
-        /// <param name="b"></param>
+        /// <param name="booking"></param>
         /// <returns></returns>
         [Route("Create")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Post(LibBookingService.Dtos.Booking b)
+        public async Task<HttpResponseMessage> Post(LibBookingService.Dtos.Booking booking)
         {
             try
             {
                 Booking newBoooking = _db.Bookings.Add(new Booking
                 {
-                    customer_id = b.CustomerId,
-                    bookingMadeDate = b.BookingMadeDate,
-                    bookingMadeTime = b.BookingMadeTime,
-                    startTime = b.StartTime,
-                    endTime = b.EndTime,
-                    paymentTotal = b.PaymentTotal,
-                    paymentMadeDate = b.PaymentMadeDate,
-                    noCustomers = b.NoCustomers,
-                    comments = b.Comments,
-                    cancelled = b.Cancelled
+                    customer_id = booking.CustomerId,
+                    bookingMadeDate = booking.BookingMadeDate,
+                    bookingMadeTime = booking.BookingMadeTime,
+                    startTime = booking.StartTime,
+                    endTime = booking.EndTime,
+                    paymentTotal = booking.PaymentTotal,
+                    paymentMadeDate = booking.PaymentMadeDate,
+                    noCustomers = booking.NoCustomers,
+                    comments = booking.Comments,
+                    cancelled = booking.Cancelled
                 });
                 await _db.SaveChangesAsync();
 
-                if (b.Tables != null)
+                if (booking.Tables != null)
                 {
-                    foreach (LibBookingService.Dtos.Table t in b.Tables)
+                    foreach (LibBookingService.Dtos.Table t in booking.Tables)
                     {
                         _db.TableBookings.Add(new TableBooking
                         {
@@ -87,9 +87,9 @@ namespace BookingService.Controllers
                     }
                 }
 
-                if (b.Payments != null)
+                if (booking.Payments != null)
                 {
-                    foreach (LibBookingService.Dtos.Payment p in b.Payments)
+                    foreach (LibBookingService.Dtos.Payment p in booking.Payments)
                     {
                         _db.Payments.Add(new Payment
                         {
@@ -103,9 +103,9 @@ namespace BookingService.Controllers
                     }
                 }
 
-                if (b.MenuItems != null)
+                if (booking.MenuItems != null)
                 {
-                    foreach (LibBookingService.Dtos.BookingMenuItem m in b.MenuItems)
+                    foreach (LibBookingService.Dtos.BookingMenuItem m in booking.MenuItems)
                     {
                         _db.BookingMenuItems.Add(new BookingMenuItem
                         {
@@ -153,32 +153,32 @@ namespace BookingService.Controllers
         /// <summary>
         /// Puts a booking to the database.
         /// </summary>
-        /// <param name="Id"></param>
-        /// <param name="b"></param>
+        /// <param name="id"></param>
+        /// <param name="booking"></param>
         /// <returns></returns>
         [Route("Update/{id:int?}")]
         [HttpPut]
-        public async Task<HttpResponseMessage> Update(int Id, LibBookingService.Dtos.Booking b)
+        public async Task<HttpResponseMessage> Update(int id, LibBookingService.Dtos.Booking booking)
         {
             try
             {
-                Booking booking = await _db.Bookings.Where(bb => bb.id == Id).FirstOrDefaultAsync();
+                Booking b = await _db.Bookings.Where(bb => bb.id == id).FirstOrDefaultAsync();
 
-                booking.customer_id = b.CustomerId;
-                booking.bookingMadeDate = b.BookingMadeDate;
-                booking.bookingMadeTime = b.BookingMadeTime;
-                booking.startTime = b.StartTime;
-                booking.endTime = b.EndTime;
-                booking.paymentTotal = b.PaymentTotal;
-                booking.paymentMadeDate = b.PaymentMadeDate;
-                booking.noCustomers = b.NoCustomers;
-                booking.comments = b.Comments;
-                booking.cancelled = b.Cancelled;
+                b.customer_id = booking.CustomerId;
+                b.bookingMadeDate = booking.BookingMadeDate;
+                b.bookingMadeTime = booking.BookingMadeTime;
+                b.startTime = booking.StartTime;
+                b.endTime = booking.EndTime;
+                b.paymentTotal = booking.PaymentTotal;
+                b.paymentMadeDate = booking.PaymentMadeDate;
+                b.noCustomers = booking.NoCustomers;
+                b.comments = booking.Comments;
+                b.cancelled = booking.Cancelled;
 
-                _db.SetModified(booking);
+                _db.SetModified(b);
                 await _db.SaveChangesAsync();
 
-                LibBookingService.Dtos.Booking res = CreateBoookingFromDbBooking(booking);
+                LibBookingService.Dtos.Booking res = CreateBoookingFromDbBooking(b);
 
                 return Request.CreateResponse(HttpStatusCode.OK, res);
             }
@@ -189,7 +189,7 @@ namespace BookingService.Controllers
         }
 
         /// <summary>
-        /// Returns a booking model using the database selection box parameter.
+        /// Returns a booking model using the database booking parameter.
         /// </summary>
         /// <param name="b"></param>
         /// <returns></returns>
@@ -197,6 +197,7 @@ namespace BookingService.Controllers
         {
             return new LibBookingService.Dtos.Booking
             {
+                Id = b.id,
                 CustomerId = b.customer_id,
                 BookingMadeDate = b.bookingMadeDate,
                 BookingMadeTime = b.bookingMadeTime,

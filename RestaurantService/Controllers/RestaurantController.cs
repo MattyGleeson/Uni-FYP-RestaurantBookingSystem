@@ -51,29 +51,29 @@ namespace RestaurantService.Controllers
         /// <summary>
         /// Posts a restaurant Dto to the database.
         /// </summary>
-        /// <param name="r"></param>
+        /// <param name="restaurant"></param>
         /// <returns></returns>
         [Route("Create")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Post(LibBookingService.Dtos.Restaurant r)
+        public async Task<HttpResponseMessage> Post(LibBookingService.Dtos.Restaurant restaurant)
         {
             try
             {
                 Restaurant newRestaurant = _db.Restaurants.Add(new Restaurant
                 {
-                    company_id = r.CompanyId,
-                    name = r.Name,
-                    phoneNo = r.PhoneNo,
-                    addressStreet = r.AddressStreet,
-                    addressCounty = r.AddressCounty,
-                    addressTown = r.AddressTown,
-                    addressPostalCode = r.AddressPostalCode
+                    company_id = restaurant.CompanyId,
+                    name = restaurant.Name,
+                    phoneNo = restaurant.PhoneNo,
+                    addressStreet = restaurant.AddressStreet,
+                    addressCounty = restaurant.AddressCounty,
+                    addressTown = restaurant.AddressTown,
+                    addressPostalCode = restaurant.AddressPostalCode
                 });
                 await _db.SaveChangesAsync();
 
-                if (r.Tables != null)
+                if (restaurant.Tables != null)
                 {
-                    foreach (LibBookingService.Dtos.Table t in r.Tables)
+                    foreach (LibBookingService.Dtos.Table t in restaurant.Tables)
                     {
                         _db.Tables.Add(new Table
                         {
@@ -86,9 +86,9 @@ namespace RestaurantService.Controllers
                     }
                 }
 
-                if (r.MenuItems != null)
+                if (restaurant.MenuItems != null)
                 {
-                    foreach (LibBookingService.Dtos.MenuItem m in r.MenuItems)
+                    foreach (LibBookingService.Dtos.MenuItem m in restaurant.MenuItems)
                     {
                         _db.RestaurantMenuItems.Add(new RestaurantMenuItem
                         {
@@ -136,28 +136,28 @@ namespace RestaurantService.Controllers
         /// Puts a restaurant to the database.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="r"></param>
+        /// <param name="restaurant"></param>
         /// <returns></returns>
         [Route("Update/{id:int?}")]
         [HttpPut]
-        public async Task<HttpResponseMessage> Update(int id, LibBookingService.Dtos.Restaurant r)
+        public async Task<HttpResponseMessage> Update(int id, LibBookingService.Dtos.Restaurant restaurant)
         {
             try
             {
-                Restaurant restaurant = await _db.Restaurants.Where(rr => rr.id == id).FirstOrDefaultAsync();
+                Restaurant r = await _db.Restaurants.Where(rr => rr.id == id).FirstOrDefaultAsync();
 
-                restaurant.company_id = r.CompanyId;
-                restaurant.name = r.Name;
-                restaurant.phoneNo = r.PhoneNo;
-                restaurant.addressStreet = r.AddressStreet;
-                restaurant.addressCounty = r.AddressCounty;
-                restaurant.addressTown = r.AddressTown;
-                restaurant.addressPostalCode = r.AddressPostalCode;
+                r.company_id = restaurant.CompanyId;
+                r.name = restaurant.Name;
+                r.phoneNo = restaurant.PhoneNo;
+                r.addressStreet = restaurant.AddressStreet;
+                r.addressCounty = restaurant.AddressCounty;
+                r.addressTown = restaurant.AddressTown;
+                r.addressPostalCode = restaurant.AddressPostalCode;
 
-                _db.SetModified(restaurant);
+                _db.SetModified(r);
                 await _db.SaveChangesAsync();
 
-                LibBookingService.Dtos.Restaurant res = CreateRestaurantFromDbRestaurant(restaurant);
+                LibBookingService.Dtos.Restaurant res = CreateRestaurantFromDbRestaurant(r);
 
                 return Request.CreateResponse(HttpStatusCode.OK, res);
             }
@@ -168,7 +168,7 @@ namespace RestaurantService.Controllers
         }
 
         /// <summary>
-        /// Returns a booking model using the database selection box parameter.
+        /// Returns a booking model using the database restaurant parameter.
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
@@ -176,6 +176,7 @@ namespace RestaurantService.Controllers
         {
             return new LibBookingService.Dtos.Restaurant
             {
+                Id = r.id,
                 CompanyId = r.company_id,
                 Name = r.name,
                 PhoneNo = r.phoneNo,
@@ -189,7 +190,7 @@ namespace RestaurantService.Controllers
         }
 
         /// <summary>
-        /// Returns a list of tables from the booking parameter.
+        /// Returns a list of tables from the restaurant parameter.
         /// </summary>
         /// <param name="restaurant"></param>
         /// <returns></returns>
@@ -209,7 +210,7 @@ namespace RestaurantService.Controllers
         }
 
         /// <summary>
-        /// Returns a list of booking menu items from the booking parameter.
+        /// Returns a list of restaurant menu items from the restaurant parameter.
         /// </summary>
         /// <param name="restaurant"></param>
         /// <returns></returns>
@@ -223,15 +224,15 @@ namespace RestaurantService.Controllers
                     Id = mi.id,
                     Name = mi.name,
                     Description = mi.description,
-                    DietInfo = mi.MenuItemDietInfoes.Where(di => !di.deleted).Select(di => new LibBookingService.Dtos.DietInfo
+                    DietInfo = mi.MenuItemDietInfoes.Where(m => !m.deleted).Select(m => m.DietInfo).Where(m => !m.deleted).Select(m => new LibBookingService.Dtos.DietInfo
                     {
-                        Id = di.DietInfo.id,
-                        Name = di.DietInfo.name
+                        Id = m.id,
+                        Name = m.name
                     }),
-                    Types = mi.MenuItemTypes.Where(t => !t.deleted).Select(t => new LibBookingService.Dtos.MenuItemType
+                    Types = mi.MenuItemTypes.Where(t => !t.deleted).Select(t => t.Type).Where(t => !t.deleted).Select(t => new LibBookingService.Dtos.MenuItemType
                     {
-                        Id = t.Type.id,
-                        Name = t.Type.name
+                        Id = t.id,
+                        Name = t.name
                     })
                 });
             return Enumerable.Empty<LibBookingService.Dtos.MenuItem>();
