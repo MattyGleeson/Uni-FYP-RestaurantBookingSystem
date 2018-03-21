@@ -34,18 +34,33 @@ namespace BookingService.Controllers
         /// <summary>
         /// Gets all bookings from the database.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [Route("All")]
+        [Route("Get/{id:int?}")]
         [HttpGet]
-        public async Task<HttpResponseMessage> Get()
+        public async Task<HttpResponseMessage> Get(int id = -1)
         {
-            IEnumerable<Booking> res = await _db.Bookings.Where(b => b.deleted != true).ToListAsync();
+            if (id != -1)
+            {
+                Booking res = await _db.Bookings.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
 
-            IEnumerable<LibBookingService.Dtos.Booking> bookings = res.Select(b => CreateBoookingFromDbBooking(b));
+                if (res == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Booking Found With ID");
 
-            return bookings.Any() ?
-                Request.CreateResponse(HttpStatusCode.OK, bookings) :
-                Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Bookings");
+                LibBookingService.Dtos.Booking booking = CreateBoookingFromDbBooking(res);
+
+                return Request.CreateResponse(HttpStatusCode.OK, booking);
+            }
+            else
+            {
+                IEnumerable<Booking> res = await _db.Bookings.Where(b => b.deleted != true).ToListAsync();
+
+                IEnumerable<LibBookingService.Dtos.Booking> bookings = res.Select(b => CreateBoookingFromDbBooking(b));
+
+                return bookings.Any() ?
+                    Request.CreateResponse(HttpStatusCode.OK, bookings) :
+                    Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Bookings");
+            }
         }
 
         /// <summary>

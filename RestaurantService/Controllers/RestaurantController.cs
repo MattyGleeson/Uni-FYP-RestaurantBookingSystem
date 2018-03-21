@@ -32,20 +32,35 @@ namespace RestaurantService.Controllers
         }
 
         /// <summary>
-        /// Gets all restaurants from the database.
+        /// Gets all restaurants or a single restaurant from the database.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [Route("All")]
+        [Route("Get/{id:int?}")]
         [HttpGet]
-        public async Task<HttpResponseMessage> GetAllRestaurants()
+        public async Task<HttpResponseMessage> Get(int id = -1)
         {
-            IEnumerable<Restaurant> res = await _db.Restaurants.Where(b => b.deleted != true).ToListAsync();
+            if (id != -1)
+            {
+                Restaurant res = await _db.Restaurants.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
 
-            IEnumerable<LibBookingService.Dtos.Restaurant> restaurants = res.Select(b => CreateRestaurantFromDbRestaurant(b));
+                if (res == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Restaurant Found With ID");
 
-            return restaurants.Any() ?
-                Request.CreateResponse(HttpStatusCode.OK, restaurants) :
-                Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Restaurants");
+                LibBookingService.Dtos.Restaurant restaurant = CreateRestaurantFromDbRestaurant(res);
+
+                return Request.CreateResponse(HttpStatusCode.OK, restaurant);
+            }
+            else
+            {
+                IEnumerable<Restaurant> res = await _db.Restaurants.Where(b => b.deleted != true).ToListAsync();
+
+                IEnumerable<LibBookingService.Dtos.Restaurant> restaurants = res.Select(b => CreateRestaurantFromDbRestaurant(b));
+
+                return restaurants.Any() ?
+                    Request.CreateResponse(HttpStatusCode.OK, restaurants) :
+                    Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Restaurants");
+            }
         }
 
         /// <summary>

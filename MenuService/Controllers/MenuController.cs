@@ -34,18 +34,33 @@ namespace MenuService.Controllers
         /// <summary>
         /// Gets all menu items from the database.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [Route("All")]
+        [Route("Get/{id:int?}")]
         [HttpGet]
-        public async Task<HttpResponseMessage> Get()
+        public async Task<HttpResponseMessage> Get(int id = -1)
         {
-            IEnumerable<MenuItem> res = await _db.MenuItems.Where(b => !b.deleted).ToListAsync();
+            if (id != -1)
+            {
+                MenuItem res = await _db.MenuItems.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
 
-            IEnumerable<LibBookingService.Dtos.MenuItem> menuItems = res.Select(b => CreateMenuItemFromDbMenuItem(b));
+                if (res == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Found With ID");
 
-            return menuItems.Any() ?
-                Request.CreateResponse(HttpStatusCode.OK, menuItems) :
-                Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Items");
+                LibBookingService.Dtos.MenuItem menuItem = CreateMenuItemFromDbMenuItem(res);
+
+                return Request.CreateResponse(HttpStatusCode.OK, menuItem);
+            }
+            else
+            {
+                IEnumerable<MenuItem> res = await _db.MenuItems.Where(b => !b.deleted).ToListAsync();
+
+                IEnumerable<LibBookingService.Dtos.MenuItem> menuItems = res.Select(b => CreateMenuItemFromDbMenuItem(b));
+
+                return menuItems.Any() ?
+                    Request.CreateResponse(HttpStatusCode.OK, menuItems) :
+                    Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Items");
+            }
         }
 
         /// <summary>
