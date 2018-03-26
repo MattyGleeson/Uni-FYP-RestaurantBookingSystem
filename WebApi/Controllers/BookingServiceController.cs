@@ -31,9 +31,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/Booking/Get")]
-        public async Task<IEnumerable<Booking>> Get()
+        public async Task<HttpResponseMessage> Get()
         {
-            return await _facade.GetBookings();
+            IEnumerable<Booking> bookings = await _facade.GetBookings();
+
+            if (bookings.Any())
+                return Request.CreateResponse(HttpStatusCode.OK, bookings);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Bookings Found");
         }
 
         /// <summary>
@@ -42,9 +47,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/Booking/Get/{id:int?}")]
-        public async Task<Booking> Get(int id)
+        public async Task<HttpResponseMessage> Get(int id)
         {
-            return await _facade.GetBookingById(id);
+            Booking booking = await _facade.GetBookingById(id);
+
+            if (booking != null)
+                return Request.CreateResponse(HttpStatusCode.OK, booking);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Booking Found For Id");
         }
 
         /// <summary>
@@ -54,9 +64,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("api/Booking/Post")]
-        public async Task<Booking> Post(Booking booking)
+        public async Task<HttpResponseMessage> Post(Booking booking)
         {
-            return await _facade.PostBooking(booking);
+            Booking newBooking = await _facade.PostBooking(booking);
+
+            if (newBooking != null)
+                return Request.CreateResponse(HttpStatusCode.OK, newBooking);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Saving");
         }
 
         /// <summary>
@@ -66,9 +81,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("api/Booking/Update")]
-        public async Task<Booking> Update(Booking booking)
+        public async Task<HttpResponseMessage> Update(Booking booking)
         {
-            return await _facade.UpdateBooking(booking);
+            Booking updatedBooking = await _facade.UpdateBooking(booking);
+
+            if (updatedBooking != null)
+                return Request.CreateResponse(HttpStatusCode.OK, updatedBooking);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Updating");
         }
 
         /// <summary>
@@ -78,9 +98,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("api/Booking/Delete/{id:int?}")]
-        public async Task<bool> Delete(int id)
+        public async Task<HttpResponseMessage> Delete(int id)
         {
-            return await _facade.RemoveBooking(id);
+            bool res = await _facade.RemoveBooking(id);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Deleting");
         }
     }
 }

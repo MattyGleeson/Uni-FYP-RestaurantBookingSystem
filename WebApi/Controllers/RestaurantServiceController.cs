@@ -31,9 +31,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/Restaurant/Get")]
-        public async Task<IEnumerable<Restaurant>> Get()
+        public async Task<HttpResponseMessage> Get()
         {
-            return await _facade.GetRestaurants();
+            IEnumerable<Restaurant> restaurants = await _facade.GetRestaurants();
+
+            if (restaurants.Any())
+                return Request.CreateResponse(HttpStatusCode.OK, restaurants);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Restaurants Found");
         }
 
         /// <summary>
@@ -42,9 +47,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/Restaurant/Get/{id:int?}")]
-        public async Task<Restaurant> Get(int id)
+        public async Task<HttpResponseMessage> Get(int id)
         {
-            return await _facade.GetRestaurantById(id);
+            Restaurant restaurant = await _facade.GetRestaurantById(id);
+
+            if (restaurant != null)
+                return Request.CreateResponse(HttpStatusCode.OK, restaurant);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Restaurant Found For Id");
         }
 
         /// <summary>
@@ -54,9 +64,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("api/Restaurant/Post")]
-        public async Task<Restaurant> Post(Restaurant restaurant)
+        public async Task<HttpResponseMessage> Post(Restaurant restaurant)
         {
-            return await _facade.PostRestaurant(restaurant);
+            Restaurant newRestaurant = await _facade.PostRestaurant(restaurant);
+
+            if (newRestaurant != null)
+                return Request.CreateResponse(HttpStatusCode.OK, newRestaurant);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Saving");
         }
 
         /// <summary>
@@ -66,9 +81,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("api/Restaurant/Update")]
-        public async Task<Restaurant> Update(Restaurant restaurant)
+        public async Task<HttpResponseMessage> Update(Restaurant restaurant)
         {
-            return await _facade.UpdateRestaurant(restaurant);
+            Restaurant updatedRestaurant = await _facade.UpdateRestaurant(restaurant);
+
+            if (updatedRestaurant != null)
+                return Request.CreateResponse(HttpStatusCode.OK, updatedRestaurant);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Updating");
         }
 
         /// <summary>
@@ -78,9 +98,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("api/Restaurant/Delete/{id:int?}")]
-        public async Task<bool> Delete(int id)
+        public async Task<HttpResponseMessage> Delete(int id)
         {
-            return await _facade.RemoveRestaurant(id);
+            bool res = await _facade.RemoveRestaurant(id);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Deleting");
         }
     }
 }

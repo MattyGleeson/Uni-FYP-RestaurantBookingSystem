@@ -31,9 +31,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/Menu/Get")]
-        public async Task<IEnumerable<MenuItem>> Get()
+        public async Task<HttpResponseMessage> Get()
         {
-            return await _facade.GetMenuItems();
+            IEnumerable<MenuItem> menuItems = await _facade.GetMenuItems();
+
+            if (menuItems.Any())
+                return Request.CreateResponse(HttpStatusCode.OK, menuItems);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Items Found");
         }
 
         /// <summary>
@@ -42,9 +47,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/Menu/Get/{id:int?}")]
-        public async Task<MenuItem> Get(int id)
+        public async Task<HttpResponseMessage> Get(int id)
         {
-            return await _facade.GetMenuItemById(id);
+            MenuItem menuItem = await _facade.GetMenuItemById(id);
+
+            if (menuItem != null)
+                return Request.CreateResponse(HttpStatusCode.OK, menuItem);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Found For Id");
         }
 
         /// <summary>
@@ -54,9 +64,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("api/Menu/Post")]
-        public async Task<MenuItem> Post(MenuItem menuItem)
+        public async Task<HttpResponseMessage> Post(MenuItem menuItem)
         {
-            return await _facade.PostMenuItem(menuItem);
+            MenuItem newMenuItem = await _facade.PostMenuItem(menuItem);
+
+            if (newMenuItem != null)
+                return Request.CreateResponse(HttpStatusCode.OK, newMenuItem);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Saving");
         }
 
         /// <summary>
@@ -66,9 +81,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("api/Menu/Update")]
-        public async Task<MenuItem> Update(MenuItem menuItem)
+        public async Task<HttpResponseMessage> Update(MenuItem menuItem)
         {
-            return await _facade.UpdateMenuItem(menuItem);
+            MenuItem updatedMenuItem = await _facade.UpdateMenuItem(menuItem);
+
+            if (updatedMenuItem != null)
+                return Request.CreateResponse(HttpStatusCode.OK, updatedMenuItem);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Updating");
         }
 
         /// <summary>
@@ -78,9 +98,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("api/Menu/Delete/{id:int?}")]
-        public async Task<bool> Delete(int id)
+        public async Task<HttpResponseMessage> Delete(int id)
         {
-            return await _facade.RemoveMenuItem(id);
+            bool res = await _facade.RemoveMenuItem(id);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Deleting");
         }
     }
 }
