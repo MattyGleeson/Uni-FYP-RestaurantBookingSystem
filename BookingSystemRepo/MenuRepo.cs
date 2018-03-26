@@ -19,6 +19,10 @@ namespace BookingSystemRepo
         {
         }
 
+        /// <summary>
+        /// Returns an IEnumerable of menu items from the web api.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<MenuItem>> Get()
         {
             try
@@ -41,6 +45,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Returns a menu item model by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<MenuItem> FindById(int id)
         {
             try
@@ -59,6 +68,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Posts a menu item model to the web api and returns the saved model.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<MenuItem> Create(MenuItem model)
         {
             try
@@ -78,6 +92,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Puts a menu item model to the web api and returns the updated model.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<MenuItem> Update(MenuItem model)
         {
             try
@@ -97,6 +116,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Sends a delete request to the web api and returns true if successful.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> Delete(int id)
         {
             return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));

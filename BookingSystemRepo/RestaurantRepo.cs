@@ -19,6 +19,10 @@ namespace BookingSystemRepo
         {
         }
 
+        /// <summary>
+        /// Returns an IEnumerable of restaurants from the web api.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Restaurant>> Get()
         {
             try
@@ -41,6 +45,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Returns a restaurant model by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Restaurant> FindById(int id)
         {
             try
@@ -59,6 +68,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Posts a restaurant model to the web api and returns the saved model.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<Restaurant> Create(Restaurant model)
         {
             try
@@ -78,6 +92,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Puts a restaurant model to the web api and returns the updated model.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<Restaurant> Update(Restaurant model)
         {
             try
@@ -97,6 +116,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Sends a delete request to the web api and returns true if successful.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> Delete(int id)
         {
             return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));

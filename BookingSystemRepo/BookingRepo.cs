@@ -19,6 +19,10 @@ namespace BookingSystemRepo
         {
         }
 
+        /// <summary>
+        /// Returns an IEnumerable of bookings from the web api.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Booking>> Get()
         {
             try
@@ -41,6 +45,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Returns a booking model by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Booking> FindById(int id)
         {
             try
@@ -59,6 +68,38 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Returns an IEnumerable of bookings by customer id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Booking>> FindByCustomerId(int id)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "Get")
+                };
+
+                IEnumerable<Booking> bookings = await ExecuteRequestAsyncList<Booking>(request);
+
+                bookings = bookings.Where(b => b.CustomerId == id);
+
+                return bookings;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Posts a booking model to the web api and returns the saved model.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<Booking> Create(Booking model)
         {
             try
@@ -78,6 +119,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Puts a booking model to the web api and returns the updated model.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<Booking> Update(Booking model)
         {
             try
@@ -97,6 +143,11 @@ namespace BookingSystemRepo
             }
         }
 
+        /// <summary>
+        /// Sends a delete request to the web api and returns true if successful.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> Delete(int id)
         {
             return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
