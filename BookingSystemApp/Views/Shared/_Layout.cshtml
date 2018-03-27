@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Restaurant Booking System</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/materialize")
+</head>
+<body>
+    <header>
+        <nav class="top-nav">
+            <div class="nav-wrapper dark-blue">
+                <div class="row">
+                    <div class="col s12">
+                        <h3 class="header" style="text-align: center;">@ViewBag.Title</h3>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <ul id="nav-mobile" class="sidenav sidenav-fixed">
+            <li class="logo">
+                <img src="~/images/side-logo.jpg" alt="Logo" style="padding: 0 32px;" />
+            </li>
+            <li class="bold" style="margin-top:20px;">
+                <a href="/Home" class="waves-effect">Home</a>
+            </li>
+            <li class="bold">
+                <a href="/Restaurant" class="waves-effect">Restaurants</a>
+            </li>
+            <li class="bold">
+                <a href="/Menu" class="waves-effect">Menu</a>
+            </li>
+            <li class="bold">
+                <a href="/Home/About" class="waves-effect">About</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <div class="container">
+            @RenderBody()
+            <hr />
+        </div>
+    </main>
+
+    <footer class="page-footer grey">
+        <div class="footer-copyright">
+            <div class="container">
+                Computing Project - Restaurant Booking System
+
+                <div style="float: right">
+                    Matthew Gleeson
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

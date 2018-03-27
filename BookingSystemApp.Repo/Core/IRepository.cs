@@ -1,9 +1,10 @@
 ﻿using LibBookingService;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingSystemRepo
+namespace BookingSystemApp.Repo.Core
 {
     public interface IRepository<T> where T : Dto
     {

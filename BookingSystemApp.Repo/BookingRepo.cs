@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BookingSystemApp.Repo.Core;
 using LibBookingService.Dtos;
-using System.Net.Http;
-using System.Threading.Tasks;
-using BookingSystemRepo.Core;
-using System.Linq;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BookingSystemRepo
+namespace BookingSystemApp.Repo
 {
     class BookingRepo : GenericRepo, IRepository<Booking>
     {

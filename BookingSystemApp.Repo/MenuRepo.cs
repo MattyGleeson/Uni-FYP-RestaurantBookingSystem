@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LibBookingService.Dtos;
-using System.Net.Http;
-using System.Threading.Tasks;
-using BookingSystemRepo.Core;
-using System.Linq;
+﻿using LibBookingService.Dtos;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BookingSystemRepo
+namespace BookingSystemApp.Repo.Core
 {
-    class RestaurantRepo : GenericRepo, IRepository<Restaurant>
+    class MenuRepo : GenericRepo, IRepository<MenuItem>
     {
         /// <summary>
         /// Default controller that sets the api controller used by the repo.
         /// </summary>
-        RestaurantRepo() : base("Restaurant/")
+        MenuRepo() : base("Menu/")
         {
         }
 
         /// <summary>
-        /// Returns an IEnumerable of restaurants from the web api.
+        /// Returns an IEnumerable of menu items from the web api.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Restaurant>> Get()
+        public async Task<IEnumerable<MenuItem>> Get()
         {
             try
             {
@@ -33,24 +32,24 @@ namespace BookingSystemRepo
                     RequestUri = new Uri(_baseUrl + "Get")
                 };
 
-                IEnumerable<Restaurant> res = await ExecuteRequestAsyncList<Restaurant>(request);
+                IEnumerable<MenuItem> res = await ExecuteRequestAsyncList<MenuItem>(request);
 
                 return res.Any()
                     ? res
-                    : Enumerable.Empty<Restaurant>();
+                    : Enumerable.Empty<MenuItem>();
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<Restaurant>();
+                return Enumerable.Empty<MenuItem>();
             }
         }
 
         /// <summary>
-        /// Returns a restaurant model by id.
+        /// Returns a menu item model by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Restaurant> FindById(int id)
+        public async Task<MenuItem> FindById(int id)
         {
             try
             {
@@ -60,7 +59,7 @@ namespace BookingSystemRepo
                     RequestUri = new Uri(_baseUrl + "Get/" + id)
                 };
 
-                return await ExecuteRequestAsync<Restaurant>(request);
+                return await ExecuteRequestAsync<MenuItem>(request);
             }
             catch (Exception ex)
             {
@@ -69,11 +68,11 @@ namespace BookingSystemRepo
         }
 
         /// <summary>
-        /// Posts a restaurant model to the web api and returns the saved model.
+        /// Posts a menu item model to the web api and returns the saved model.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Restaurant> Create(Restaurant model)
+        public async Task<MenuItem> Create(MenuItem model)
         {
             try
             {
@@ -84,7 +83,7 @@ namespace BookingSystemRepo
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<Restaurant>(request);
+                return await ExecuteRequestAsync<MenuItem>(request);
             }
             catch (Exception ex)
             {
@@ -93,11 +92,11 @@ namespace BookingSystemRepo
         }
 
         /// <summary>
-        /// Puts a restaurant model to the web api and returns the updated model.
+        /// Puts a menu item model to the web api and returns the updated model.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Restaurant> Update(Restaurant model)
+        public async Task<MenuItem> Update(MenuItem model)
         {
             try
             {
@@ -108,7 +107,7 @@ namespace BookingSystemRepo
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<Restaurant>(request);
+                return await ExecuteRequestAsync<MenuItem>(request);
             }
             catch (Exception ex)
             {
