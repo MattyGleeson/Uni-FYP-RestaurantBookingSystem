@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingSystemApp.Repo.Core
 {
-    class GenericRepo
+    public class GenericRepo
     {
         /// <summary>
         /// Http client used to send http requests.

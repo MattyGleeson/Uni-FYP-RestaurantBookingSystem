@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace BookingSystemApp.Repo.Core
 {
-    class MenuRepo : GenericRepo, IRepository<MenuItem>
+    public class MenuRepo : GenericRepo, IRepository<MenuItem>
     {
         /// <summary>
         /// Default controller that sets the api controller used by the repo.
         /// </summary>
-        MenuRepo() : base("Menu/")
+        public MenuRepo() : base("Menu/")
         {
         }
 

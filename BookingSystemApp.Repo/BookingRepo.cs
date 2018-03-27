@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace BookingSystemApp.Repo
 {
-    class BookingRepo : GenericRepo, IRepository<Booking>
+    public class BookingRepo : GenericRepo, IRepository<Booking>
     {
         /// <summary>
         /// Default controller that sets the api controller used by the repo.
         /// </summary>
-        BookingRepo() : base("Booking/")
+        public BookingRepo() : base("Booking/")
         {
         }
 

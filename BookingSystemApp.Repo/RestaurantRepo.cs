@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace BookingSystemApp.Repo
 {
-    class RestaurantRepo : GenericRepo, IRepository<Restaurant>
+    public class RestaurantRepo : GenericRepo, IRepository<Restaurant>
     {
         /// <summary>
         /// Default controller that sets the api controller used by the repo.
         /// </summary>
-        RestaurantRepo() : base("Restaurant/")
+        public RestaurantRepo() : base("Restaurant/")
         {
         }
 
@@ -44,6 +44,42 @@ namespace BookingSystemApp.Repo
                 return Enumerable.Empty<Restaurant>();
             }
         }
+
+        //public IEnumerable<Restaurant> Get()
+        //{
+        //    try
+        //    {
+        //        var res = new List<Restaurant>().AsEnumerable();
+
+        //        using (var client = new HttpClient())
+        //        {
+        //            client.BaseAddress = new System.Uri("http://localhost:64577/");
+        //            client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+
+        //            HttpResponseMessage response = client.GetAsync("api/Restaurant/Get").Result;
+
+        //            if (response.IsSuccessStatusCode)
+        //            {
+        //                var responseContent = response.Content;
+
+        //                // by calling .Result you are synchronously reading the result
+        //                string responseString = responseContent.ReadAsStringAsync().Result;
+
+        //                res = JsonConvert.DeserializeObject<List<Restaurant>>(responseString, _serializerSettings);
+
+        //                Console.WriteLine(responseString);
+        //            }
+        //        }
+
+        //        return res.Any()
+        //            ? res
+        //            : Enumerable.Empty<Restaurant>();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<Restaurant>();
+        //    }
+        //}
 
         /// <summary>
         /// Returns a restaurant model by id.
