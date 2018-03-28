@@ -22,7 +22,7 @@ namespace BookingSystemApp.Repo.Core
         /// Returns an IEnumerable of menu items from the web api.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<MenuItem>> Get()
+        public IEnumerable<MenuItem> Get()
         {
             try
             {
@@ -32,7 +32,7 @@ namespace BookingSystemApp.Repo.Core
                     RequestUri = new Uri(_baseUrl + "Get")
                 };
 
-                IEnumerable<MenuItem> res = await ExecuteRequestAsyncList<MenuItem>(request);
+                IEnumerable<MenuItem> res = ExecuteRequestList<MenuItem>(request);
 
                 return res.Any()
                     ? res
@@ -49,7 +49,7 @@ namespace BookingSystemApp.Repo.Core
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<MenuItem> FindById(int id)
+        public MenuItem FindById(int id)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace BookingSystemApp.Repo.Core
                     RequestUri = new Uri(_baseUrl + "Get/" + id)
                 };
 
-                return await ExecuteRequestAsync<MenuItem>(request);
+                return ExecuteRequest<MenuItem>(request);
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace BookingSystemApp.Repo.Core
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<MenuItem> Create(MenuItem model)
+        public MenuItem Create(MenuItem model)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace BookingSystemApp.Repo.Core
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<MenuItem>(request);
+                return ExecuteRequest<MenuItem>(request);
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace BookingSystemApp.Repo.Core
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<MenuItem> Update(MenuItem model)
+        public MenuItem Update(MenuItem model)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace BookingSystemApp.Repo.Core
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<MenuItem>(request);
+                return ExecuteRequest<MenuItem>(request);
             }
             catch (Exception ex)
             {
@@ -120,9 +120,9 @@ namespace BookingSystemApp.Repo.Core
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
+            return ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
         }
     }
 }

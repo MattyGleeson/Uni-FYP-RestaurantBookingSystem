@@ -8,14 +8,14 @@ namespace BookingSystemApp.Repo.Core
 {
     public interface IRepository<T> where T : Dto
     {
-        Task<IEnumerable<T>> Get();
+        IEnumerable<T> Get();
 
-        Task<T> FindById(int id);
+        T FindById(int id);
 
-        Task<T> Create(T model);
+        T Create(T model);
 
-        Task<T> Update(T model);
+        T Update(T model);
 
-        Task<bool> Delete(int id);
+        bool Delete(int id);
     }
 }

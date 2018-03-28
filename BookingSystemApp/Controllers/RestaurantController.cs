@@ -21,7 +21,7 @@ namespace BookingSystemApp.Controllers
         // GET: Restaurant
         public ActionResult Index()
         {
-            IEnumerable<Restaurant> res = _restaurantRepo.Get().Result;
+            IEnumerable<Restaurant> res = _restaurantRepo.Get();
 
             return View();
         }

@@ -23,7 +23,7 @@ namespace BookingSystemApp.Repo
         /// Returns an IEnumerable of bookings from the web api.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Booking>> Get()
+        public IEnumerable<Booking> Get()
         {
             try
             {
@@ -33,7 +33,7 @@ namespace BookingSystemApp.Repo
                     RequestUri = new Uri(_baseUrl + "Get")
                 };
 
-                IEnumerable<Booking> res = await ExecuteRequestAsyncList<Booking>(request);
+                IEnumerable<Booking> res = ExecuteRequestList<Booking>(request);
 
                 return res.Any()
                     ? res
@@ -50,7 +50,7 @@ namespace BookingSystemApp.Repo
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Booking> FindById(int id)
+        public Booking FindById(int id)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace BookingSystemApp.Repo
                     RequestUri = new Uri(_baseUrl + "Get/" + id)
                 };
 
-                return await ExecuteRequestAsync<Booking>(request);
+                return ExecuteRequest<Booking>(request);
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace BookingSystemApp.Repo
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Booking>> FindByCustomerId(int id)
+        public IEnumerable<Booking> FindByCustomerId(int id)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace BookingSystemApp.Repo
                     RequestUri = new Uri(_baseUrl + "Get")
                 };
 
-                IEnumerable<Booking> bookings = await ExecuteRequestAsyncList<Booking>(request);
+                IEnumerable<Booking> bookings = ExecuteRequestList<Booking>(request);
 
                 bookings = bookings.Where(b => b.CustomerId == id);
 
@@ -100,7 +100,7 @@ namespace BookingSystemApp.Repo
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Booking> Create(Booking model)
+        public Booking Create(Booking model)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace BookingSystemApp.Repo
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<Booking>(request);
+                return ExecuteRequest<Booking>(request);
             }
             catch (Exception ex)
             {
@@ -124,7 +124,7 @@ namespace BookingSystemApp.Repo
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Booking> Update(Booking model)
+        public Booking Update(Booking model)
         {
             try
             {
@@ -135,7 +135,7 @@ namespace BookingSystemApp.Repo
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<Booking>(request);
+                return ExecuteRequest<Booking>(request);
             }
             catch (Exception ex)
             {
@@ -148,9 +148,9 @@ namespace BookingSystemApp.Repo
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
+            return ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
         }
     }
 }

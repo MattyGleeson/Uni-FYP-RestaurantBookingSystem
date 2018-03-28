@@ -23,7 +23,7 @@ namespace BookingSystemApp.Repo
         /// Returns an IEnumerable of restaurants from the web api.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Restaurant>> Get()
+        public IEnumerable<Restaurant> Get()
         {
             try
             {
@@ -32,8 +32,8 @@ namespace BookingSystemApp.Repo
                     Method = HttpMethod.Get,
                     RequestUri = new Uri(_baseUrl + "Get")
                 };
-
-                IEnumerable<Restaurant> res = await ExecuteRequestAsyncList<Restaurant>(request);
+                
+                IEnumerable<Restaurant> res = ExecuteRequestList<Restaurant>(request);
 
                 return res.Any()
                     ? res
@@ -45,48 +45,12 @@ namespace BookingSystemApp.Repo
             }
         }
 
-        //public IEnumerable<Restaurant> Get()
-        //{
-        //    try
-        //    {
-        //        var res = new List<Restaurant>().AsEnumerable();
-
-        //        using (var client = new HttpClient())
-        //        {
-        //            client.BaseAddress = new System.Uri("http://localhost:64577/");
-        //            client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
-
-        //            HttpResponseMessage response = client.GetAsync("api/Restaurant/Get").Result;
-
-        //            if (response.IsSuccessStatusCode)
-        //            {
-        //                var responseContent = response.Content;
-
-        //                // by calling .Result you are synchronously reading the result
-        //                string responseString = responseContent.ReadAsStringAsync().Result;
-
-        //                res = JsonConvert.DeserializeObject<List<Restaurant>>(responseString, _serializerSettings);
-
-        //                Console.WriteLine(responseString);
-        //            }
-        //        }
-
-        //        return res.Any()
-        //            ? res
-        //            : Enumerable.Empty<Restaurant>();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<Restaurant>();
-        //    }
-        //}
-
         /// <summary>
         /// Returns a restaurant model by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Restaurant> FindById(int id)
+        public Restaurant FindById(int id)
         {
             try
             {
@@ -96,7 +60,7 @@ namespace BookingSystemApp.Repo
                     RequestUri = new Uri(_baseUrl + "Get/" + id)
                 };
 
-                return await ExecuteRequestAsync<Restaurant>(request);
+                return ExecuteRequest<Restaurant>(request);
             }
             catch (Exception ex)
             {
@@ -109,7 +73,7 @@ namespace BookingSystemApp.Repo
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Restaurant> Create(Restaurant model)
+        public Restaurant Create(Restaurant model)
         {
             try
             {
@@ -120,7 +84,7 @@ namespace BookingSystemApp.Repo
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<Restaurant>(request);
+                return ExecuteRequest<Restaurant>(request);
             }
             catch (Exception ex)
             {
@@ -133,7 +97,7 @@ namespace BookingSystemApp.Repo
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Restaurant> Update(Restaurant model)
+        public Restaurant Update(Restaurant model)
         {
             try
             {
@@ -144,7 +108,7 @@ namespace BookingSystemApp.Repo
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<Restaurant>(request);
+                return ExecuteRequest<Restaurant>(request);
             }
             catch (Exception ex)
             {
@@ -157,9 +121,9 @@ namespace BookingSystemApp.Repo
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
+            return ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
         }
     }
 }
