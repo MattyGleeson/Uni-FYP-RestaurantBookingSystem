@@ -15,6 +15,8 @@ namespace WebApi.Facades
     public class RestaurantServiceFacade : GenericServiceFacade
     {
         private readonly string _baseUrl = "http://localhost:57565/";
+        private readonly string _restaurantInfoUrl = "Restaurant/";
+        private readonly string _companyInfoUrl = "Company/";
 
         /// <summary>
         /// Default constructor.
@@ -32,6 +34,29 @@ namespace WebApi.Facades
         }
 
         /// <summary>
+        /// Returns a restaurant with the id parameter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Company> GetCompany()
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + _companyInfoUrl + "Get")
+                };
+
+                return await ExecuteRequestAsync<Company>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Returns an IQueryable of restaurants from the restaurant service.
         /// </summary>
         /// <returns></returns>
@@ -42,7 +67,7 @@ namespace WebApi.Facades
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri(_baseUrl + "Get")
+                    RequestUri = new Uri(_baseUrl + _restaurantInfoUrl + "Get")
                 };
 
                 IQueryable<Restaurant> res = await ExecuteRequestAsyncList<Restaurant>(request);
@@ -69,7 +94,7 @@ namespace WebApi.Facades
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri(_baseUrl + "Get/" + id)
+                    RequestUri = new Uri(_baseUrl + _restaurantInfoUrl + "Get/" + id)
                 };
 
                 return await ExecuteRequestAsync<Restaurant>(request);
@@ -92,7 +117,7 @@ namespace WebApi.Facades
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Post,
-                    RequestUri = new Uri(_baseUrl + "Create"),
+                    RequestUri = new Uri(_baseUrl + _restaurantInfoUrl + "Create"),
                     Content = new StringContent(JsonConvert.SerializeObject(restaurant), Encoding.UTF8, "application/json")
                 };
 
@@ -116,7 +141,7 @@ namespace WebApi.Facades
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Put,
-                    RequestUri = new Uri(_baseUrl + "Update/" + restaurant.Id),
+                    RequestUri = new Uri(_baseUrl + _restaurantInfoUrl + "Update/" + restaurant.Id),
                     Content = new StringContent(JsonConvert.SerializeObject(restaurant), Encoding.UTF8, "application/json")
                 };
 
@@ -135,7 +160,7 @@ namespace WebApi.Facades
         /// <returns></returns>
         public async Task<bool> RemoveRestaurant(int id)
         {
-            return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
+            return await ExecuteRemove(new Uri(_baseUrl + _restaurantInfoUrl + "Delete/" + id));
         }
     }
 }

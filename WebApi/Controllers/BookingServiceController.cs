@@ -13,6 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the booking service facade.
     /// </summary>
+    [RoutePrefix("api/Booking")]
     public class BookingServiceController : ApiController
     {
         /// <summary>
@@ -30,7 +31,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/Booking/Get")]
+        [Route("Get")]
         public async Task<HttpResponseMessage> Get()
         {
             IEnumerable<Booking> bookings = await _facade.GetBookings();
@@ -46,7 +47,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/Booking/Get/{id:int?}")]
+        [Route("Get/{id:int?}")]
         public async Task<HttpResponseMessage> Get(int id)
         {
             Booking booking = await _facade.GetBookingById(id);
@@ -63,7 +64,7 @@ namespace WebApi.Controllers
         /// <param name="booking"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("api/Booking/Post")]
+        [Route("Post")]
         public async Task<HttpResponseMessage> Post(Booking booking)
         {
             Booking newBooking = await _facade.PostBooking(booking);
@@ -80,7 +81,7 @@ namespace WebApi.Controllers
         /// <param name="booking"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("api/Booking/Update")]
+        [Route("Update")]
         public async Task<HttpResponseMessage> Update(Booking booking)
         {
             Booking updatedBooking = await _facade.UpdateBooking(booking);
@@ -97,7 +98,7 @@ namespace WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("api/Booking/Delete/{id:int?}")]
+        [Route("Delete/{id:int?}")]
         public async Task<HttpResponseMessage> Delete(int id)
         {
             bool res = await _facade.RemoveBooking(id);

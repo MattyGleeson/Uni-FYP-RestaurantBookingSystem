@@ -1,0 +1,70 @@
+﻿@model BookingSystemApp.View_Models.RestaurantVM
+
+@{
+    ViewBag.Title = "Restaurant Details";
+}
+
+<h4>Restaurant Info</h4>
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone No
+            </th>
+            <th>
+                No Tables
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.AddressStreet), @Html.DisplayFor(modelItem => Model.AddressTown), @Html.DisplayFor(modelItem => Model.AddressCounty), @Html.DisplayFor(modelItem => Model.AddressPostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.TableCount)
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h4>Menu</h4>
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Diet Info
+            </th>
+        </tr>
+        @foreach (var menuItem in Model.MenuItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItem.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItem.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItem.DietInfo)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

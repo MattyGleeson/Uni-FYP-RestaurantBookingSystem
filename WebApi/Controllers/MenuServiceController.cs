@@ -13,6 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the menu service facade.
     /// </summary>
+    [RoutePrefix("api/Menu")]
     public class MenuServiceController : ApiController
     {
         /// <summary>
@@ -30,7 +31,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/Menu/Get")]
+        [Route("Get")]
         public async Task<HttpResponseMessage> Get()
         {
             IEnumerable<MenuItem> menuItems = await _facade.GetMenuItems();
@@ -46,7 +47,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/Menu/Get/{id:int?}")]
+        [Route("Get/{id:int?}")]
         public async Task<HttpResponseMessage> Get(int id)
         {
             MenuItem menuItem = await _facade.GetMenuItemById(id);
@@ -63,7 +64,7 @@ namespace WebApi.Controllers
         /// <param name="menuItem"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("api/Menu/Post")]
+        [Route("Post")]
         public async Task<HttpResponseMessage> Post(MenuItem menuItem)
         {
             MenuItem newMenuItem = await _facade.PostMenuItem(menuItem);
@@ -80,7 +81,7 @@ namespace WebApi.Controllers
         /// <param name="menuItem"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("api/Menu/Update")]
+        [Route("Update")]
         public async Task<HttpResponseMessage> Update(MenuItem menuItem)
         {
             MenuItem updatedMenuItem = await _facade.UpdateMenuItem(menuItem);
@@ -97,7 +98,7 @@ namespace WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("api/Menu/Delete/{id:int?}")]
+        [Route("Delete/{id:int?}")]
         public async Task<HttpResponseMessage> Delete(int id)
         {
             bool res = await _facade.RemoveMenuItem(id);

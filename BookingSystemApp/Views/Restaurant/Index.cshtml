@@ -1,3 +1,40 @@
-﻿@{
+﻿@model IEnumerable<LibBookingService.Dtos.Restaurant>
+
+@{
     ViewBag.Title = "Restaurants";
 }
+
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>
+                Restaurant Name
+            </th>
+            <th>
+                Phone No
+            </th>
+            <th>
+                Postal Code
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var restaurant in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.AddressPostalCode)
+                </td>
+                <td>
+                    <input type="button" value="Details" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Details", new { id = restaurant.Id })'" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>

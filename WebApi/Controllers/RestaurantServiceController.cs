@@ -13,6 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the restaurant service facade.
     /// </summary>
+    [RoutePrefix("api/Restaurant")]
     public class RestaurantServiceController : ApiController
     {
         /// <summary>
@@ -30,7 +31,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/Restaurant/Get")]
+        [Route("Get")]
         public async Task<HttpResponseMessage> Get()
         {
             IEnumerable<Restaurant> restaurants = await _facade.GetRestaurants();
@@ -46,7 +47,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/Restaurant/Get/{id:int?}")]
+        [Route("Get/{id:int?}")]
         public async Task<HttpResponseMessage> Get(int id)
         {
             Restaurant restaurant = await _facade.GetRestaurantById(id);
@@ -63,7 +64,7 @@ namespace WebApi.Controllers
         /// <param name="restaurant"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("api/Restaurant/Post")]
+        [Route("Post")]
         public async Task<HttpResponseMessage> Post(Restaurant restaurant)
         {
             Restaurant newRestaurant = await _facade.PostRestaurant(restaurant);
@@ -80,7 +81,7 @@ namespace WebApi.Controllers
         /// <param name="restaurant"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("api/Restaurant/Update")]
+        [Route("Update")]
         public async Task<HttpResponseMessage> Update(Restaurant restaurant)
         {
             Restaurant updatedRestaurant = await _facade.UpdateRestaurant(restaurant);
@@ -97,7 +98,7 @@ namespace WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("api/Restaurant/Delete/{id:int?}")]
+        [Route("Delete/{id:int?}")]
         public async Task<HttpResponseMessage> Delete(int id)
         {
             bool res = await _facade.RemoveRestaurant(id);
