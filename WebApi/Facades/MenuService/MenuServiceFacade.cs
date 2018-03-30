@@ -7,14 +7,14 @@ using System;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace WebApi.Facades
+namespace WebApi.Facades.MenuService
 {
     /// <summary>
     /// Facade that handles interactions between the web api and the menu service.
     /// </summary>
     public class MenuServiceFacade : GenericServiceFacade
     {
-        private readonly string _baseUrl = "http://localhost:57656/";
+        private readonly string _baseUrl = "http://localhost:57656/Menu/";
 
         /// <summary>
         /// Default constructor.

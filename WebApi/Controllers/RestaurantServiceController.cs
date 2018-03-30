@@ -19,11 +19,11 @@ namespace WebApi.Controllers
         /// <summary>
         /// Property of type RestaurantServiceFacade that the controller endpoints use to access the facade.
         /// </summary>
-        protected readonly Facades.RestaurantServiceFacade _facade;
+        protected readonly Facades.RestaurantService.RestaurantServiceFacade _facade;
 
         RestaurantServiceController()
         {
-            _facade = new Facades.RestaurantServiceFacade();
+            _facade = new Facades.RestaurantService.RestaurantServiceFacade();
         }
 
         /// <summary>

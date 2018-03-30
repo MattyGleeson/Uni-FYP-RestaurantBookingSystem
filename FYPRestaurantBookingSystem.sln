@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantService", "RestaurantService\RestaurantService.csproj", "{51EF1FE4-27F6-48A1-8108-B46823B77B34}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantService.Tests", "RestaurantService.Tests\RestaurantService.Tests.csproj", "{DB0B4EE4-6BF0-4908-A35F-DBDD128AEA62}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibBookingService", "LibBookingService\LibBookingService.csproj", "{311A7F42-50A5-4265-BBCD-28F5D8EB2015}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuService", "MenuService\MenuService.csproj", "{B8FC29E2-40C6-4573-8276-0247E7F1174B}"
 EndProject
@@ -21,11 +19,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Tests", "WebApi.Tests\WebApi.Tests.csproj", "{24CA0C75-4967-44B7-AF03-A5F8D9AB8B0E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingSystemApp.Repo", "BookingSystemApp.Repo\BookingSystemApp.Repo.csproj", "{9F12A570-CFE7-4EBB-8520-8235B7915992}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystemApp", "BookingSystemApp\BookingSystemApp.csproj", "{7E30B483-6FDF-40A7-A655-E8EDAC7A67CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystemApp.Tests", "BookingSystemApp.Tests\BookingSystemApp.Tests.csproj", "{0FB39BD1-9984-472F-BD14-85A9FA7EFD8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibBookingService", "LibBookingService\LibBookingService.csproj", "{7C3C9331-DC96-4843-AC24-347B8F576CEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystemApp.Repo", "BookingSystemApp.Repo\BookingSystemApp.Repo.csproj", "{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,6 @@ Global
 		{DB0B4EE4-6BF0-4908-A35F-DBDD128AEA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB0B4EE4-6BF0-4908-A35F-DBDD128AEA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB0B4EE4-6BF0-4908-A35F-DBDD128AEA62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{311A7F42-50A5-4265-BBCD-28F5D8EB2015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{311A7F42-50A5-4265-BBCD-28F5D8EB2015}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{311A7F42-50A5-4265-BBCD-28F5D8EB2015}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{311A7F42-50A5-4265-BBCD-28F5D8EB2015}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8FC29E2-40C6-4573-8276-0247E7F1174B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8FC29E2-40C6-4573-8276-0247E7F1174B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8FC29E2-40C6-4573-8276-0247E7F1174B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,10 +65,6 @@ Global
 		{24CA0C75-4967-44B7-AF03-A5F8D9AB8B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24CA0C75-4967-44B7-AF03-A5F8D9AB8B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24CA0C75-4967-44B7-AF03-A5F8D9AB8B0E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F12A570-CFE7-4EBB-8520-8235B7915992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F12A570-CFE7-4EBB-8520-8235B7915992}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F12A570-CFE7-4EBB-8520-8235B7915992}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F12A570-CFE7-4EBB-8520-8235B7915992}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7E30B483-6FDF-40A7-A655-E8EDAC7A67CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E30B483-6FDF-40A7-A655-E8EDAC7A67CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E30B483-6FDF-40A7-A655-E8EDAC7A67CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,6 +73,14 @@ Global
 		{0FB39BD1-9984-472F-BD14-85A9FA7EFD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FB39BD1-9984-472F-BD14-85A9FA7EFD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FB39BD1-9984-472F-BD14-85A9FA7EFD8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C3C9331-DC96-4843-AC24-347B8F576CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C3C9331-DC96-4843-AC24-347B8F576CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C3C9331-DC96-4843-AC24-347B8F576CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C3C9331-DC96-4843-AC24-347B8F576CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

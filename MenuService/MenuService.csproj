@@ -145,6 +145,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DietInfoController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Data\Booking.cs" />
     <Compile Include="Data\BookingMenuItem.cs" />
@@ -203,7 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibBookingService\LibBookingService.csproj">
-      <Project>{311a7f42-50a5-4265-bbcd-28f5d8eb2015}</Project>
+      <Project>{7c3c9331-dc96-4843-ac24-347b8f576ceb}</Project>
       <Name>LibBookingService</Name>
     </ProjectReference>
   </ItemGroup>

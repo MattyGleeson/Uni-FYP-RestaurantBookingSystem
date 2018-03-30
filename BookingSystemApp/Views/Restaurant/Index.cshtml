@@ -31,7 +31,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => restaurant.AddressPostalCode)
                 </td>
-                <td>
+                <td class="table-cell-align-end">
                     <input type="button" value="Details" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Details", new { id = restaurant.Id })'" />
                 </td>
             </tr>

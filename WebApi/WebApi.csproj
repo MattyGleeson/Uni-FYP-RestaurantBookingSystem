@@ -141,12 +141,17 @@
     <Compile Include="Controllers\BookingServiceController.cs" />
     <Compile Include="Controllers\CompanyServiceController.cs" />
     <Compile Include="Controllers\Core\GenericServiceController.cs" />
+    <Compile Include="Controllers\DietInfoServiceController.cs" />
+    <Compile Include="Controllers\MenuItemTypeServiceController.cs" />
     <Compile Include="Controllers\MenuServiceController.cs" />
     <Compile Include="Controllers\RestaurantServiceController.cs" />
     <Compile Include="Facades\BookingServiceFacade.cs" />
     <Compile Include="Facades\Core\GenericServiceFacade.cs" />
-    <Compile Include="Facades\MenuServiceFacade.cs" />
-    <Compile Include="Facades\RestaurantServiceFacade.cs" />
+    <Compile Include="Facades\MenuService\MenuServiceDietInfoFacade.cs" />
+    <Compile Include="Facades\MenuService\MenuServiceFacade.cs" />
+    <Compile Include="Facades\MenuService\MenuServiceTypeFacade.cs" />
+    <Compile Include="Facades\RestaurantService\RestaurantServiceCompanyFacade.cs" />
+    <Compile Include="Facades\RestaurantService\RestaurantServiceFacade.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,7 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibBookingService\LibBookingService.csproj">
-      <Project>{311a7f42-50a5-4265-bbcd-28f5d8eb2015}</Project>
+      <Project>{7c3c9331-dc96-4843-ac24-347b8f576ceb}</Project>
       <Name>LibBookingService</Name>
     </ProjectReference>
   </ItemGroup>

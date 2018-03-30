@@ -143,6 +143,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\DietInfoAdminController.cs" />
+    <Compile Include="Controllers\Admin\MenuItemAdminController.cs" />
+    <Compile Include="Controllers\Admin\MenuItemCategoryAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
@@ -195,12 +198,21 @@
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Restaurant\Index.cshtml" />
     <Content Include="Views\Restaurant\Details.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\MenuItemAdmin\Index.cshtml" />
+    <Content Include="Views\MenuItemCategoryAdmin\Index.cshtml" />
+    <Content Include="Views\DietInfoAdmin\Index.cshtml" />
+    <Content Include="Views\DietInfoAdmin\Create.cshtml" />
+    <Content Include="Views\DietInfoAdmin\Edit.cshtml" />
+    <Content Include="Views\DietInfoAdmin\Delete.cshtml" />
+    <Content Include="Views\MenuItemCategoryAdmin\Create.cshtml" />
+    <Content Include="Views\MenuItemCategoryAdmin\Edit.cshtml" />
+    <Content Include="Views\MenuItemCategoryAdmin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\fonts\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -216,13 +228,13 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BookingSystemApp.Repo\BookingSystemApp.Repo.csproj">
-      <Project>{9f12a570-cfe7-4ebb-8520-8235b7915992}</Project>
-      <Name>BookingSystemApp.Repo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LibBookingService\LibBookingService.csproj">
-      <Project>{311a7f42-50a5-4265-bbcd-28f5d8eb2015}</Project>
+      <Project>{7c3c9331-dc96-4843-ac24-347b8f576ceb}</Project>
       <Name>LibBookingService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookingSystemApp.Repo\BookingSystemApp.Repo.csproj">
+      <Project>{7e33cfbb-effd-41bd-9a81-e734f4b68ece}</Project>
+      <Name>BookingSystemApp.Repo</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

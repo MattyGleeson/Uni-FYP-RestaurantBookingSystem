@@ -1,0 +1,33 @@
+﻿@model IEnumerable<LibBookingService.Dtos.MenuItemType>
+
+@{
+    ViewBag.Title = "Menu Item Type Index";
+}
+
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var menuItemType in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItemType.Name)
+                </td>
+                <td class="table-cell-align-end">
+                    <input type="button" value="Edit" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Edit", new { id = menuItemType.Id })'" />
+                    <input type="button" value="Delete" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Delete", new { id = menuItemType.Id })'" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light dark-blue" href="@Url.Action("Create")"><i class="material-icons">add</i></a>
+</div>

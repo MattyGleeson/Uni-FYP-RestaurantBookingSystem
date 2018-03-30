@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace MenuService.Controllers
 {
+    [RoutePrefix("Menu")]
     public class MenuController : ApiController
     {
         private BookingSystemDb _db;

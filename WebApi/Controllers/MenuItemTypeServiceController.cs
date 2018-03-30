@@ -1,73 +1,72 @@
-﻿using System;
+﻿using LibBookingService.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using WebApi.Controllers.Core;
-using LibBookingService.Dtos;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace WebApi.Controllers
 {
     /// <summary>
-    /// Controller to communicate with the menu service facade.
+    /// Controller to communicate with the menu service type facade.
     /// </summary>
-    [RoutePrefix("api/Menu")]
-    public class MenuServiceController : ApiController
+    [RoutePrefix("api/MenuItemType")]
+    public class MenuItemTypeServiceController : ApiController
     {
         /// <summary>
-        /// Property of type MenuServiceFacade that the controller endpoints use to access the facade.
+        /// Property of type MenuServiceTypeFacade that the controller endpoints use to access the facade.
         /// </summary>
-        protected readonly Facades.MenuService.MenuServiceFacade _facade;
+        protected readonly Facades.MenuService.MenuServiceTypeFacade _facade;
 
-        MenuServiceController()
+        MenuItemTypeServiceController()
         {
-            _facade = new Facades.MenuService.MenuServiceFacade();
+            _facade = new Facades.MenuService.MenuServiceTypeFacade();
         }
 
         /// <summary>
-        /// Endpoint to get a list of menu items.
+        /// Endpoint to get a list of menu item types.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [Route("Get")]
         public async Task<HttpResponseMessage> Get()
         {
-            IEnumerable<MenuItem> menuItems = await _facade.GetMenuItems();
+            IEnumerable<MenuItemType> menuItemTypes = await _facade.GetMenuItemTypes();
 
-            if (menuItems.Any())
-                return Request.CreateResponse(HttpStatusCode.OK, menuItems);
+            if (menuItemTypes.Any())
+                return Request.CreateResponse(HttpStatusCode.OK, menuItemTypes);
 
-            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Items Found");
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Types Found");
         }
 
         /// <summary>
-        /// Endpoint to get a menu item by id.
+        /// Endpoint to get a menu item type by id.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [Route("Get/{id:int?}")]
         public async Task<HttpResponseMessage> Get(int id)
         {
-            MenuItem menuItem = await _facade.GetMenuItemById(id);
+            MenuItemType menuItemType = await _facade.GetMenuItemTypeById(id);
 
-            if (menuItem != null)
-                return Request.CreateResponse(HttpStatusCode.OK, menuItem);
+            if (menuItemType != null)
+                return Request.CreateResponse(HttpStatusCode.OK, menuItemType);
 
-            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Found For Id");
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Type Found For Id");
         }
 
         /// <summary>
-        /// Endpoint to post a menu item.
+        /// Endpoint to post a menu item type.
         /// </summary>
-        /// <param name="menuItem"></param>
+        /// <param name="menuItemType"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("Post")]
-        public async Task<HttpResponseMessage> Post(MenuItem menuItem)
+        public async Task<HttpResponseMessage> Post(MenuItemType menuItemType)
         {
-            MenuItem newMenuItem = await _facade.PostMenuItem(menuItem);
+            MenuItemType newMenuItem = await _facade.PostMenuItemType(menuItemType);
 
             if (newMenuItem != null)
                 return Request.CreateResponse(HttpStatusCode.OK, newMenuItem);
@@ -76,15 +75,15 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Endpoint to update a menu item.
+        /// Endpoint to update a menu item type.
         /// </summary>
-        /// <param name="menuItem"></param>
+        /// <param name="menuItemType"></param>
         /// <returns></returns>
         [HttpPut]
         [Route("Update")]
-        public async Task<HttpResponseMessage> Update(MenuItem menuItem)
+        public async Task<HttpResponseMessage> Update(MenuItemType menuItemType)
         {
-            MenuItem updatedMenuItem = await _facade.UpdateMenuItem(menuItem);
+            MenuItemType updatedMenuItem = await _facade.UpdateMenuItemType(menuItemType);
 
             if (updatedMenuItem != null)
                 return Request.CreateResponse(HttpStatusCode.OK, updatedMenuItem);
@@ -93,7 +92,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Endpoint to delete a menu item.
+        /// Endpoint to delete a menu item type.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -101,7 +100,7 @@ namespace WebApi.Controllers
         [Route("Delete/{id:int?}")]
         public async Task<HttpResponseMessage> Delete(int id)
         {
-            bool res = await _facade.RemoveMenuItem(id);
+            bool res = await _facade.RemoveMenuItemType(id);
 
             if (res)
                 return Request.CreateResponse(HttpStatusCode.OK);

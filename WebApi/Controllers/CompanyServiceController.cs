@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace WebApi.Controllers
 {
     /// <summary>
-    /// Controller to communicate with the company controller on the restaurant service facade.
+    /// Controller to communicate with the company service facade.
     /// </summary>
     [RoutePrefix("api/Company")]
     public class CompanyServiceController : ApiController
@@ -18,11 +18,11 @@ namespace WebApi.Controllers
         /// <summary>
         /// Property of type RestaurantServiceFacade that the controller endpoints use to access the facade.
         /// </summary>
-        protected readonly Facades.RestaurantServiceFacade _facade;
+        protected readonly Facades.RestaurantService.RestaurantServiceCompanyFacade _facade;
 
         CompanyServiceController()
         {
-            _facade = new Facades.RestaurantServiceFacade();
+            _facade = new Facades.RestaurantService.RestaurantServiceCompanyFacade();
         }
 
         /// <summary>

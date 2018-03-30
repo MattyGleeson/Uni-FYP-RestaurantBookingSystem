@@ -1,5 +1,5 @@
-﻿using BookingSystemApp.Repo.Core;
-using LibBookingService.Dtos;
+﻿using LibBookingService.Dtos;
+using BookingSystemApp.Repo.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

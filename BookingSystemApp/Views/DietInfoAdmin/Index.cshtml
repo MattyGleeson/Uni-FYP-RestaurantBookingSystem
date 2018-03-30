@@ -1,0 +1,34 @@
+﻿@model IEnumerable<LibBookingService.Dtos.DietInfo>
+
+@{
+    ViewBag.Title = "Diet Info Admin Index";
+}
+
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var dietInfo in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => dietInfo.Name)
+                </td>
+                <td class="table-cell-align-end">
+                    <input type="button" value="Edit" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Edit", new { id = dietInfo.Id })'" />
+                    <input type="button" value="Delete" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Delete", new { id = dietInfo.Id })'" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light dark-blue" href="@Url.Action("Create")"><i class="material-icons">add</i></a>
+</div>
+
