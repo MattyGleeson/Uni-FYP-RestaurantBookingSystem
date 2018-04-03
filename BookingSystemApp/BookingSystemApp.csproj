@@ -154,6 +154,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View Models\CompanyVM.cs" />
+    <Compile Include="View Models\DietInfoVM.cs" />
+    <Compile Include="View Models\MenuItemTypeVM.cs" />
     <Compile Include="View Models\MenuItemVM.cs" />
     <Compile Include="View Models\RestaurantVM.cs" />
   </ItemGroup>
@@ -208,6 +210,10 @@
     <Content Include="Views\MenuItemCategoryAdmin\Create.cshtml" />
     <Content Include="Views\MenuItemCategoryAdmin\Edit.cshtml" />
     <Content Include="Views\MenuItemCategoryAdmin\Delete.cshtml" />
+    <Content Include="Views\MenuItemAdmin\Details.cshtml" />
+    <Content Include="Views\MenuItemAdmin\Create.cshtml" />
+    <Content Include="Views\MenuItemAdmin\Edit.cshtml" />
+    <Content Include="Views\MenuItemAdmin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

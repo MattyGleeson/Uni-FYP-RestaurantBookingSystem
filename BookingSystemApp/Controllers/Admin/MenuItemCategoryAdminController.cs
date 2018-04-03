@@ -1,4 +1,5 @@
 ﻿using BookingSystemApp.Repo;
+using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using System;
 using System.Collections.Generic;
@@ -37,11 +38,15 @@ namespace BookingSystemApp.Controllers.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] MenuItemType menuItemType)
+        public ActionResult Create([Bind(Include = "Id,Name")] MenuItemTypeVM menuItemType)
         {
-            if (menuItemType.Name != null && menuItemType.Name.Trim() != "")
+            if (ModelState.IsValid)
             {
-                MenuItemType res = _menuItemTypeRepo.Create(menuItemType);
+                MenuItemType res = _menuItemTypeRepo.Create(new MenuItemType
+                {
+                    Id = menuItemType.Id,
+                    Name = menuItemType.Name
+                });
                 return RedirectToAction("Index");
             }
 
@@ -68,15 +73,19 @@ namespace BookingSystemApp.Controllers.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] MenuItemType dietInfo)
+        public ActionResult Edit([Bind(Include = "Id,Name")] MenuItemTypeVM menuItemType)
         {
-            if (dietInfo.Name != null && dietInfo.Name.Trim() != "")
+            if (ModelState.IsValid)
             {
-                MenuItemType res = _menuItemTypeRepo.Update(dietInfo);
+                MenuItemType res = _menuItemTypeRepo.Update(new MenuItemType
+                {
+                    Id = menuItemType.Id,
+                    Name = menuItemType.Name
+                });
                 return RedirectToAction("Index");
             }
 
-            return View(dietInfo);
+            return View(menuItemType);
         }
 
         // GET: Admin/MenuItemCategory/Delete/5

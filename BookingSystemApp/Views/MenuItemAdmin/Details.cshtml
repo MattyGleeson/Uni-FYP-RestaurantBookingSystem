@@ -1,0 +1,35 @@
+﻿@model BookingSystemApp.View_Models.MenuItemVM
+
+@{
+    ViewBag.Title = "Menu Item Details";
+}
+
+<div class="form-horizontal" style="margin-top: 100px; overflow: hidden;">
+
+    <div class="">
+        @Html.LabelFor(model => model.Name, "Name")<br />
+        @Html.DisplayFor(model => model.Name)
+    </div><br />
+
+    <div class="">
+        @Html.LabelFor(model => model.Description, "Description")<br />
+        @Html.DisplayFor(model => model.Description)
+    </div><br />
+
+    <div class="">
+        @Html.LabelFor(model => model.DietInfo, "Diet Information")<br />
+        @Html.DisplayFor(model => model.DietInfo)<br />
+        <input type="button" value="Manage" class="btn btn-primary dark-blue" style="margin-top: 10px;"  onclick="location.href='@Url.Action("Index")'" />
+    </div><br />
+
+    <div class="">
+        @Html.LabelFor(model => model.Types, "Categories")<br />
+        @Html.DisplayFor(model => model.Types)<br />
+        <input type="button" value="Manage" class="btn btn-primary dark-blue" style="margin-top: 10px;" onclick="location.href='@Url.Action("Index")'" />
+    </div><br />
+
+    <div style="text-align:end; display: inline-block; float: right;">
+        <input type="button" value="Edit" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Edit", new { Id = Model.Id })'" />
+    </div>
+
+</div>

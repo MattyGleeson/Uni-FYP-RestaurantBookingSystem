@@ -80,7 +80,7 @@ namespace BookingSystemApp.Repo
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Post,
-                    RequestUri = new Uri(_baseUrl + "Create"),
+                    RequestUri = new Uri(_baseUrl + "Post"),
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
@@ -104,7 +104,7 @@ namespace BookingSystemApp.Repo
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Put,
-                    RequestUri = new Uri(_baseUrl + "Update/" + model.Id),
+                    RequestUri = new Uri(_baseUrl + "Update"),
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 

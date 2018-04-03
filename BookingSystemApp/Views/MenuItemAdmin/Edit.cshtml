@@ -1,0 +1,33 @@
+﻿@model BookingSystemApp.View_Models.MenuItemVM
+
+@{
+    ViewBag.Title = "Edit Menu Item";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin-top: 100px;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.LabelFor(model => model.Name, "Name (max. 50 characters)")
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.LabelFor(model => model.Description, "Description (max. 255 characters)")
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group" style="text-align:end;">
+            <input type="button" value="Cancel" class="btn-flat" onclick="location.href='@Url.Action("Details", new { Id = Model.Id })'" />
+            <div style="text-align:end; display: inline-block; float: right;">
+                <input type="submit" value="Save" class="btn btn-primary dark-blue" />
+            </div>
+        </div>
+    </div>
+}

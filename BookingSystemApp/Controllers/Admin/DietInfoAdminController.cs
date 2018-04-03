@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookingSystemApp.Repo;
+using BookingSystemApp.View_Models;
 
 namespace BookingSystemApp.Controllers.Admin
 {
@@ -38,11 +39,15 @@ namespace BookingSystemApp.Controllers.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] DietInfo dietInfo)
+        public ActionResult Create([Bind(Include = "Id,Name")] DietInfoVM dietInfo)
         {
-            if (dietInfo.Name != null && dietInfo.Name.Trim() != "")
+            if (ModelState.IsValid)
             {
-                DietInfo res = _dietInfoRepo.Create(dietInfo);
+                DietInfo res = _dietInfoRepo.Create(new DietInfo
+                {
+                    Id = dietInfo.Id,
+                    Name = dietInfo.Name
+                });
                 return RedirectToAction("Index");
             }
             
@@ -69,11 +74,15 @@ namespace BookingSystemApp.Controllers.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] DietInfo dietInfo)
+        public ActionResult Edit([Bind(Include = "Id,Name")] DietInfoVM dietInfo)
         {
-            if (dietInfo.Name != null && dietInfo.Name.Trim() != "")
+            if (ModelState.IsValid)
             {
-                DietInfo res = _dietInfoRepo.Update(dietInfo);
+                DietInfo res = _dietInfoRepo.Update(new DietInfo
+                {
+                    Id = dietInfo.Id,
+                    Name = dietInfo.Name
+                });
                 return RedirectToAction("Index");
             }
 

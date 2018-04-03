@@ -158,6 +158,22 @@ namespace MenuService.Controllers
                 mi.name = menuItem.Name;
                 mi.description = menuItem.Description;
 
+                //if (menuItem.DietInfo.Any())
+                //{
+                //    foreach (LibBookingService.Dtos.DietInfo di in menuItem.DietInfo.Where(di => di.Id == null))
+                //    {
+                //        if (_db)
+                //        _db.MenuItemDietInfoes.Add(new MenuItemDietInfo
+                //        {
+                //            menuItem_id = newMenuItem.id,
+                //            dietInfo_id = di.Id
+                //        });
+                //        await _db.SaveChangesAsync();
+                //    }
+                //}
+
+                
+
                 _db.SetModified(mi);
                 await _db.SaveChangesAsync();
 

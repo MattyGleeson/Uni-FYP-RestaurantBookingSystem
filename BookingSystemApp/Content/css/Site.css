@@ -62,3 +62,7 @@ nav.top-nav h3.header {
     bottom: 10%;
     right: 2%;
 }
+
+.text-danger {
+    color: red;
+}
