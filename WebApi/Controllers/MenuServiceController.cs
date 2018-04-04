@@ -93,6 +93,78 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
+        /// Endpoint to add a diet info to a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dietInfoId"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("AddDietInfo/{id:int?}/{dietInfoId:int?}")]
+        public async Task<HttpResponseMessage> AddDietInfo(int id, int dietInfoId)
+        {
+            bool res = await _facade.AddDietInfo(id, dietInfoId);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Updating");
+        }
+
+        /// <summary>
+        /// Endpoint to remove a diet info from a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dietInfoId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("RemoveDietInfo/{id:int?}/{dietInfoId:int?}")]
+        public async Task<HttpResponseMessage> RemoveDietInfo(int id, int dietInfoId)
+        {
+            bool res = await _facade.RemoveDietInfo(id, dietInfoId);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Removing");
+        }
+
+        /// <summary>
+        /// Endpoint to add a category to a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemTypeId"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("AddMenuItemType/{id:int?}/{menuItemTypeId:int?}")]
+        public async Task<HttpResponseMessage> AddMenuItemType(int id, int menuItemTypeId)
+        {
+            bool res = await _facade.AddMenuItemType(id, menuItemTypeId);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Updating");
+        }
+
+        /// <summary>
+        /// Endpoint to remove a category from a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemTypeId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("RemoveMenuItemType/{id:int?}/{menuItemTypeId:int?}")]
+        public async Task<HttpResponseMessage> RemoveMenuItemType(int id, int menuItemTypeId)
+        {
+            bool res = await _facade.RemoveMenuItemType(id, menuItemTypeId);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Removing");
+        }
+
+        /// <summary>
         /// Endpoint to delete a menu item.
         /// </summary>
         /// <param name="id"></param>

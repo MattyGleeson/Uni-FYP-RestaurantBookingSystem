@@ -1,4 +1,4 @@
-﻿using BookingSystemApp.Repo.Core;
+﻿using BookingSystemApp.Facades.Core;
 using LibBookingService.Dtos;
 using Newtonsoft.Json;
 using System;
@@ -6,24 +6,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace BookingSystemApp.Repo
+namespace BookingSystemApp.Facades
 {
-    public class DietInfoRepo : GenericRepo, IRepository<DietInfo>
+    public class BookingFacade : GenericFacade
     {
         /// <summary>
-        /// Default controller that sets the api controller used by the repo.
+        /// Default controller that sets the api controller used by the facade.
         /// </summary>
-        public DietInfoRepo() : base("DietInfo/")
+        public BookingFacade() : base("Booking/")
         {
         }
 
         /// <summary>
-        /// Returns an IEnumerable of diet info from the web api.
+        /// Returns an IEnumerable of bookings from the web api.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<DietInfo> Get()
+        public IEnumerable<Booking> Get()
         {
             try
             {
@@ -33,24 +33,24 @@ namespace BookingSystemApp.Repo
                     RequestUri = new Uri(_baseUrl + "Get")
                 };
 
-                IEnumerable<DietInfo> res = ExecuteRequestList<DietInfo>(request);
+                IEnumerable<Booking> res = ExecuteRequestList<Booking>(request);
 
                 return res.Any()
                     ? res
-                    : Enumerable.Empty<DietInfo>();
+                    : Enumerable.Empty<Booking>();
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<DietInfo>();
+                return Enumerable.Empty<Booking>();
             }
         }
 
         /// <summary>
-        /// Returns a diet info model by id.
+        /// Returns a booking model by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public DietInfo FindById(int id)
+        public Booking FindById(int id)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace BookingSystemApp.Repo
                     RequestUri = new Uri(_baseUrl + "Get/" + id)
                 };
 
-                return ExecuteRequest<DietInfo>(request);
+                return ExecuteRequest<Booking>(request);
             }
             catch (Exception ex)
             {
@@ -69,22 +69,49 @@ namespace BookingSystemApp.Repo
         }
 
         /// <summary>
-        /// Posts a diet info model to the web api and returns the saved model.
+        /// Returns an IEnumerable of bookings by customer id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IEnumerable<Booking> FindByCustomerId(int id)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "Get")
+                };
+
+                IEnumerable<Booking> bookings = ExecuteRequestList<Booking>(request);
+
+                bookings = bookings.Where(b => b.CustomerId == id);
+
+                return bookings;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Posts a booking model to the web api and returns the saved model.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public DietInfo Create(DietInfo model)
+        public Booking Create(Booking model)
         {
             try
             {
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Post,
-                    RequestUri = new Uri(_baseUrl + "Post"),
+                    RequestUri = new Uri(_baseUrl + "Create"),
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return ExecuteRequest<DietInfo>(request);
+                return ExecuteRequest<Booking>(request);
             }
             catch (Exception ex)
             {
@@ -93,22 +120,22 @@ namespace BookingSystemApp.Repo
         }
 
         /// <summary>
-        /// Puts a diet info model to the web api and returns the updated model.
+        /// Puts a booking model to the web api and returns the updated model.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public DietInfo Update(DietInfo model)
+        public Booking Update(Booking model)
         {
             try
             {
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Put,
-                    RequestUri = new Uri(_baseUrl + "Update"),
+                    RequestUri = new Uri(_baseUrl + "Update/" + model.Id),
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return ExecuteRequest<DietInfo>(request);
+                return ExecuteRequest<Booking>(request);
             }
             catch (Exception ex)
             {

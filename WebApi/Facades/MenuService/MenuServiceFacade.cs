@@ -129,6 +129,114 @@ namespace WebApi.Facades.MenuService
         }
 
         /// <summary>
+        /// Adds a diet info to a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dietInfoId"></param>
+        /// <returns></returns>
+        public async Task<bool> AddDietInfo(int id, int dietInfoId)
+        {
+            try
+            { 
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Put,
+                    RequestUri = new Uri(_baseUrl + "AddDietInfo/" + id + "/" + dietInfoId)
+                };
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Removes a diet info from a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dietInfoId"></param>
+        /// <returns></returns>
+        public async Task<bool> RemoveDietInfo(int id, int dietInfoId)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Delete,
+                    RequestUri = new Uri(_baseUrl + "RemoveDietInfo/" + id + "/" + dietInfoId)
+                };
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Adds a category to a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemTypeId"></param>
+        /// <returns></returns>
+        public async Task<bool> AddMenuItemType(int id, int menuItemTypeId)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Put,
+                    RequestUri = new Uri(_baseUrl + "AddMenuItemType/" + id + "/" + menuItemTypeId)
+                };
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Removes a category from a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemTypeId"></param>
+        /// <returns></returns>
+        public async Task<bool> RemoveMenuItemType(int id, int menuItemTypeId)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Delete,
+                    RequestUri = new Uri(_baseUrl + "RemoveMenuItemType/" + id + "/" + menuItemTypeId)
+                };
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Removes the menu item with the id parameter.
         /// </summary>
         /// <param name="id"></param>

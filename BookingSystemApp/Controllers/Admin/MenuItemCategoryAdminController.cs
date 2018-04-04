@@ -1,4 +1,4 @@
-﻿using BookingSystemApp.Repo;
+﻿using BookingSystemApp.Facades;
 using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using System;
@@ -13,17 +13,17 @@ namespace BookingSystemApp.Controllers.Admin
     [Route("Admin/MenuItemCategory/{action=index}")]
     public class MenuItemCategoryAdminController : Controller
     {
-        MenuItemTypeRepo _menuItemTypeRepo;
+        MenuItemTypeFacade _menuItemTypeFacade;
 
         public MenuItemCategoryAdminController()
         {
-            _menuItemTypeRepo = new MenuItemTypeRepo();
+            _menuItemTypeFacade = new MenuItemTypeFacade();
         }
 
         // GET: Admin/MenuItemCategory
         public ActionResult Index()
         {
-            IEnumerable<MenuItemType> res = _menuItemTypeRepo.Get();
+            IEnumerable<MenuItemType> res = _menuItemTypeFacade.Get();
             return View(res);
         }
 
@@ -42,7 +42,7 @@ namespace BookingSystemApp.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                MenuItemType res = _menuItemTypeRepo.Create(new MenuItemType
+                MenuItemType res = _menuItemTypeFacade.Create(new MenuItemType
                 {
                     Id = menuItemType.Id,
                     Name = menuItemType.Name
@@ -57,14 +57,13 @@ namespace BookingSystemApp.Controllers.Admin
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MenuItemType res = _menuItemTypeRepo.FindById((int)id);
+
+            MenuItemType res = _menuItemTypeFacade.FindById((int)id);
+
             if (res == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(res);
         }
 
@@ -77,7 +76,7 @@ namespace BookingSystemApp.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                MenuItemType res = _menuItemTypeRepo.Update(new MenuItemType
+                MenuItemType res = _menuItemTypeFacade.Update(new MenuItemType
                 {
                     Id = menuItemType.Id,
                     Name = menuItemType.Name
@@ -92,14 +91,13 @@ namespace BookingSystemApp.Controllers.Admin
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MenuItemType res = _menuItemTypeRepo.FindById((int)id);
+
+            MenuItemType res = _menuItemTypeFacade.FindById((int)id);
+
             if (res == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(res);
         }
 
@@ -108,7 +106,7 @@ namespace BookingSystemApp.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _menuItemTypeRepo.Delete(id);
+            _menuItemTypeFacade.Delete(id);
             return RedirectToAction("Index");
         }
     }

@@ -2,16 +2,15 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace BookingSystemApp.Repo.Core
+namespace BookingSystemApp.Facades.Core
 {
-    public class GenericRepo
+    public class GenericFacade
     {
-
         /// <summary>
         /// Http client used to send http requests.
         /// </summary>
@@ -30,7 +29,7 @@ namespace BookingSystemApp.Repo.Core
         /// <summary>
         /// Default constructor that sets up the HttpClient and JsonSerializerSettings.
         /// </summary>
-        public GenericRepo(string apiController)
+        public GenericFacade(string apiController)
         {
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -42,7 +41,7 @@ namespace BookingSystemApp.Repo.Core
         /// Constructor used for testing that accepts a mock HttpCient.
         /// </summary>
         /// <param name="client"></param>
-        public GenericRepo(HttpClient client)
+        public GenericFacade(HttpClient client)
         {
             _client = client;
             _serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
@@ -61,7 +60,7 @@ namespace BookingSystemApp.Repo.Core
             string content = response.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(content, _serializerSettings);
         }
-        
+
         /// <summary>
         /// Task to execute a HttpRequestMessage and return a list of models. Uses T type parameter to declare the return type of the request.
         /// </summary>

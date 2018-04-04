@@ -1,4 +1,4 @@
-﻿using BookingSystemApp.Repo;
+﻿using BookingSystemApp.Facades;
 using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using System;
@@ -13,48 +13,78 @@ namespace BookingSystemApp.Controllers.Admin
     [Route("Admin/MenuItem/{action=index}")]
     public class MenuItemAdminController : Controller
     {
-        MenuRepo _menuRepo;
+        MenuFacade _menuFacade;
+        DietInfoFacade _dietInfoFacade;
 
         public MenuItemAdminController()
         {
-            _menuRepo = new MenuRepo();
+            _menuFacade = new MenuFacade();
+            _dietInfoFacade = new DietInfoFacade();
         }
 
         // GET: Admin/MenuItem
         public ActionResult Index()
         {
-            IEnumerable<MenuItem> res = _menuRepo.Get();
+            IEnumerable<MenuItem> res = _menuFacade.Get();
 
-            return View(res.Select(m => new MenuItemVM
-            {
-                Id = m.Id,
-                Name = m.Name,
-                Description = m.Description ?? "No description",
-                DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
-                Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
-            }));
+            return View(res.Select(m => CreateVMFromDto(m)));
         }
 
-        // GET: Admin/MenuItem/5
+        // GET: Admin/MenuItem/test/5
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MenuItem res = _menuRepo.FindById((int) id);
+
+            MenuItem res = _menuFacade.FindById((int) id);
+
             if (res == null)
-            {
                 return HttpNotFound();
-            }
-            return View(new MenuItemVM
+
+            return View(CreateVMFromDto(res));
+        }
+
+        public ActionResult ManageDietInfo(int? id)
+        {
+            ViewBag.dietInfoId = new SelectList(_dietInfoFacade.Get().OrderBy(d => d.Name), "id", "name", "Select diet information");
+
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            MenuItem res = _menuFacade.FindById((int)id);
+
+            if (res == null)
+                return HttpNotFound();
+
+            Session["MenuItemId"] = res.Id;
+
+            return View(res.DietInfo.Select(d => new ManageDietInfoVM
             {
-                Id = res.Id,
-                Name = res.Name,
-                Description = res.Description ?? "No description",
-                DietInfo = res.DietInfo.Any() ? String.Join(", ", res.DietInfo.Select(d => d.Name)) : "N/A",
-                Types = res.Types.Any() ? String.Join(", ", res.Types.Select(t => t.Name)) : "N/A"
-            });
+                Id = d.Id,
+                MenuItemId = res.Id,
+                Name = d.Name
+            }));
+        }
+
+        public ActionResult RemoveDietInfo(int? id, int? menuItemId)
+        {
+            if (id != null && menuItemId != null)
+            {
+                _menuFacade.RemoveDietInfoFromMenuItem((int) menuItemId, (int) id);
+            }
+            return RedirectToAction("ManageDietInfo", new { id = menuItemId });
+        }
+
+        [HttpPost]
+        public ActionResult AddDietInfo(int? dietInfoId)
+        {
+            int menuItemId = Session["MenuItemId"] != null ? (int) Session["MenuItemId"] : -1;
+
+            if (dietInfoId != null && menuItemId != -1)
+            {
+                _menuFacade.AddDietInfoToMenuItem(menuItemId, (int) dietInfoId);
+            }
+            return RedirectToAction("ManageDietInfo", new { id = menuItemId });
         }
 
         // GET: Admin/MenuItem/Create
@@ -72,7 +102,7 @@ namespace BookingSystemApp.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                MenuItem res = _menuRepo.Create(new MenuItem
+                MenuItem res = _menuFacade.Create(new MenuItem
                 {
                     Id = menuItem.Id,
                     Name = menuItem.Name,
@@ -88,20 +118,14 @@ namespace BookingSystemApp.Controllers.Admin
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MenuItem res = _menuRepo.FindById((int) id);
+
+            MenuItem res = _menuFacade.FindById((int) id);
+
             if (res == null)
-            {
                 return HttpNotFound();
-            }
-            return View(new MenuItemVM
-            {
-                Id = res.Id,
-                Name = res.Name,
-                Description = res.Description
-            });
+
+            return View(CreateVMFromDto(res));
         }
 
         // POST: Admin/MenuItem/Edit/5
@@ -113,7 +137,7 @@ namespace BookingSystemApp.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                MenuItem res = _menuRepo.Update(new MenuItem
+                MenuItem res = _menuFacade.Update(new MenuItem
                 {
                     Id = menuItem.Id,
                     Name = menuItem.Name,
@@ -129,14 +153,13 @@ namespace BookingSystemApp.Controllers.Admin
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MenuItem res = _menuRepo.FindById((int) id);
+
+            MenuItem res = _menuFacade.FindById((int) id);
+
             if (res == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(res);
         }
 
@@ -145,8 +168,20 @@ namespace BookingSystemApp.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _menuRepo.Delete(id);
+            _menuFacade.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        private MenuItemVM CreateVMFromDto(MenuItem m)
+        {
+            return new MenuItemVM
+            {
+                Id = m.Id,
+                Name = m.Name,
+                Description = m.Description ?? "No description",
+                DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
+                Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
+            };
         }
     }
 }

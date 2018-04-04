@@ -1,20 +1,19 @@
-﻿using BookingSystemApp.Repo.Core;
+﻿using BookingSystemApp.Facades.Core;
 using LibBookingService.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace BookingSystemApp.Repo
+namespace BookingSystemApp.Facades
 {
-    public class CompanyRepo : GenericRepo
+    public class CompanyFacade : GenericFacade
     {
         /// <summary>
-        /// Default controller that sets the api controller used by the repo.
+        /// Default controller that sets the api controller used by the facade.
         /// </summary>
-        public CompanyRepo() : base("Company/")
+        public CompanyFacade() : base("Company/")
         {
         }
 

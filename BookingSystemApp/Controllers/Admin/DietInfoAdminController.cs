@@ -5,25 +5,25 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BookingSystemApp.Repo;
 using BookingSystemApp.View_Models;
+using BookingSystemApp.Facades;
 
 namespace BookingSystemApp.Controllers.Admin
 {
     [Route("Admin/DietInfo/{action=index}")]
     public class DietInfoAdminController : Controller
     {
-        DietInfoRepo _dietInfoRepo;
+        DietInfoFacade _dietInfoFacade;
 
         public DietInfoAdminController()
         {
-            _dietInfoRepo = new DietInfoRepo();
+            _dietInfoFacade = new DietInfoFacade();
         }
 
         // GET: Admin/DietInfo
         public ActionResult Index()
         {
-            IEnumerable<DietInfo> res = _dietInfoRepo.Get();
+            IEnumerable<DietInfo> res = _dietInfoFacade.Get();
 
             return View(res);
         }
@@ -43,7 +43,7 @@ namespace BookingSystemApp.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                DietInfo res = _dietInfoRepo.Create(new DietInfo
+                DietInfo res = _dietInfoFacade.Create(new DietInfo
                 {
                     Id = dietInfo.Id,
                     Name = dietInfo.Name
@@ -58,15 +58,18 @@ namespace BookingSystemApp.Controllers.Admin
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DietInfo res = _dietInfoRepo.FindById((int) id);
+
+            DietInfo res = _dietInfoFacade.FindById((int) id);
+
             if (res == null)
-            {
                 return HttpNotFound();
-            }
-            return View(res);
+
+            return View(new DietInfoVM
+            {
+                Id = res.Id,
+                Name = res.Name
+            });
         }
 
         // POST: Admin/DietInfo/Edit/5
@@ -78,7 +81,7 @@ namespace BookingSystemApp.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                DietInfo res = _dietInfoRepo.Update(new DietInfo
+                DietInfo res = _dietInfoFacade.Update(new DietInfo
                 {
                     Id = dietInfo.Id,
                     Name = dietInfo.Name
@@ -93,14 +96,13 @@ namespace BookingSystemApp.Controllers.Admin
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DietInfo res = _dietInfoRepo.FindById((int) id);
+
+            DietInfo res = _dietInfoFacade.FindById((int) id);
+
             if (res == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(res);
         }
 
@@ -109,7 +111,7 @@ namespace BookingSystemApp.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _dietInfoRepo.Delete(id);
+            _dietInfoFacade.Delete(id);
             return RedirectToAction("Index");
         }
     }

@@ -5,25 +5,25 @@ using System.Web;
 using System.Web.Mvc;
 using LibBookingService.Dtos;
 using System.Net.Http;
-using BookingSystemApp.Repo;
 using System.Net;
 using BookingSystemApp.View_Models;
+using BookingSystemApp.Facades;
 
 namespace BookingSystemApp.Controllers
 {
     public class RestaurantController : Controller
     {
-        RestaurantRepo _restaurantRepo;
+        RestaurantFacade _restaurantFacade;
 
         public RestaurantController()
         {
-            _restaurantRepo = new RestaurantRepo();
+            _restaurantFacade = new RestaurantFacade();
         }
 
         // GET: Restaurant
         public ActionResult Index()
         {
-            IEnumerable<Restaurant> res = _restaurantRepo.Get();
+            IEnumerable<Restaurant> res = _restaurantFacade.Get();
 
             return View(res);
         }
@@ -34,7 +34,7 @@ namespace BookingSystemApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurant restaurant = _restaurantRepo.FindById((int) id);
+            Restaurant restaurant = _restaurantFacade.FindById((int) id);
             if (restaurant == null)
             {
                 return HttpNotFound();

@@ -157,29 +157,155 @@ namespace MenuService.Controllers
 
                 mi.name = menuItem.Name;
                 mi.description = menuItem.Description;
-
-                //if (menuItem.DietInfo.Any())
-                //{
-                //    foreach (LibBookingService.Dtos.DietInfo di in menuItem.DietInfo.Where(di => di.Id == null))
-                //    {
-                //        if (_db)
-                //        _db.MenuItemDietInfoes.Add(new MenuItemDietInfo
-                //        {
-                //            menuItem_id = newMenuItem.id,
-                //            dietInfo_id = di.Id
-                //        });
-                //        await _db.SaveChangesAsync();
-                //    }
-                //}
-
                 
-
                 _db.SetModified(mi);
                 await _db.SaveChangesAsync();
 
                 LibBookingService.Dtos.MenuItem res = CreateMenuItemFromDbMenuItem(mi);
 
                 return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        /// <summary>
+        /// Adds a diet info to a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dietInfoId"></param>
+        /// <returns></returns>
+        [Route("AddDietInfo/{id:int?}/{dietInfoId:int?}")]
+        [HttpPut]
+        public async Task<HttpResponseMessage> AddDietInfo(int id, int dietInfoId)
+        {
+            try
+            {
+                MenuItemDietInfo res = await _db.MenuItemDietInfoes.Where(d => d.menuItem_id == id && d.dietInfo_id == dietInfoId).FirstOrDefaultAsync();
+
+                if (res != null)
+                {
+                    if(res.deleted)
+                    {
+                        res.deleted = false;
+                        _db.SetModified(res);
+                        await _db.SaveChangesAsync();
+                    }
+                }
+                else
+                {
+                    _db.MenuItemDietInfoes.Add(new MenuItemDietInfo
+                    {
+                        menuItem_id = id,
+                        dietInfo_id = dietInfoId
+                    });
+                    await _db.SaveChangesAsync();
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        /// <summary>
+        /// Removes a diet info from a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dietInfoId"></param>
+        /// <returns></returns>
+        [Route("RemoveDietInfo/{id:int?}/{dietInfoId:int?}")]
+        [HttpDelete]
+        public async Task<HttpResponseMessage> RemoveDietInfo(int id, int dietInfoId)
+        {
+            try
+            {
+                MenuItemDietInfo res = await _db.MenuItemDietInfoes.Where(d => d.menuItem_id == id && d.dietInfo_id == dietInfoId).FirstOrDefaultAsync();
+
+                if (res == null)
+                    return Request.CreateResponse(HttpStatusCode.OK, "Diet info does not exist for menu item");
+
+                res.deleted = true;
+
+                _db.SetModified(res);
+                await _db.SaveChangesAsync();
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        /// <summary>
+        /// Adds a category to a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemTypeId"></param>
+        /// <returns></returns>
+        [Route("AddMenuItemType/{id:int?}/{menuItemTypeId:int?}")]
+        [HttpPut]
+        public async Task<HttpResponseMessage> AddMenuItemType(int id, int menuItemTypeId)
+        {
+            try
+            {
+                MenuItemType res = await _db.MenuItemTypes.Where(d => d.menuItem_id == id && d.type_id == menuItemTypeId).FirstOrDefaultAsync();
+
+                if (res != null)
+                {
+                    if (res.deleted)
+                    {
+                        res.deleted = false;
+                        _db.SetModified(res);
+                        await _db.SaveChangesAsync();
+                    }
+                }
+                else
+                {
+                    _db.MenuItemTypes.Add(new MenuItemType
+                    {
+                        menuItem_id = id,
+                        type_id = menuItemTypeId
+                    });
+                    await _db.SaveChangesAsync();
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        /// <summary>
+        /// Removes a category from a menu item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemTypeId"></param>
+        /// <returns></returns>
+        [Route("RemoveMenuItemType/{id:int?}/{menuItemTypeId:int?}")]
+        [HttpDelete]
+        public async Task<HttpResponseMessage> RemoveMenuItemType(int id, int menuItemTypeId)
+        {
+            try
+            {
+                MenuItemType res = await _db.MenuItemTypes.Where(d => d.menuItem_id == id && d.type_id == menuItemTypeId).FirstOrDefaultAsync();
+
+                if (res == null)
+                    return Request.CreateResponse(HttpStatusCode.OK, "Category does not exist for menu item");
+
+                res.deleted = true;
+
+                _db.SetModified(res);
+                await _db.SaveChangesAsync();
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
             }
             catch (Exception ex)
             {

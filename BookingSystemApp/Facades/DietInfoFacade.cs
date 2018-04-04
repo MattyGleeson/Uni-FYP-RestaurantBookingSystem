@@ -1,4 +1,4 @@
-﻿using BookingSystemApp.Repo.Core;
+﻿using BookingSystemApp.Facades.Core;
 using LibBookingService.Dtos;
 using Newtonsoft.Json;
 using System;
@@ -6,24 +6,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace BookingSystemApp.Repo
+namespace BookingSystemApp.Facades
 {
-    public class MenuItemTypeRepo : GenericRepo, IRepository<MenuItemType>
+    public class DietInfoFacade : GenericFacade
     {
         /// <summary>
-        /// Default controller that sets the api controller used by the repo.
+        /// Default controller that sets the api controller used by the facade.
         /// </summary>
-        public MenuItemTypeRepo() : base("MenuItemType/")
+        public DietInfoFacade() : base("DietInfo/")
         {
         }
 
         /// <summary>
-        /// Returns an IEnumerable of menu item types from the web api.
+        /// Returns an IEnumerable of diet info from the web api.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<MenuItemType> Get()
+        public IEnumerable<DietInfo> Get()
         {
             try
             {
@@ -33,24 +33,24 @@ namespace BookingSystemApp.Repo
                     RequestUri = new Uri(_baseUrl + "Get")
                 };
 
-                IEnumerable<MenuItemType> res = ExecuteRequestList<MenuItemType>(request);
+                IEnumerable<DietInfo> res = ExecuteRequestList<DietInfo>(request);
 
                 return res.Any()
                     ? res
-                    : Enumerable.Empty<MenuItemType>();
+                    : Enumerable.Empty<DietInfo>();
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<MenuItemType>();
+                return Enumerable.Empty<DietInfo>();
             }
         }
 
         /// <summary>
-        /// Returns a menu item type model by id.
+        /// Returns a diet info model by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public MenuItemType FindById(int id)
+        public DietInfo FindById(int id)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace BookingSystemApp.Repo
                     RequestUri = new Uri(_baseUrl + "Get/" + id)
                 };
 
-                return ExecuteRequest<MenuItemType>(request);
+                return ExecuteRequest<DietInfo>(request);
             }
             catch (Exception ex)
             {
@@ -69,11 +69,11 @@ namespace BookingSystemApp.Repo
         }
 
         /// <summary>
-        /// Posts a menu item type model to the web api and returns the saved model.
+        /// Posts a diet info model to the web api and returns the saved model.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public MenuItemType Create(MenuItemType model)
+        public DietInfo Create(DietInfo model)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace BookingSystemApp.Repo
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return ExecuteRequest<MenuItemType>(request);
+                return ExecuteRequest<DietInfo>(request);
             }
             catch (Exception ex)
             {
@@ -93,11 +93,11 @@ namespace BookingSystemApp.Repo
         }
 
         /// <summary>
-        /// Puts a menu item type model to the web api and returns the updated model.
+        /// Puts a diet info model to the web api and returns the updated model.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public MenuItemType Update(MenuItemType model)
+        public DietInfo Update(DietInfo model)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace BookingSystemApp.Repo
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
-                return ExecuteRequest<MenuItemType>(request);
+                return ExecuteRequest<DietInfo>(request);
             }
             catch (Exception ex)
             {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantService", "RestaurantService\RestaurantService.csproj", "{51EF1FE4-27F6-48A1-8108-B46823B77B34}"
 EndProject
@@ -24,8 +24,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystemApp.Tests", "BookingSystemApp.Tests\BookingSystemApp.Tests.csproj", "{0FB39BD1-9984-472F-BD14-85A9FA7EFD8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibBookingService", "LibBookingService\LibBookingService.csproj", "{7C3C9331-DC96-4843-AC24-347B8F576CEB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystemApp.Repo", "BookingSystemApp.Repo\BookingSystemApp.Repo.csproj", "{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,10 +75,6 @@ Global
 		{7C3C9331-DC96-4843-AC24-347B8F576CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C3C9331-DC96-4843-AC24-347B8F576CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C3C9331-DC96-4843-AC24-347B8F576CEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E33CFBB-EFFD-41BD-9A81-E734F4B68ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
