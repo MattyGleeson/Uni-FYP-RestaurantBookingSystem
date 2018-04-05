@@ -146,6 +146,7 @@
     <Compile Include="Controllers\Admin\DietInfoAdminController.cs" />
     <Compile Include="Controllers\Admin\MenuItemAdminController.cs" />
     <Compile Include="Controllers\Admin\MenuItemCategoryAdminController.cs" />
+    <Compile Include="Controllers\Admin\RestaurantAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
@@ -223,6 +224,12 @@
     <Content Include="Views\MenuItemAdmin\Edit.cshtml" />
     <Content Include="Views\MenuItemAdmin\Delete.cshtml" />
     <Content Include="Views\MenuItemAdmin\ManageDietInfo.cshtml" />
+    <Content Include="Views\MenuItemAdmin\ManageCategories.cshtml" />
+    <Content Include="Views\RestaurantAdmin\Index.cshtml" />
+    <Content Include="Views\RestaurantAdmin\Create.cshtml" />
+    <Content Include="Views\RestaurantAdmin\Edit.cshtml" />
+    <Content Include="Views\RestaurantAdmin\Delete.cshtml" />
+    <Content Include="Views\RestaurantAdmin\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

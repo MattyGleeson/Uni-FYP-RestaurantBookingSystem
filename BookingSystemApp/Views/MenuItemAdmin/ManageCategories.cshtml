@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BookingSystemApp.View_Models.MenuItemTypeVM>
+
+@{
+    ViewBag.Title = "Manage Categories";
+}
+
+<div class="row">
+    @using (Html.BeginForm("AddCategory", "MenuItemAdmin", FormMethod.Post, new { style = "overflow: hidden; margin-top: 4em;" }))
+    {
+        <div class="">
+            <label>Select category to add</label>
+            @Html.DropDownList("categoryId", null, "Select category", htmlAttributes: new { @class = "browser-default" })
+        </div>
+
+        <div class="form-group" style="text-align:end; margin-top: 1em;">
+            <input type="submit" value="Add" class="btn btn-primary dark-blue" />
+        </div>
+    }
+</div>
+
+<div class="row" style="margin-top: 2em;">
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => category.Name)
+                </td>
+                <td class="table-cell-align-end">
+                    <input type="button" value="Remove" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("RemoveCategory", new { id = category.Id })'" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>

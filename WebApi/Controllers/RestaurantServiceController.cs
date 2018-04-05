@@ -108,5 +108,41 @@ namespace WebApi.Controllers
 
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Deleting");
         }
+
+        /// <summary>
+        /// Endpoint to add a menu item to a restaurant.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemId"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("AddMenuItem/{id:int?}/{menuItemId:int?}")]
+        public async Task<HttpResponseMessage> AddMenuItem(int id, int menuItemId)
+        {
+            bool res = await _facade.AddMenuItem(id, menuItemId);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Updating");
+        }
+
+        /// <summary>
+        /// Endpoint to remove a menu item from a restaurant.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("RemoveMenuItem/{id:int?}/{menuItemId:int?}")]
+        public async Task<HttpResponseMessage> RemoveMenuItem(int id, int menuItemId)
+        {
+            bool res = await _facade.RemoveMenuItem(id, menuItemId);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Removing");
+        }
     }
 }

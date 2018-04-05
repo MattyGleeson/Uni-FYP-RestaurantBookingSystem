@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BookingSystemApp.View_Models.RestaurantVM>
+
+@{
+    ViewBag.Title = "Restaurant Admin Index";
+}
+
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Table Count
+            </th>
+            <th>
+                Postal Code
+            </th>
+            <th>
+                Phone No.
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var restaurant in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.TableCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.AddressPostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.PhoneNo)
+                </td>
+                <td class="table-cell-align-end">
+                    <input type="button" value="Details" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Details", new { id = restaurant.Id })'" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light dark-blue" href="@Url.Action("Create")"><i class="material-icons">add</i></a>
+</div>

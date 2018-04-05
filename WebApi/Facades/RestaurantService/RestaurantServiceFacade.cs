@@ -160,5 +160,59 @@ namespace WebApi.Facades.RestaurantService
         {
             return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
         }
+
+        /// <summary>
+        /// Adds a menu item to a restaurant.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemId"></param>
+        /// <returns></returns>
+        public async Task<bool> AddMenuItem(int id, int menuItemId)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Put,
+                    RequestUri = new Uri(_baseUrl + "AddMenuItem/" + id + "/" + menuItemId)
+                };
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Removes a menu item from a restaurant.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemId"></param>
+        /// <returns></returns>
+        public async Task<bool> RemoveMenuItem(int id, int menuItemId)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Delete,
+                    RequestUri = new Uri(_baseUrl + "RemoveMenuItem/" + id + "/" + menuItemId)
+                };
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

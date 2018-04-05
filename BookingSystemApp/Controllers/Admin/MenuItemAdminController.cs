@@ -13,13 +13,15 @@ namespace BookingSystemApp.Controllers.Admin
     [Route("Admin/MenuItem/{action=index}")]
     public class MenuItemAdminController : Controller
     {
-        MenuFacade _menuFacade;
-        DietInfoFacade _dietInfoFacade;
+        private readonly MenuFacade _menuFacade;
+        private readonly DietInfoFacade _dietInfoFacade;
+        private readonly MenuItemTypeFacade _menuItemTypeFacade;
 
         public MenuItemAdminController()
         {
             _menuFacade = new MenuFacade();
             _dietInfoFacade = new DietInfoFacade();
+            _menuItemTypeFacade = new MenuItemTypeFacade();
         }
 
         // GET: Admin/MenuItem
@@ -30,7 +32,7 @@ namespace BookingSystemApp.Controllers.Admin
             return View(res.Select(m => CreateVMFromDto(m)));
         }
 
-        // GET: Admin/MenuItem/test/5
+        // GET: Admin/MenuItem/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -41,9 +43,15 @@ namespace BookingSystemApp.Controllers.Admin
             if (res == null)
                 return HttpNotFound();
 
-            return View(CreateVMFromDto(res));
+            ViewBag.dietInfoId = new SelectList(_dietInfoFacade.Get().OrderBy(d => d.Name), "id", "name", "Select diet information");
+            ViewBag.categoryId = new SelectList(_menuItemTypeFacade.Get().OrderBy(d => d.Name), "id", "name", "Select category");
+
+            Session["MenuItemId"] = res.Id;
+
+            return View(res);
         }
 
+        // GET: Admin/MenuItem/ManageDietInfo/5
         public ActionResult ManageDietInfo(int? id)
         {
             ViewBag.dietInfoId = new SelectList(_dietInfoFacade.Get().OrderBy(d => d.Name), "id", "name", "Select diet information");
@@ -58,24 +66,27 @@ namespace BookingSystemApp.Controllers.Admin
 
             Session["MenuItemId"] = res.Id;
 
-            return View(res.DietInfo.Select(d => new ManageDietInfoVM
+            return View(res.DietInfo.Select(d => new DietInfoVM
             {
                 Id = d.Id,
-                MenuItemId = res.Id,
                 Name = d.Name
             }));
         }
 
-        public ActionResult RemoveDietInfo(int? id, int? menuItemId)
+        // POST: Admin/MenuItem/RemoveDietInfo/5
+        public ActionResult RemoveDietInfo(int? id)
         {
-            if (id != null && menuItemId != null)
+            int menuItemId = Session["MenuItemId"] != null ? (int)Session["MenuItemId"] : -1;
+
+            if (id != null && menuItemId != -1)
             {
-                _menuFacade.RemoveDietInfoFromMenuItem((int) menuItemId, (int) id);
+                _menuFacade.RemoveDietInfoFromMenuItem(menuItemId, (int) id);
             }
-            return RedirectToAction("ManageDietInfo", new { id = menuItemId });
+            return RedirectToAction("Details", new { id = menuItemId });
         }
 
         [HttpPost]
+        // POST: Admin/MenuItem/AddDietInfo/5
         public ActionResult AddDietInfo(int? dietInfoId)
         {
             int menuItemId = Session["MenuItemId"] != null ? (int) Session["MenuItemId"] : -1;
@@ -84,7 +95,54 @@ namespace BookingSystemApp.Controllers.Admin
             {
                 _menuFacade.AddDietInfoToMenuItem(menuItemId, (int) dietInfoId);
             }
-            return RedirectToAction("ManageDietInfo", new { id = menuItemId });
+            return RedirectToAction("Details", new { id = menuItemId });
+        }
+
+        // GET: Admin/MenuItem/ManageCategories/5
+        public ActionResult ManageCategories(int? id)
+        {
+            ViewBag.categoryId = new SelectList(_menuItemTypeFacade.Get().OrderBy(d => d.Name), "id", "name", "Select category");
+
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            MenuItem res = _menuFacade.FindById((int)id);
+
+            if (res == null)
+                return HttpNotFound();
+
+            Session["MenuItemId"] = res.Id;
+
+            return View(res.Types.Select(d => new MenuItemTypeVM
+            {
+                Id = d.Id,
+                Name = d.Name
+            }));
+        }
+
+        // POST: Admin/MenuItem/RemoveCategory/5
+        public ActionResult RemoveCategory(int? id)
+        {
+            int menuItemTypeId = Session["MenuItemId"] != null ? (int)Session["MenuItemId"] : -1;
+
+            if (id != null && menuItemTypeId != -1)
+            {
+                _menuFacade.RemoveMenuItemTypeFromMenuItem(menuItemTypeId, (int)id);
+            }
+            return RedirectToAction("Details", new { id = menuItemTypeId });
+        }
+
+        [HttpPost]
+        // POST: Admin/MenuItem/AddCategory/5
+        public ActionResult AddCategory(int? categoryId)
+        {
+            int menuItemId = Session["MenuItemId"] != null ? (int) Session["MenuItemId"] : -1;
+
+            if (categoryId != null && menuItemId != -1)
+            {
+                _menuFacade.AddMenuItemTypeToMenuItem(menuItemId, (int) categoryId);
+            }
+            return RedirectToAction("Details", new { id = menuItemId });
         }
 
         // GET: Admin/MenuItem/Create

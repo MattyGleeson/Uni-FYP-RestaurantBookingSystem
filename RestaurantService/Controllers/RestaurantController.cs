@@ -184,6 +184,77 @@ namespace RestaurantService.Controllers
         }
 
         /// <summary>
+        /// Adds a menu item to a restaurant.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemId"></param>
+        /// <returns></returns>
+        [Route("AddMenuItem/{id:int?}/{menuItemId:int?}")]
+        [HttpPut]
+        public async Task<HttpResponseMessage> AddMenuItem(int id, int menuItemId)
+        {
+            try
+            {
+                RestaurantMenuItem res = await _db.RestaurantMenuItems.Where(d => d.restaurant_id == id && d.menuItem_id == menuItemId).FirstOrDefaultAsync();
+
+                if (res != null)
+                {
+                    if (res.deleted)
+                    {
+                        res.deleted = false;
+                        _db.SetModified(res);
+                        await _db.SaveChangesAsync();
+                    }
+                }
+                else
+                {
+                    _db.RestaurantMenuItems.Add(new RestaurantMenuItem
+                    {
+                        restaurant_id = id,
+                        menuItem_id = menuItemId
+                    });
+                    await _db.SaveChangesAsync();
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        /// <summary>
+        /// Removes a menu item from a restaurant.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="menuItemId"></param>
+        /// <returns></returns>
+        [Route("RemoveMenuItem/{id:int?}/{menuItemId:int?}")]
+        [HttpDelete]
+        public async Task<HttpResponseMessage> RemoveMenuItem(int id, int menuItemId)
+        {
+            try
+            {
+                RestaurantMenuItem res = await _db.RestaurantMenuItems.Where(d => d.restaurant_id == id && d.menuItem_id == menuItemId).FirstOrDefaultAsync();
+
+                if (res == null)
+                    return Request.CreateResponse(HttpStatusCode.OK, "Menu item does not exist for restaurant");
+
+                res.deleted = true;
+
+                _db.SetModified(res);
+                await _db.SaveChangesAsync();
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        /// <summary>
         /// Returns a booking model using the database restaurant parameter.
         /// </summary>
         /// <param name="r"></param>

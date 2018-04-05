@@ -126,6 +126,12 @@ namespace BookingSystemApp.Facades
             return ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
         }
 
+        /// <summary>
+        /// Sends an add diet info request to web api and returns true if successful.
+        /// </summary>
+        /// <param name="menuItemId"></param>
+        /// <param name="dietInfoId"></param>
+        /// <returns></returns>
         public bool AddDietInfoToMenuItem(int menuItemId, int dietInfoId)
         {
             try
@@ -147,6 +153,12 @@ namespace BookingSystemApp.Facades
             }
         }
 
+        /// <summary>
+        /// Sends a delete diet info request to web api and returns true if successful.
+        /// </summary>
+        /// <param name="menuItemId"></param>
+        /// <param name="dietInfoId"></param>
+        /// <returns></returns>
         public bool RemoveDietInfoFromMenuItem(int menuItemId, int dietInfoId)
         {
             try
@@ -168,6 +180,12 @@ namespace BookingSystemApp.Facades
             }
         }
 
+        /// <summary>
+        /// Sends an add menu item type request to web api and returns true if successful.
+        /// </summary>
+        /// <param name="menuItemId"></param>
+        /// <param name="menuItemTypeId"></param>
+        /// <returns></returns>
         public bool AddMenuItemTypeToMenuItem(int menuItemId, int menuItemTypeId)
         {
             try
@@ -189,6 +207,12 @@ namespace BookingSystemApp.Facades
             }
         }
 
+        /// <summary>
+        /// Sends a delete diet info request to web api and returns true if successful.
+        /// </summary>
+        /// <param name="menuItemId"></param>
+        /// <param name="menuItemTypeId"></param>
+        /// <returns></returns>
         public bool RemoveMenuItemTypeFromMenuItem(int menuItemId, int menuItemTypeId)
         {
             try
@@ -196,7 +220,7 @@ namespace BookingSystemApp.Facades
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Delete,
-                    RequestUri = new Uri(_baseUrl + "RemoveDietInfo/" + menuItemId + "/" + menuItemTypeId)
+                    RequestUri = new Uri(_baseUrl + "RemoveMenuItemType/" + menuItemId + "/" + menuItemTypeId)
                 };
 
                 HttpResponseMessage response = _client.SendAsync(request).Result;

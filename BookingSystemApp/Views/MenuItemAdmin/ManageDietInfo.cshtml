@@ -1,7 +1,7 @@
-﻿@model IEnumerable<BookingSystemApp.View_Models.ManageDietInfoVM>
+﻿@model IEnumerable<BookingSystemApp.View_Models.DietInfoVM>
 
 @{
-    ViewBag.Title = "ManageDietInfo";
+    ViewBag.Title = "Manage Diet Info";
 }
 
 <div class="row">
@@ -34,7 +34,7 @@
                     @Html.DisplayFor(modelItem => dietInfo.Name)
                 </td>
                 <td class="table-cell-align-end">
-                    <input type="button" value="Remove" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("RemoveDietInfo", new { id = dietInfo.Id, menuItemId = dietInfo.MenuItemId })'" />
+                    <input type="button" value="Remove" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("RemoveDietInfo", new { id = dietInfo.Id })'" />
                 </td>
             </tr>
         }

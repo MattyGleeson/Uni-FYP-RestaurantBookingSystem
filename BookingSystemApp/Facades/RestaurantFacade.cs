@@ -125,5 +125,59 @@ namespace BookingSystemApp.Facades
         {
             return ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
         }
+
+        /// <summary>
+        /// Sends an add menu item request to web api and returns true if successful.
+        /// </summary>
+        /// <param name="restaurantId"></param>
+        /// <param name="menuItemId"></param>
+        /// <returns></returns>
+        public bool AddMenuItemToRestaurant(int restaurantId, int menuItemId)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Put,
+                    RequestUri = new Uri(_baseUrl + "AddMenuItem/" + restaurantId + "/" + menuItemId)
+                };
+
+                HttpResponseMessage response = _client.SendAsync(request).Result;
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Sends a delete menu item request to web api and returns true if successful.
+        /// </summary>
+        /// <param name="restaurantId"></param>
+        /// <param name="menuItemId"></param>
+        /// <returns></returns>
+        public bool RemoveMenuItemFromRestaurant(int restaurantId, int menuItemId)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Delete,
+                    RequestUri = new Uri(_baseUrl + "RemoveMenuItem/" + restaurantId + "/" + menuItemId)
+                };
+
+                HttpResponseMessage response = _client.SendAsync(request).Result;
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
