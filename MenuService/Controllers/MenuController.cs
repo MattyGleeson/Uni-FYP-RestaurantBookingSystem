@@ -79,6 +79,7 @@ namespace MenuService.Controllers
                 {
                     name = menuItem.Name,
                     description = menuItem.Description,
+                    price = Convert.ToDecimal(menuItem.Price)
                 });
                 await _db.SaveChangesAsync();
 
@@ -157,6 +158,7 @@ namespace MenuService.Controllers
 
                 mi.name = menuItem.Name;
                 mi.description = menuItem.Description;
+                mi.price = Convert.ToDecimal(menuItem.Price);
                 
                 _db.SetModified(mi);
                 await _db.SaveChangesAsync();
@@ -325,6 +327,7 @@ namespace MenuService.Controllers
                 Id = mi.id,
                 Name = mi.name,
                 Description = mi.description,
+                Price = Convert.ToDouble(mi.price),
                 DietInfo = mi.MenuItemDietInfoes.Where(m => !m.deleted).Select(m => m.DietInfo).Where(m => !m.deleted).Select(m => new LibBookingService.Dtos.DietInfo
                 {
                     Id = m.id,

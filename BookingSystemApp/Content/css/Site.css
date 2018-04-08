@@ -60,6 +60,15 @@ nav.top-nav h3.header {
     border-bottom: 1px solid #000033 !important;
     box-shadow: 0 1px 0 0 #000033 !important;
 }
+/* label focus color */
+.input-field textarea[type=text]:focus + label {
+    color: #000033 !important;
+}
+/* label underline focus color */
+.input-field textarea[type=text]:focus {
+    border-bottom: 1px solid #000033 !important;
+    box-shadow: 0 1px 0 0 #000033 !important;
+}
 
 .fab-bottom-right {
     position: fixed;

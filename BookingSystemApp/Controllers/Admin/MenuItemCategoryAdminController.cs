@@ -1,4 +1,5 @@
-﻿using BookingSystemApp.Facades;
+﻿using BookingSystemApp.Controllers.ControllerExtensions;
+using BookingSystemApp.Facades;
 using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using System;
@@ -11,7 +12,7 @@ using System.Web.Mvc;
 namespace BookingSystemApp.Controllers.Admin
 {
     [Route("Admin/MenuItemCategory/{action=index}")]
-    public class MenuItemCategoryAdminController : Controller
+    public class MenuItemCategoryAdminController : MessageControllerBase
     {
         MenuItemTypeFacade _menuItemTypeFacade;
 

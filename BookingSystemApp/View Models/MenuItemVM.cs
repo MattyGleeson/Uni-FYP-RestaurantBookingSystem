@@ -17,6 +17,12 @@ namespace BookingSystemApp.View_Models
         [StringLength(255)]
         public string Description { get; set; }
 
+        [Required]
+        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        [Range(0, 9999999999999999.99)]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
+        public double Price { get; set; }
+
         public string Types { get; set; }
 
         public string DietInfo { get; set; }

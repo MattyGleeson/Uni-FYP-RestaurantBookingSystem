@@ -16,6 +16,8 @@ namespace LibBookingService.Dtos
 
         public virtual TimeSpan BookingMadeTime { get; set; }
 
+        public virtual DateTime BookingDate { get; set; }
+
         public virtual TimeSpan StartTime { get; set; }
 
         public virtual TimeSpan EndTime { get; set; }

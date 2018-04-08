@@ -7,11 +7,10 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    @Styles.Render("~/Content/css")
-    @*@Scripts.Render("~/bundles/materialize")*@
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/toastr")
+    
 </head>
 <body>
     <header>
@@ -40,6 +39,39 @@
             <li class="bold">
                 <a href="/Home/About" class="waves-effect">About</a>
             </li>
+
+            @if (ViewBag.Admin != null && ViewBag.Admin == true)
+            {
+                <li>
+                    <hr />
+                </li>
+                <li>
+                    <a href="/Admin" class="waves-effect">Admin</a>
+                </li>
+            }
+
+            <li>
+                <hr />
+            </li>
+
+            @if (Session["UserId"] != null)
+            {
+                <li>
+                    <a href="/Logout" class="waves-effect">Details</a>
+                </li>
+                <li>
+                    <a href="/Logout" class="waves-effect">Bookings</a>
+                </li>
+                <li>
+                    <a href="/Logout" class="waves-effect">Logout</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="/Login" class="waves-effect">Login/Register</a>
+                </li>
+            }
         </ul>
     </header>
     <main>
@@ -60,6 +92,10 @@
             </div>
         </div>
     </footer>
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/materialize")
+    @Scripts.Render("~/bundles/toastr")
+    @Html.Partial("_Toastr")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

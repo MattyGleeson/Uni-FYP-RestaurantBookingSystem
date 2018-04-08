@@ -19,6 +19,9 @@
             <th>
                 Categories
             </th>
+            <th>
+                Price
+            </th>
             <th></th>
         </tr>
 
@@ -36,6 +39,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => menuItem.Types)
+                </td>
+                <td>
+                    £@Html.DisplayFor(modelItem => menuItem.Price)
                 </td>
                 <td class="table-cell-align-end">
                     <input type="button" value="Details" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Details", new { id = menuItem.Id })'" />

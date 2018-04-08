@@ -14,6 +14,8 @@ namespace LibBookingService.Dtos
 
         public virtual string Description { get; set; }
 
+        public virtual double Price { get; set; }
+
         public virtual IEnumerable<MenuItemType> Types { get; set; }
 
         public virtual IEnumerable<DietInfo> DietInfo { get; set; }

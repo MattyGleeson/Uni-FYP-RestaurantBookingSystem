@@ -11,5 +11,7 @@ namespace LibBookingService.Dtos
         public virtual int MenuItemId { get; set; }
 
         public virtual int Quantity { get; set; }
+
+        public virtual double TotalPrice { get; set; }
     }
 }

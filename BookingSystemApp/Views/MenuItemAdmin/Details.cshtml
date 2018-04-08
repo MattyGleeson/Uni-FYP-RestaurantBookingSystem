@@ -18,6 +18,11 @@
         @Html.DisplayFor(model => model.Description)
     </div>
 
+    <div class="row">
+        @Html.LabelFor(model => model.Price, "Price")<br />
+        £@Html.DisplayFor(model => model.Price)
+    </div>
+
     <div class="row" style="text-align:end;">
         <input type="button" value="Edit" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Edit", new { Id = Model.Id })'" />
     </div>

@@ -13,6 +13,8 @@ namespace MenuService.Data
 
         public int quantity { get; set; }
 
+        public decimal total { get; set; }
+
         public int booking_id { get; set; }
 
         public int menuItem_id { get; set; }

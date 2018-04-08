@@ -7,11 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using BookingSystemApp.View_Models;
 using BookingSystemApp.Facades;
+using BookingSystemApp.Controllers.ControllerExtensions;
 
 namespace BookingSystemApp.Controllers.Admin
 {
     [Route("Admin/DietInfo/{action=index}")]
-    public class DietInfoAdminController : Controller
+    public class DietInfoAdminController : MessageControllerBase
     {
         DietInfoFacade _dietInfoFacade;
 

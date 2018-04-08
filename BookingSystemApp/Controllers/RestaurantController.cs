@@ -8,24 +8,29 @@ using System.Net.Http;
 using System.Net;
 using BookingSystemApp.View_Models;
 using BookingSystemApp.Facades;
+using BookingSystemApp.Controllers.ControllerExtensions;
+using BookingSystemApp.Toast;
 
 namespace BookingSystemApp.Controllers
 {
-    public class RestaurantController : Controller
+    public class RestaurantController : MessageControllerBase
     {
-        RestaurantFacade _restaurantFacade;
+        private readonly RestaurantFacade _restaurantFacade;
+        private readonly BookingFacade _bookingFacade;
 
         public RestaurantController()
         {
             _restaurantFacade = new RestaurantFacade();
+            _bookingFacade = new BookingFacade();
         }
 
         // GET: Restaurant
-        public ActionResult Index()
+        public ActionResult Index(int? RestaurantId)
         {
-            IEnumerable<Restaurant> res = _restaurantFacade.Get();
+            if (RestaurantId != null)
+                return RedirectToAction("Details", new { id = RestaurantId });
 
-            return View(res);
+            return View(_restaurantFacade.Get());
         }
 
         //GET: Restaurant/Details/5
@@ -55,7 +60,8 @@ namespace BookingSystemApp.Controllers
                 {
                     Id = m.Id,
                     Name = m.Name,
-                    Description = m.Description,
+                    Description = m.Description ?? "No Description",
+                    Price = m.Price,
                     DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
                     Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
                 }),

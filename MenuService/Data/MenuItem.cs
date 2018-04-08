@@ -27,6 +27,8 @@ namespace MenuService.Data
         [StringLength(255)]
         public string description { get; set; }
 
+        public decimal price { get; set; }
+
         public bool deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

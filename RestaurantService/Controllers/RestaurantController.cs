@@ -312,6 +312,7 @@ namespace RestaurantService.Controllers
                     Id = mi.id,
                     Name = mi.name,
                     Description = mi.description,
+                    Price = Convert.ToDouble(mi.price),
                     DietInfo = mi.MenuItemDietInfoes.Where(m => !m.deleted).Select(m => m.DietInfo).Where(m => !m.deleted).Select(m => new LibBookingService.Dtos.DietInfo
                     {
                         Id = m.id,

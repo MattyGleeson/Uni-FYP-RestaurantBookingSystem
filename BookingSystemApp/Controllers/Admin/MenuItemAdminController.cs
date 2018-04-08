@@ -1,4 +1,5 @@
-﻿using BookingSystemApp.Facades;
+﻿using BookingSystemApp.Controllers.ControllerExtensions;
+using BookingSystemApp.Facades;
 using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using System;
@@ -11,7 +12,7 @@ using System.Web.Mvc;
 namespace BookingSystemApp.Controllers.Admin
 {
     [Route("Admin/MenuItem/{action=index}")]
-    public class MenuItemAdminController : Controller
+    public class MenuItemAdminController : MessageControllerBase
     {
         private readonly MenuFacade _menuFacade;
         private readonly DietInfoFacade _dietInfoFacade;
@@ -156,7 +157,7 @@ namespace BookingSystemApp.Controllers.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description")] MenuItemVM menuItem)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price")] MenuItemVM menuItem)
         {
             if (ModelState.IsValid)
             {
@@ -164,7 +165,8 @@ namespace BookingSystemApp.Controllers.Admin
                 {
                     Id = menuItem.Id,
                     Name = menuItem.Name,
-                    Description = menuItem.Description
+                    Description = menuItem.Description,
+                    Price = menuItem.Price
                 });
                 return RedirectToAction("Details", new { Id = res.Id });
             }
@@ -191,7 +193,7 @@ namespace BookingSystemApp.Controllers.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description")] MenuItemVM menuItem)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price")] MenuItemVM menuItem)
         {
             if (ModelState.IsValid)
             {
@@ -199,7 +201,8 @@ namespace BookingSystemApp.Controllers.Admin
                 {
                     Id = menuItem.Id,
                     Name = menuItem.Name,
-                    Description = menuItem.Description
+                    Description = menuItem.Description,
+                    Price = menuItem.Price
                 });
                 return RedirectToAction("Details", new { Id = res.Id });
             }
@@ -236,7 +239,8 @@ namespace BookingSystemApp.Controllers.Admin
             {
                 Id = m.Id,
                 Name = m.Name,
-                Description = m.Description ?? "No description",
+                Description = m.Description,
+                Price = m.Price,
                 DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
                 Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
             };

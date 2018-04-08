@@ -57,6 +57,10 @@ namespace MenuService.Data
                 .HasForeignKey(e => e.booking_id)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<BookingMenuItem>()
+                .Property(e => e.total)
+                .HasPrecision(19, 4);
+
             modelBuilder.Entity<Company>()
                 .Property(e => e.name)
                 .IsUnicode(false);
@@ -172,6 +176,10 @@ namespace MenuService.Data
             modelBuilder.Entity<MenuItem>()
                 .Property(e => e.description)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<MenuItem>()
+                .Property(e => e.price)
+                .HasPrecision(19, 4);
 
             modelBuilder.Entity<MenuItem>()
                 .HasMany(e => e.BookingMenuItems)

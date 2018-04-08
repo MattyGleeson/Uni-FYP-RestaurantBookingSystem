@@ -18,10 +18,22 @@
         </div>
 
         <div class="input-field">
-            @Html.EditorFor(model => model.Description)
+            @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
             @Html.LabelFor(model => model.Description, "Description (max. 255 characters)")
             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Price)
+            @Html.LabelFor(model => model.Price, "Price (£)")
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('input#Name, textarea#Description').characterCounter();
+            });
+        </script>
 
         <div class="form-group" style="text-align:end;">
             <input type="button" value="Cancel" class="btn-flat" onclick="location.href='@Url.Action("Details", new { Id = Model.Id })'" />

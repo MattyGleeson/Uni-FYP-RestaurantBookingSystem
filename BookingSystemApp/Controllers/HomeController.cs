@@ -1,4 +1,5 @@
-﻿using BookingSystemApp.Facades;
+﻿using BookingSystemApp.Controllers.ControllerExtensions;
+using BookingSystemApp.Facades;
 using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using Newtonsoft.Json;
@@ -12,17 +13,22 @@ using System.Web.Mvc;
 
 namespace BookingSystemApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : MessageControllerBase
     {
         private readonly CompanyFacade _companyFacade;
+        private readonly RestaurantFacade _restaurantFacade;
 
         public HomeController()
         {
+            ViewBag.Admin = true;
             _companyFacade = new CompanyFacade();
+            _restaurantFacade = new RestaurantFacade();
         }
 
         public ActionResult Index()
         {
+            Session["UserId"] = 1;
+            ViewBag.RestaurantId = new SelectList(_restaurantFacade.Get(), "id", "name", "Select restaurant");
             return View();
         }
 

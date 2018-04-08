@@ -9,7 +9,7 @@ namespace BookingSystemApp
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-1.10.2.js"));
+                        "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -26,9 +26,23 @@ namespace BookingSystemApp
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                "~/Scripts/jquery-ui-{version}.js",
+                "~/Content/js/jquery-ui-timepicker-addon.js"));
+
+            bundles.Add(new StyleBundle("~/Content/jqueryui").Include(
+                "~/Content/themes/base/all.css",
+                "~/Content/css/jquery-ui-timepicker-addon.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css/materialize.css",
                       "~/Content/css/site.css"));
+
+            bundles.Add(new StyleBundle("~/content/toastr", "http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css").Include(
+                "~/Content/toastr.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/toastr", "http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js").Include(
+                "~/Scripts/toastr.js"));
         }
     }
 }
