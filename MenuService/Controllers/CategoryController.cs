@@ -56,7 +56,7 @@ namespace MenuService.Controllers
             {
                 IEnumerable<Data.Type> res = await _db.Types.Where(b => !b.deleted).ToListAsync();
 
-                IEnumerable<LibBookingService.Dtos.MenuItemType> menuItemTypes = res.Select(b => CreateMenuItemTypeFromDbMenuItemType(b));
+                IEnumerable<LibBookingService.Dtos.MenuItemType> menuItemTypes = res.Select(b => CreateMenuItemTypeFromDbMenuItemType(b)).OrderBy(b => b.Name);
 
                 return menuItemTypes.Any() ?
                     Request.CreateResponse(HttpStatusCode.OK, menuItemTypes) :

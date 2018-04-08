@@ -32,29 +32,6 @@ namespace WebApi.Facades.RestaurantService
         }
 
         /// <summary>
-        /// Returns a restaurant with the id parameter
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<Company> GetCompany()
-        {
-            try
-            {
-                HttpRequestMessage request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri(_baseUrl + "Get")
-                };
-
-                return await ExecuteRequestAsync<Company>(request);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Returns an IQueryable of restaurants from the restaurant service.
         /// </summary>
         /// <returns></returns>

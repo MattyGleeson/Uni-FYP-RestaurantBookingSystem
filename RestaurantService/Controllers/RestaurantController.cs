@@ -56,7 +56,7 @@ namespace RestaurantService.Controllers
             {
                 IEnumerable<Restaurant> res = await _db.Restaurants.Where(b => b.deleted != true).ToListAsync();
 
-                IEnumerable<LibBookingService.Dtos.Restaurant> restaurants = res.Select(b => CreateRestaurantFromDbRestaurant(b));
+                IEnumerable<LibBookingService.Dtos.Restaurant> restaurants = res.Select(b => CreateRestaurantFromDbRestaurant(b)).OrderBy(b => b.Name);
 
                 return restaurants.Any() ?
                     Request.CreateResponse(HttpStatusCode.OK, restaurants) :
@@ -255,7 +255,7 @@ namespace RestaurantService.Controllers
         }
 
         /// <summary>
-        /// Returns a booking model using the database restaurant parameter.
+        /// Returns a restaurant model using the database restaurant parameter.
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
@@ -289,6 +289,7 @@ namespace RestaurantService.Controllers
                 {
                     Id = t.id,
                     RestaurantId = t.restaurant_id,
+                    TableNo = t.tableNo,
                     NoSeats = t.noSeats,
                     AdditionalNotes = t.additionalNotes,
                     Active = t.active

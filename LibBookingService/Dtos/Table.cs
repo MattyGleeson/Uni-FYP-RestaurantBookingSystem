@@ -12,6 +12,8 @@ namespace LibBookingService.Dtos
     {
         public virtual int RestaurantId { get; set; }
 
+        public virtual int TableNo { get; set; }
+
         public virtual string AdditionalNotes { get; set; }
 
         public virtual int NoSeats { get; set; }

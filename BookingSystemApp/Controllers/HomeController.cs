@@ -1,4 +1,5 @@
-﻿using BookingSystemApp.View_Models;
+﻿using BookingSystemApp.Facades;
+using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using Newtonsoft.Json;
 using System;
@@ -13,6 +14,13 @@ namespace BookingSystemApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly CompanyFacade _companyFacade;
+
+        public HomeController()
+        {
+            _companyFacade = new CompanyFacade();
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -20,21 +28,7 @@ namespace BookingSystemApp.Controllers
 
         public ActionResult About()
         {
-            HttpRequestMessage request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("http://localhost:64577/api/Company/Get")
-            };
-
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            JsonSerializerSettings serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
-
-            HttpResponseMessage response = client.SendAsync(request).Result;
-            response.EnsureSuccessStatusCode();
-            string content = response.Content.ReadAsStringAsync().Result;
-            Company company = JsonConvert.DeserializeObject<Company>(content, serializerSettings);
+            Company company = _companyFacade.Get();
 
             return View(new CompanyVM
             {

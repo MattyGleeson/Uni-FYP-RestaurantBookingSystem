@@ -4,7 +4,7 @@
     ViewBag.Title = "Restaurant Details";
 }
 
-<div class="form-horizontal" style="margin-top: 100px; overflow: hidden;">
+<div class="form-horizontal" style="margin-top: 5em; overflow: hidden;">
 
     <div class="row">
         <div class="col s3">
@@ -43,59 +43,101 @@
     <hr />
 
     <div class="row">
-        @using (Html.BeginForm("AddMenuItem", "RestaurantAdmin", FormMethod.Post, new { style = "overflow: hidden; margin-top: 1em;" }))
-        {
-            <div class="row">
+        <div class="col s6">
+            <h4>Menu Items</h4>
+            @using (Html.BeginForm("AddMenuItem", "RestaurantAdmin", FormMethod.Post, new { style = "overflow: hidden; margin-top: 1em;" }))
+            {
+                <div class="row">
+                    <div class="col s12">
+                        <label>Select menu item to add</label>
+                    </div>
+                    <div class="col s10">
+                        @Html.DropDownList("menuItemId", null, "Select menu item", htmlAttributes: new { @class = "browser-default" })
+                    </div>
+                    <div class="col s2">
+                        <input type="submit" value="Add" class="btn btn-primary dark-blue" />
+                    </div>
+                </div>
+            }
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Categories
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var menuItem in Model.MenuItems)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => menuItem.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => menuItem.Types)
+                        </td>
+                        <td class="table-cell-align-end">
+                            <input type="button" value="Remove" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("RemoveMenuItem", new { id = menuItem.Id })'" />
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+
+        <div class="col s6">
+            <h4>Tables</h4>
+
+            <div class="row" style="margin-top: 1em;">
                 <div class="col s12">
-                    <label>Select menu item to add</label>
+                    <label>Press to add a new table</label>
                 </div>
-                <div class="col s4">
-                    @Html.DropDownList("menuItemId", null, "Select menu item", htmlAttributes: new { @class = "browser-default" })
-                </div>
-                <div class="col s8">
-                    <input type="submit" value="Add" class="btn btn-primary dark-blue" />
+                <div class="col s12">
+                    <button class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("NewTable", new { Id = Model.Id })'">Add</button>
                 </div>
             </div>
-        }
 
-        <table class="table">
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Diet Information
-                </th>
-                <th>
-                    Categories
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var menuItem in Model.MenuItems)
-            {
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => menuItem.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => menuItem.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => menuItem.DietInfo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => menuItem.Types)
-                    </td>
-                    <td class="table-cell-align-end">
-                        <input type="button" value="Remove" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("RemoveMenuItem", new { id = menuItem.Id })'" />
-                    </td>
+                    <th>
+                        Table No.
+                    </th>
+                    <th>
+                        No. Seats
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </table>
+
+                @foreach (var table in Model.Tables)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => table.TableNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => table.NoSeats)
+                        </td>
+                        <td class="table-cell-align-end">
+                            @if (table.Active == true)
+                            {
+                                <input type="button" value="Deactivate" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("DeactivateTable", new { id = table.Id })'" />
+                            }
+
+                            @if (table.Active == false)
+                            {
+                                <input type="button" value="Activate" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("ActivateTable", new { id = table.Id })'" />
+                            }
+
+                            <input type="button" value="Remove" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("RemoveMenuItem", new { id = table.Id })'" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
 
 </div>

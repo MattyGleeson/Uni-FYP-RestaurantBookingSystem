@@ -32,7 +32,7 @@ namespace WebApi.Facades.RestaurantService
         }
 
         /// <summary>
-        /// Returns a restaurant with the id parameter
+        /// Returns a company with the id parameter
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

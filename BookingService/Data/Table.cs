@@ -19,6 +19,8 @@ namespace BookingService.Data
 
         public int restaurant_id { get; set; }
 
+        public int tableNo { get; set; }
+
         [StringLength(150)]
         public string additionalNotes { get; set; }
 

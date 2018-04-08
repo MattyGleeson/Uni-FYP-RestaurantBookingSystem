@@ -56,7 +56,7 @@ namespace MenuService.Controllers
             {
                 IEnumerable<DietInfo> res = await _db.DietInfoes.Where(b => !b.deleted).ToListAsync();
 
-                IEnumerable<LibBookingService.Dtos.DietInfo> dietInfoList = res.Select(b => CreateDietInfoFromDbDietInfo(b));
+                IEnumerable<LibBookingService.Dtos.DietInfo> dietInfoList = res.Select(b => CreateDietInfoFromDbDietInfo(b)).OrderBy(b => b.Name);
 
                 return dietInfoList.Any() ?
                     Request.CreateResponse(HttpStatusCode.OK, dietInfoList) :

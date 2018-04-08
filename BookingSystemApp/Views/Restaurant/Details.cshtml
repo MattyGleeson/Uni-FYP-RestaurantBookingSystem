@@ -4,39 +4,39 @@
     ViewBag.Title = "Restaurant Details";
 }
 
-<h4>Restaurant Info</h4>
-<div class="row">
-    <table class="table">
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                Phone No
-            </th>
-            <th>
-                No Tables
-            </th>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.AddressStreet), @Html.DisplayFor(modelItem => Model.AddressTown), @Html.DisplayFor(modelItem => Model.AddressCounty), @Html.DisplayFor(modelItem => Model.AddressPostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.PhoneNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.TableCount)
-            </td>
-        </tr>
-    </table>
+<div class="form-horizontal" style="margin-top: 5em; overflow: hidden;">
+    <div class="row">
+        <div class="col s3">
+            @Html.LabelFor(model => model.Name, "Name")<br />
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div class="col s3">
+            @Html.LabelFor(model => model.PhoneNo, "Phone No.")<br />
+            @Html.DisplayFor(model => model.PhoneNo)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s3">
+            @Html.LabelFor(model => model.AddressStreet, "Street")<br />
+            @Html.DisplayFor(model => model.AddressStreet)
+        </div>
+        <div class="col s3">
+            @Html.LabelFor(model => model.AddressTown, "Town")<br />
+            @Html.DisplayFor(model => model.AddressTown)
+        </div>
+        <div class="col s3">
+            @Html.LabelFor(model => model.AddressCounty, "County")<br />
+            @Html.DisplayFor(model => model.AddressCounty)
+        </div>
+        <div class="col s3">
+            @Html.LabelFor(model => model.AddressPostalCode, "Postal Code")<br />
+            @Html.DisplayFor(model => model.AddressPostalCode)
+        </div>
+    </div>
 </div>
+
+<hr/>
 
 <h4>Menu</h4>
 <div class="row">
@@ -51,9 +51,12 @@
             <th>
                 Diet Info
             </th>
+            <th>
+                Categories
+            </th>
         </tr>
         @foreach (var menuItem in Model.MenuItems)
-        {
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => menuItem.Name)
@@ -63,6 +66,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => menuItem.DietInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItem.Types)
                 </td>
             </tr>
         }

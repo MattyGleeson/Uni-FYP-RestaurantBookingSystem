@@ -56,7 +56,12 @@ namespace RestaurantService.Controllers
                 AddressTown = res.addressTown,
                 AddressCounty = res.addressCounty,
                 AddressPostalCode = res.addressPostalCode,
-                Email = res.email
+                Email = res.email,
+                Restaurants = res.Restaurants.Select(r => new LibBookingService.Dtos.Restaurant
+                {
+                    Id = r.id,
+                    Name = r.name
+                }).OrderBy(b => b.Name)
             };
 
             return Request.CreateResponse(HttpStatusCode.OK, company);

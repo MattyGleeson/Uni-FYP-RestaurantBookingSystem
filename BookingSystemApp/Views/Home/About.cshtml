@@ -4,56 +4,40 @@
     ViewBag.Title = "About The Company";
 }
 
-<dl class="dl-horizontal">
-    <dt>
-        Name
-    </dt>
+<div class="form-horizontal" style="margin-top: 5em; margin-bottom: 5em; overflow: hidden;">
 
-    <dd>
+    <h5>Details</h5>
+
+    <div class="row">
+        @Html.LabelFor(model => model.Name, "Name")<br />
         @Html.DisplayFor(model => model.Name)
-    </dd>
+    </div>
 
-    <dt>
-        Description
-    </dt>
+    <div class="row">
+        @Html.LabelFor(model => model.Description, "Description")<br />
+        @Html.DisplayFor(model => model.Description)
+    </div>
 
-    <dd>
-        @Html.DisplayFor(model => model.Description)<br/>
-    </dd>
-
-    <dt>
-        Address
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.AddressStreet)
-        @Html.DisplayFor(model => model.AddressTown)
-        @Html.DisplayFor(model => model.AddressCounty)
+    <div class="row">
+        @Html.LabelFor(model => model.AddressStreet, "Address")<br />
+        @Html.DisplayFor(model => model.AddressStreet),
+        @Html.DisplayFor(model => model.AddressTown),
+        @Html.DisplayFor(model => model.AddressCounty),
         @Html.DisplayFor(model => model.AddressPostalCode)
-    </dd>
+    </div>
 
-    <dt>
-        Phone No
-    </dt>
-
-    <dd>
+    <div class="row">
+        @Html.LabelFor(model => model.PhoneNo, "Phone No")<br />
         @Html.DisplayFor(model => model.PhoneNo)
-    </dd>
+    </div>
 
-    <dt>
-        Email
-    </dt>
-
-    <dd>
+    <div class="row">
+        @Html.LabelFor(model => model.Email, "Email")<br />
         @Html.DisplayFor(model => model.Email)
-    </dd>
+    </div>
 
-    <dt>
-        Total Number Of Restaurants
-    </dt>
-
-    <dd>
+    <div class="row">
+        @Html.LabelFor(model => model.RestaurantCount, "Total Number of Restaurants")<br />
         @Html.DisplayFor(model => model.RestaurantCount)
-    </dd>
-
-</dl>
+    </div>
+</div>

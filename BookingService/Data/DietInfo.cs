@@ -18,7 +18,7 @@ namespace BookingService.Data
         public int id { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(50)]
         public string name { get; set; }
 
         public bool deleted { get; set; }

@@ -28,6 +28,7 @@ namespace BookingSystemApp.Controllers
             return View(res);
         }
 
+        //GET: Restaurant/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -55,7 +56,8 @@ namespace BookingSystemApp.Controllers
                     Id = m.Id,
                     Name = m.Name,
                     Description = m.Description,
-                    DietInfo = String.Join(", ", m.DietInfo.Select(d => d.Name))
+                    DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
+                    Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
                 }),
                 TableCount = restaurant.Tables.Count()
             });

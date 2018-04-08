@@ -157,6 +157,7 @@
     <Compile Include="Facades\MenuFacade.cs" />
     <Compile Include="Facades\MenuItemTypeFacade.cs" />
     <Compile Include="Facades\RestaurantFacade.cs" />
+    <Compile Include="Facades\TableFacade.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,10 +168,13 @@
     <Compile Include="View Models\MenuItemTypeVM.cs" />
     <Compile Include="View Models\MenuItemVM.cs" />
     <Compile Include="View Models\RestaurantVM.cs" />
+    <Compile Include="View Models\TableVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\materialize.css" />
     <Content Include="Content\css\materialize.min.css" />
     <Content Include="Content\css\Site.css" />
+    <Content Include="Content\js\materialize.js" />
     <Content Include="Content\js\materialize.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -230,6 +234,7 @@
     <Content Include="Views\RestaurantAdmin\Edit.cshtml" />
     <Content Include="Views\RestaurantAdmin\Delete.cshtml" />
     <Content Include="Views\RestaurantAdmin\Details.cshtml" />
+    <Content Include="Views\RestaurantAdmin\NewTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

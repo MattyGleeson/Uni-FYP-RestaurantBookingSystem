@@ -56,7 +56,7 @@ namespace MenuService.Controllers
             {
                 IEnumerable<MenuItem> res = await _db.MenuItems.Where(b => !b.deleted).ToListAsync();
 
-                IEnumerable<LibBookingService.Dtos.MenuItem> menuItems = res.Select(b => CreateMenuItemFromDbMenuItem(b));
+                IEnumerable<LibBookingService.Dtos.MenuItem> menuItems = res.Select(b => CreateMenuItemFromDbMenuItem(b)).OrderBy(b => b.Name);
 
                 return menuItems.Any() ?
                     Request.CreateResponse(HttpStatusCode.OK, menuItems) :
@@ -329,12 +329,12 @@ namespace MenuService.Controllers
                 {
                     Id = m.id,
                     Name = m.name
-                }),
+                }).OrderBy(b => b.Name),
                 Types = mi.MenuItemTypes.Where(t => !t.deleted).Select(t => t.Type).Where(t => !t.deleted).Select(t => new LibBookingService.Dtos.MenuItemType
                 {
                     Id = t.id,
                     Name = t.name
-                })
+                }).OrderBy(b => b.Name)
             };
         }
     }

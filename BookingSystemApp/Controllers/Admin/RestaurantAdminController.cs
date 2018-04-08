@@ -16,6 +16,7 @@ namespace BookingSystemApp.Controllers.Admin
         private readonly RestaurantFacade _restaurantFacade;
         private readonly CompanyFacade _companyFacade;
         private readonly MenuFacade _menuFacade;
+        private readonly TableFacade _tableFacade;
 
 
         public RestaurantAdminController()
@@ -23,6 +24,7 @@ namespace BookingSystemApp.Controllers.Admin
             _restaurantFacade = new RestaurantFacade();
             _companyFacade = new CompanyFacade();
             _menuFacade = new MenuFacade();
+            _tableFacade = new TableFacade();
         }
 
         // GET: Admin/Restaurant
@@ -71,6 +73,75 @@ namespace BookingSystemApp.Controllers.Admin
             if (menuItemId != null && restaurantId != -1)
             {
                 _restaurantFacade.AddMenuItemToRestaurant(restaurantId, (int) menuItemId);
+            }
+            return RedirectToAction("Details", new { id = restaurantId });
+        }
+
+        // GET: Admin/Restaurant/NewTable/5
+        public ActionResult NewTable(int id)
+        {
+            return View(new TableVM { RestaurantId = id });
+        }
+
+        // POST: Admin/Restaurant/NewTable/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewTable([Bind(Include = "Id,RestaurantId,TableNo,Name,AdditionalNotes,NoSeats")] TableVM table)
+        {
+            if (ModelState.IsValid)
+            {
+                Table res = _tableFacade.Create(new Table
+                {
+                    RestaurantId = table.RestaurantId,
+                    TableNo = table.TableNo,
+                    NoSeats = table.NoSeats,
+                    AdditionalNotes = table.AdditionalNotes,
+                    Active = true
+                });
+                return RedirectToAction("Details", new { id = res.RestaurantId });
+            }
+
+            return View(table);
+        }
+
+        // POST: Admin/Restaurant/RemoveTable/5
+        public ActionResult RemoveTable(int? id)
+        {
+            int restaurantId = Session["RestaurantId"] != null ? (int)Session["RestaurantId"] : -1;
+
+            if (id != null && restaurantId != -1)
+            {
+                _tableFacade.Delete((int) id);
+            }
+            return RedirectToAction("Details", new { id = restaurantId });
+        }
+
+        // POST: Admin/Restaurant/ActivateTable/5
+        public ActionResult ActivateTable(int? id)
+        {
+            int restaurantId = Session["RestaurantId"] != null ? (int)Session["RestaurantId"] : -1;
+
+            if (id != null && restaurantId != -1)
+            {
+                Table table = _tableFacade.FindById((int) id);
+                table.Active = true;
+                _tableFacade.Update(table);
+            }
+            return RedirectToAction("Details", new { id = restaurantId });
+        }
+
+        // POST: Admin/Restaurant/DeactivateTable/5
+        public ActionResult DeactivateTable(int? id)
+        {
+            int restaurantId = Session["RestaurantId"] != null ? (int)Session["RestaurantId"] : -1;
+
+            if (id != null && restaurantId != -1)
+            {
+                Table table = _tableFacade.FindById((int) id);
+                table.Active = false;
+                _tableFacade.Update(table);
             }
             return RedirectToAction("Details", new { id = restaurantId });
         }
@@ -190,7 +261,8 @@ namespace BookingSystemApp.Controllers.Admin
                     DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
                     Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
                 }).OrderBy(m => m.Name),
-                TableCount = r.Tables.Count()
+                TableCount = r.Tables.Count(),
+                Tables = r.Tables
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibBookingService.Dtos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -39,5 +40,7 @@ namespace BookingSystemApp.View_Models
         public IEnumerable<MenuItemVM> MenuItems { get; set; }
 
         public int TableCount { get; set; }
+
+        public IEnumerable<Table> Tables { get; set; }
     }
 }
