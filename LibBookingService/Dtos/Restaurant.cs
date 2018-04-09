@@ -24,6 +24,8 @@ namespace LibBookingService.Dtos
 
         public virtual string AddressPostalCode { get; set; }
 
+        public virtual IEnumerable<Booking> Bookings { get; set; }
+
         public virtual IEnumerable<MenuItem> MenuItems { get; set; }
 
         public virtual IEnumerable<Table> Tables { get; set; }

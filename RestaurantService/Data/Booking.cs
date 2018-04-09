@@ -21,10 +21,15 @@ namespace RestaurantService.Data
 
         public int customer_id { get; set; }
 
+        public int restaurant_id { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime bookingMadeDate { get; set; }
 
         public TimeSpan bookingMadeTime { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime bookingDate { get; set; }
 
         public TimeSpan startTime { get; set; }
 
@@ -45,6 +50,8 @@ namespace RestaurantService.Data
         public bool deleted { get; set; }
 
         public virtual Customer Customer { get; set; }
+
+        public virtual Restaurant Restaurant { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingMenuItem> BookingMenuItems { get; set; }

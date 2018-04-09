@@ -147,10 +147,13 @@
     <Compile Include="Controllers\Admin\MenuItemAdminController.cs" />
     <Compile Include="Controllers\Admin\MenuItemCategoryAdminController.cs" />
     <Compile Include="Controllers\Admin\RestaurantAdminController.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\ControllerExtensions\MessageControllerBase.cs" />
     <Compile Include="Controllers\ControllerExtensions\MessagesActionFilter.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Facades\BookingFacade.cs" />
     <Compile Include="Facades\CompanyFacade.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="Toast\ToastMessage.cs" />
     <Compile Include="Toast\Toastr.cs" />
     <Compile Include="Toast\ToastType.cs" />
+    <Compile Include="View Models\BookingVM.cs" />
     <Compile Include="View Models\CompanyVM.cs" />
     <Compile Include="View Models\DietInfoVM.cs" />
     <Compile Include="View Models\HomeDatePickerVM.cs" />
@@ -296,11 +300,14 @@
     <Content Include="Views\RestaurantAdmin\Details.cshtml" />
     <Content Include="Views\RestaurantAdmin\NewTable.cshtml" />
     <Content Include="Views\Shared\_Toastr.cshtml" />
+    <Content Include="Views\Booking\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\fonts\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

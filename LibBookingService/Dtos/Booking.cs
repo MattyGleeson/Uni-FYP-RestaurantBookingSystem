@@ -12,6 +12,8 @@ namespace LibBookingService.Dtos
     {
         public virtual int CustomerId { get; set; }
 
+        public virtual int RestaurantId { get; set; }
+
         public virtual DateTime BookingMadeDate { get; set; }
 
         public virtual TimeSpan BookingMadeTime { get; set; }

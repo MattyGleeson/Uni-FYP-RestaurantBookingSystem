@@ -10,8 +10,6 @@ namespace LibBookingService.Dtos
     /// <seealso cref="LibBookingService.Dto" />
     public class Payment : Dto
     {
-        public virtual int PaymentMethodId { get; set; }
-
         public virtual int CustomerId { get; set; }
 
         public virtual int BookingId { get; set; }
@@ -19,5 +17,7 @@ namespace LibBookingService.Dtos
         public virtual decimal Amount { get; set; }
 
         public virtual string Comments { get; set; }
+
+        public virtual PaymentMethod PaymentMethod { get; set; }
     }
 }

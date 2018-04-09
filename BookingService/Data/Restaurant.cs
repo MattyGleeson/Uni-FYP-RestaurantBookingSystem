@@ -12,6 +12,7 @@ namespace BookingService.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Restaurant()
         {
+            Bookings = new HashSet<Booking>();
             RestaurantMenuItems = new HashSet<RestaurantMenuItem>();
             Tables = new HashSet<Table>();
         }
@@ -45,6 +46,9 @@ namespace BookingService.Data
         public string addressPostalCode { get; set; }
 
         public bool deleted { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings { get; set; }
 
         public virtual Company Company { get; set; }
 

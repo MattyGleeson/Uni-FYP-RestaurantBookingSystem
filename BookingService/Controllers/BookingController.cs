@@ -77,6 +77,7 @@ namespace BookingService.Controllers
                 Booking newBoooking = _db.Bookings.Add(new Booking
                 {
                     customer_id = booking.CustomerId,
+                    restaurant_id = booking.RestaurantId,
                     bookingMadeDate = booking.BookingMadeDate,
                     bookingMadeTime = booking.BookingMadeTime,
                     startTime = booking.StartTime,
@@ -180,6 +181,7 @@ namespace BookingService.Controllers
                 Booking b = await _db.Bookings.Where(bb => bb.id == id).FirstOrDefaultAsync();
 
                 b.customer_id = booking.CustomerId;
+                b.restaurant_id = booking.RestaurantId;
                 b.bookingMadeDate = booking.BookingMadeDate;
                 b.bookingMadeTime = booking.BookingMadeTime;
                 b.startTime = booking.StartTime;
@@ -214,6 +216,7 @@ namespace BookingService.Controllers
             {
                 Id = b.id,
                 CustomerId = b.customer_id,
+                RestaurantId = b.restaurant_id,
                 BookingMadeDate = b.bookingMadeDate,
                 BookingMadeTime = b.bookingMadeTime,
                 StartTime = b.startTime,

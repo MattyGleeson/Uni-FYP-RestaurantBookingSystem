@@ -21,7 +21,7 @@ namespace RestaurantService.Data
         [StringLength(20)]
         public string name { get; set; }
 
-        public int active { get; set; }
+        public bool active { get; set; }
 
         public bool deleted { get; set; }
 

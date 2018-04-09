@@ -13,7 +13,7 @@ namespace BookingSystemApp.Facades
     public class RestaurantFacade : GenericFacade
     {
         /// <summary>
-        /// Default controller that sets the api controller used by the repo.
+        /// Default controller that sets the api controller used by the facade.
         /// </summary>
         public RestaurantFacade() : base("Restaurant/")
         {

@@ -248,6 +248,12 @@ namespace MenuService.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<Restaurant>()
+                .HasMany(e => e.Bookings)
+                .WithRequired(e => e.Restaurant)
+                .HasForeignKey(e => e.restaurant_id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Restaurant>()
                 .HasMany(e => e.RestaurantMenuItems)
                 .WithRequired(e => e.Restaurant)
                 .HasForeignKey(e => e.restaurant_id)
