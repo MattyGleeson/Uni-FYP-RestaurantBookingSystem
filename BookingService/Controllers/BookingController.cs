@@ -109,7 +109,7 @@ namespace BookingService.Controllers
                     {
                         _db.Payments.Add(new Payment
                         {
-                            paymentMethod_id = p.PaymentMethodId,
+                            paymentMethod_id = p.PaymentMethod.Id,
                             customer_id = p.CustomerId,
                             booking_id = p.BookingId,
                             amount = p.Amount,
@@ -266,7 +266,12 @@ namespace BookingService.Controllers
                     Id = p.id,
                     BookingId = booking.id,
                     CustomerId = p.customer_id,
-                    PaymentMethodId = p.paymentMethod_id,
+                    PaymentMethod = new LibBookingService.Dtos.PaymentMethod
+                    {
+                        Id = p.PaymentMethod.id,
+                        Name = p.PaymentMethod.name,
+                        Active = p.PaymentMethod.active
+                    },
                     Amount = p.amount,
                     Comments = p.comments
                 });

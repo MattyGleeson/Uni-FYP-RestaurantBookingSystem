@@ -12,7 +12,7 @@ namespace LibBookingService.Dtos
     {
         public virtual string Name { get; set; }
 
-        public virtual int Active { get; set; }
+        public virtual bool Active { get; set; }
 
         public virtual IEnumerable<Payment> Payments { get; set; }
     }

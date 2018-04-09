@@ -158,6 +158,7 @@
     <Compile Include="Facades\BookingFacade.cs" />
     <Compile Include="Facades\CompanyFacade.cs" />
     <Compile Include="Facades\Core\GenericFacade.cs" />
+    <Compile Include="Facades\CustomerFacade.cs" />
     <Compile Include="Facades\DietInfoFacade.cs" />
     <Compile Include="Facades\MenuFacade.cs" />
     <Compile Include="Facades\MenuItemTypeFacade.cs" />
