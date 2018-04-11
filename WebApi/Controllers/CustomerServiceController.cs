@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -23,6 +24,19 @@ namespace WebApi.Controllers
         CustomerServiceController()
         {
             _facade = new Facades.CustomerServiceFacade();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [Route("")]
+        public IEnumerable<object> GetClaims()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+
+            return identity.Claims.Select(c => new
+            {
+                Type = c.Type,
+                Value = c.Value
+            });
         }
 
         /// <summary>

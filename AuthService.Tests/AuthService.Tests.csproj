@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24CA0C75-4967-44B7-AF03-A5F8D9AB8B0E}</ProjectGuid>
+    <ProjectGuid>{44F71D43-CB1C-4939-BAB7-D2BD767AA708}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebApi.Tests</RootNamespace>
-    <AssemblyName>WebApi.Tests</AssemblyName>
+    <RootNamespace>AuthService.Tests</RootNamespace>
+    <AssemblyName>AuthService.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -64,9 +64,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebApi\WebApi.csproj">
-      <Project>{081FA2D6-7990-4C1D-B638-FF962B9959C8}</Project>
-      <Name>WebApi</Name>
+    <ProjectReference Include="..\AuthService\AuthService.csproj">
+      <Project>{DF589745-3FAC-4619-991B-5263DD963DB5}</Project>
+      <Name>AuthService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
