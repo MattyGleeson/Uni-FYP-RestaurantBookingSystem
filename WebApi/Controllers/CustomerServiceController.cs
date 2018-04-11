@@ -13,6 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the customer service facade.
     /// </summary>
+    [AllowAnonymous]
     [RoutePrefix("api/Customer")]
     public class CustomerServiceController : ApiController
     {

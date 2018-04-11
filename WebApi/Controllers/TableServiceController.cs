@@ -12,6 +12,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the table service facade.
     /// </summary>
+    [AllowAnonymous]
     [RoutePrefix("api/Table")]
     public class TableServiceController : ApiController
     {

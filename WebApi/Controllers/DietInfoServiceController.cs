@@ -12,6 +12,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the menu service diet info facade.
     /// </summary>
+    [AllowAnonymous]
     [RoutePrefix("api/DietInfo")]
     public class DietInfoServiceController : ApiController
     {

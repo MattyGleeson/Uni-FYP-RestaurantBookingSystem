@@ -13,6 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the booking service facade.
     /// </summary>
+    [AllowAnonymous]
     [RoutePrefix("api/Booking")]
     public class BookingServiceController : ApiController
     {

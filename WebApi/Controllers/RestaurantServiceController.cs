@@ -13,6 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the restaurant service facade.
     /// </summary>
+    [AllowAnonymous]
     [RoutePrefix("api/Restaurant")]
     public class RestaurantServiceController : ApiController
     {

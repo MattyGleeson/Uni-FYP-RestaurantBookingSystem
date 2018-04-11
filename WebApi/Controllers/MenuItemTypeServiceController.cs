@@ -12,6 +12,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the menu service type facade.
     /// </summary>
+    [AllowAnonymous]
     [RoutePrefix("api/MenuItemType")]
     public class MenuItemTypeServiceController : ApiController
     {

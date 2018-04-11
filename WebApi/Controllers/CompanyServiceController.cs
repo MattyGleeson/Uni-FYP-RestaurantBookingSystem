@@ -12,6 +12,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the company service facade.
     /// </summary>
+    [AllowAnonymous]
     [RoutePrefix("api/Company")]
     public class CompanyServiceController : ApiController
     {

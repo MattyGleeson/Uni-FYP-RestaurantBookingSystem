@@ -13,6 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the menu service facade.
     /// </summary>
+    [AllowAnonymous]
     [RoutePrefix("api/Menu")]
     public class MenuServiceController : ApiController
     {
