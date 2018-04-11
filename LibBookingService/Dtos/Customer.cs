@@ -12,6 +12,10 @@ namespace LibBookingService.Dtos
     {
         public virtual string Title { get; set; }
 
+        public virtual string UserName { get; set; }
+
+        public virtual string OwinUserId { get; set; }
+
         public virtual string Forename { get; set; }
 
         public virtual string Surname { get; set; }

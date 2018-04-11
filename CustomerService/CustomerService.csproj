@@ -147,22 +147,11 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Data\Booking.cs" />
-    <Compile Include="Data\BookingMenuItem.cs" />
     <Compile Include="Data\BookingSystemDb.cs" />
-    <Compile Include="Data\Company.cs" />
     <Compile Include="Data\Core\GenericDbContext.cs" />
     <Compile Include="Data\Customer.cs" />
-    <Compile Include="Data\DietInfo.cs" />
-    <Compile Include="Data\MenuItem.cs" />
-    <Compile Include="Data\MenuItemDietInfo.cs" />
-    <Compile Include="Data\MenuItemType.cs" />
     <Compile Include="Data\Payment.cs" />
     <Compile Include="Data\PaymentMethod.cs" />
-    <Compile Include="Data\Restaurant.cs" />
-    <Compile Include="Data\RestaurantMenuItem.cs" />
-    <Compile Include="Data\Table.cs" />
-    <Compile Include="Data\TableBooking.cs" />
-    <Compile Include="Data\Type.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
