@@ -12,54 +12,44 @@ namespace CustomerService.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Booking()
         {
-            BookingMenuItems = new HashSet<BookingMenuItem>();
             Payments = new HashSet<Payment>();
-            TableBookings = new HashSet<TableBooking>();
         }
 
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public int customer_id { get; set; }
+        public int Customer_id { get; set; }
 
-        public int restaurant_id { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime bookingMadeDate { get; set; }
-
-        public TimeSpan bookingMadeTime { get; set; }
+        public int Restaurant_id { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime bookingDate { get; set; }
+        public DateTime BookingMadeDate { get; set; }
 
-        public TimeSpan startTime { get; set; }
-
-        public TimeSpan endTime { get; set; }
-
-        public decimal paymentTotal { get; set; }
+        public TimeSpan BookingMadeTime { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? paymentMadeDate { get; set; }
+        public DateTime BookingDate { get; set; }
 
-        public int noCustomers { get; set; }
+        public TimeSpan StartTime { get; set; }
+
+        public TimeSpan EndTime { get; set; }
+
+        public decimal PaymentTotal { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? PaymentMadeDate { get; set; }
+
+        public int NoCustomers { get; set; }
 
         [StringLength(150)]
-        public string comments { get; set; }
+        public string Comments { get; set; }
 
-        public bool cancelled { get; set; }
+        public bool Cancelled { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual Customer Customer { get; set; }
 
-        public virtual Restaurant Restaurant { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BookingMenuItem> BookingMenuItems { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableBooking> TableBookings { get; set; }
     }
 }

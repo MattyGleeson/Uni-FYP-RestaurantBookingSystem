@@ -32,257 +32,253 @@ namespace BookingService.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Booking>()
-                .Property(e => e.paymentTotal)
+                .Property(e => e.PaymentTotal)
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<Booking>()
-                .Property(e => e.comments)
+                .Property(e => e.Comments)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Booking>()
                 .HasMany(e => e.BookingMenuItems)
                 .WithRequired(e => e.Booking)
-                .HasForeignKey(e => e.booking_id)
+                .HasForeignKey(e => e.Booking_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Booking>()
                 .HasMany(e => e.Payments)
                 .WithRequired(e => e.Booking)
-                .HasForeignKey(e => e.booking_id)
+                .HasForeignKey(e => e.Booking_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Booking>()
                 .HasMany(e => e.TableBookings)
                 .WithRequired(e => e.Booking)
-                .HasForeignKey(e => e.booking_id)
+                .HasForeignKey(e => e.Booking_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<BookingMenuItem>()
-                .Property(e => e.total)
+                .Property(e => e.Total)
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.name)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.description)
+                .Property(e => e.Description)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.phoneNo)
+                .Property(e => e.PhoneNo)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.addressStreet)
+                .Property(e => e.AddressStreet)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.addressCounty)
+                .Property(e => e.AddressCounty)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.addressTown)
+                .Property(e => e.AddressTown)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.addressPostalCode)
+                .Property(e => e.AddressPostalCode)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.email)
+                .Property(e => e.Email)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
                 .HasMany(e => e.Restaurants)
                 .WithRequired(e => e.Company)
-                .HasForeignKey(e => e.company_id)
+                .HasForeignKey(e => e.Company_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.title)
+                .Property(e => e.Title)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.forename)
+                .Property(e => e.Forename)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.surname)
+                .Property(e => e.Surname)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.addressStreet)
+                .Property(e => e.AddressStreet)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.addressTown)
+                .Property(e => e.AddressTown)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.addressCounty)
+                .Property(e => e.AddressCounty)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.addressPostalCode)
+                .Property(e => e.AddressPostalCode)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.homePhoneNo)
+                .Property(e => e.HomePhoneNo)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.workPhoneNo)
+                .Property(e => e.WorkPhoneNo)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.mobilePhoneNo)
+                .Property(e => e.MobilePhoneNo)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.email)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Customer>()
-                .Property(e => e.password)
+                .Property(e => e.Email)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.Bookings)
                 .WithRequired(e => e.Customer)
-                .HasForeignKey(e => e.customer_id)
+                .HasForeignKey(e => e.Customer_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.Payments)
                 .WithRequired(e => e.Customer)
-                .HasForeignKey(e => e.customer_id)
+                .HasForeignKey(e => e.Customer_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<DietInfo>()
-                .Property(e => e.name)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DietInfo>()
                 .HasMany(e => e.MenuItemDietInfoes)
                 .WithRequired(e => e.DietInfo)
-                .HasForeignKey(e => e.dietInfo_id)
+                .HasForeignKey(e => e.DietInfo_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MenuItem>()
-                .Property(e => e.name)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<MenuItem>()
-                .Property(e => e.description)
+                .Property(e => e.Description)
                 .IsUnicode(false);
 
             modelBuilder.Entity<MenuItem>()
-                .Property(e => e.price)
+                .Property(e => e.Price)
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<MenuItem>()
                 .HasMany(e => e.BookingMenuItems)
                 .WithRequired(e => e.MenuItem)
-                .HasForeignKey(e => e.menuItem_id)
+                .HasForeignKey(e => e.MenuItem_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MenuItem>()
                 .HasMany(e => e.MenuItemDietInfoes)
                 .WithRequired(e => e.MenuItem)
-                .HasForeignKey(e => e.menuItem_id)
+                .HasForeignKey(e => e.MenuItem_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MenuItem>()
                 .HasMany(e => e.MenuItemTypes)
                 .WithRequired(e => e.MenuItem)
-                .HasForeignKey(e => e.menuItem_id)
+                .HasForeignKey(e => e.MenuItem_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MenuItem>()
                 .HasMany(e => e.RestaurantMenuItems)
                 .WithRequired(e => e.MenuItem)
-                .HasForeignKey(e => e.menuItem_id)
+                .HasForeignKey(e => e.MenuItem_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Payment>()
-                .Property(e => e.amount)
+                .Property(e => e.Amount)
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<Payment>()
-                .Property(e => e.comments)
+                .Property(e => e.Comments)
                 .IsUnicode(false);
 
             modelBuilder.Entity<PaymentMethod>()
-                .Property(e => e.name)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<PaymentMethod>()
                 .HasMany(e => e.Payments)
                 .WithRequired(e => e.PaymentMethod)
-                .HasForeignKey(e => e.paymentMethod_id)
+                .HasForeignKey(e => e.PaymentMethod_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Restaurant>()
-                .Property(e => e.name)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Restaurant>()
-                .Property(e => e.phoneNo)
+                .Property(e => e.PhoneNo)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Restaurant>()
-                .Property(e => e.addressStreet)
+                .Property(e => e.AddressStreet)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Restaurant>()
-                .Property(e => e.addressCounty)
+                .Property(e => e.AddressCounty)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Restaurant>()
-                .Property(e => e.addressTown)
+                .Property(e => e.AddressTown)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Restaurant>()
-                .Property(e => e.addressPostalCode)
+                .Property(e => e.AddressPostalCode)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Restaurant>()
                 .HasMany(e => e.Bookings)
                 .WithRequired(e => e.Restaurant)
-                .HasForeignKey(e => e.restaurant_id)
+                .HasForeignKey(e => e.Restaurant_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Restaurant>()
                 .HasMany(e => e.RestaurantMenuItems)
                 .WithRequired(e => e.Restaurant)
-                .HasForeignKey(e => e.restaurant_id)
+                .HasForeignKey(e => e.Restaurant_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Restaurant>()
                 .HasMany(e => e.Tables)
                 .WithRequired(e => e.Restaurant)
-                .HasForeignKey(e => e.restaurant_id)
+                .HasForeignKey(e => e.Restaurant_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Table>()
-                .Property(e => e.additionalNotes)
+                .Property(e => e.AdditionalNotes)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Table>()
                 .HasMany(e => e.TableBookings)
                 .WithRequired(e => e.Table)
-                .HasForeignKey(e => e.table_id)
+                .HasForeignKey(e => e.Table_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Type>()
-                .Property(e => e.name)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Type>()
                 .HasMany(e => e.MenuItemTypes)
                 .WithRequired(e => e.Type)
-                .HasForeignKey(e => e.type_id)
+                .HasForeignKey(e => e.Type_id)
                 .WillCascadeOnDelete(false);
         }
     }

@@ -41,7 +41,7 @@ namespace CustomerService.Controllers
         [HttpGet]
         public async Task<HttpResponseMessage> Get(int id = -1)
         {
-            Data.Customer res = await _db.Customers.Where(c => c.id == id && !c.deleted).FirstOrDefaultAsync();
+            Data.Customer res = await _db.Customers.Where(c => c.Id == id && !c.Deleted).FirstOrDefaultAsync();
 
             if (res == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Customer Found With ID");
@@ -87,8 +87,8 @@ namespace CustomerService.Controllers
         {
             try
             {
-                Customer customer = await _db.Customers.Where(m => m.id == id).FirstOrDefaultAsync();
-                customer.deleted = true;
+                Customer customer = await _db.Customers.Where(m => m.Id == id).FirstOrDefaultAsync();
+                customer.Deleted = true;
 
                 _db.SetModified(customer);
                 await _db.SaveChangesAsync();
@@ -113,7 +113,7 @@ namespace CustomerService.Controllers
         {
             try
             {
-                Customer c = await _db.Customers.Where(m => m.id == id).FirstOrDefaultAsync();
+                Customer c = await _db.Customers.Where(m => m.Id == id).FirstOrDefaultAsync();
 
                 
 
@@ -151,46 +151,46 @@ namespace CustomerService.Controllers
         {
             return new LibBookingService.Dtos.Customer
             {
-                Id = c.id,
-                Title = c.title,
-                Forename = c.forename,
-                Surname = c.surname,
-                AddressStreet = c.addressStreet,
-                AddressTown = c.addressTown,
-                AddressCounty = c.addressCounty,
-                AddressPostalCode = c.addressPostalCode,
-                DoB = c.dob,
-                Email = c.email,
-                MobilePhoneNo = c.mobilePhoneNo,
-                HomePhoneNo = c.homePhoneNo,
-                WorkPhoneNo = c.workPhoneNo,
+                Id = c.Id,
+                Title = c.Title,
+                Forename = c.Forename,
+                Surname = c.Surname,
+                AddressStreet = c.AddressStreet,
+                AddressTown = c.AddressTown,
+                AddressCounty = c.AddressCounty,
+                AddressPostalCode = c.AddressPostalCode,
+                DoB = c.Dob,
+                Email = c.Email,
+                MobilePhoneNo = c.MobilePhoneNo,
+                HomePhoneNo = c.HomePhoneNo,
+                WorkPhoneNo = c.WorkPhoneNo,
                 Bookings = c.Bookings.Select(b => new LibBookingService.Dtos.Booking
                 {
-                    Id = b.id,
-                    CustomerId = b.customer_id,
-                    RestaurantId = b.restaurant_id,
-                    BookingMadeDate = b.bookingMadeDate,
-                    BookingMadeTime = b.bookingMadeTime,
-                    BookingDate = b.bookingDate,
-                    StartTime = b.startTime,
-                    EndTime = b.endTime,
-                    NoCustomers = b.noCustomers,
-                    PaymentMadeDate = b.paymentMadeDate,
-                    PaymentTotal = b.paymentTotal,
-                    Comments = b.comments,
-                    Cancelled = b.cancelled
+                    Id = b.Id,
+                    CustomerId = b.Customer_id,
+                    RestaurantId = b.Restaurant_id,
+                    BookingMadeDate = b.BookingMadeDate,
+                    BookingMadeTime = b.BookingMadeTime,
+                    BookingDate = b.BookingDate,
+                    StartTime = b.StartTime,
+                    EndTime = b.EndTime,
+                    NoCustomers = b.NoCustomers,
+                    PaymentMadeDate = b.PaymentMadeDate,
+                    PaymentTotal = b.PaymentTotal,
+                    Comments = b.Comments,
+                    Cancelled = b.Cancelled
                 }),
                 Payments = c.Payments.Select(p => new LibBookingService.Dtos.Payment
                 {
-                    Id = p.id,
-                    BookingId = p.booking_id,
-                    CustomerId = p.customer_id,
-                    Amount = p.amount,
-                    Comments = p.comments,
+                    Id = p.Id,
+                    BookingId = p.Booking_id,
+                    CustomerId = p.Customer_id,
+                    Amount = p.Amount,
+                    Comments = p.Comments,
                     PaymentMethod = new LibBookingService.Dtos.PaymentMethod
                     {
-                        Id = p.PaymentMethod.id,
-                        Name = p.PaymentMethod.active ? p.PaymentMethod.name : p.PaymentMethod.name + " (Inactive)"
+                        Id = p.PaymentMethod.Id,
+                        Name = p.PaymentMethod.Active ? p.PaymentMethod.Name : p.PaymentMethod.Name + " (Inactive)"
                     }
                 })
             };

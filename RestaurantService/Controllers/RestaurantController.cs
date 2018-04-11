@@ -43,7 +43,7 @@ namespace RestaurantService.Controllers
         {
             if (id != -1)
             {
-                Restaurant res = await _db.Restaurants.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
+                Restaurant res = await _db.Restaurants.Where(b => b.Id == id && !b.Deleted).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Restaurant Found With ID");
@@ -54,7 +54,7 @@ namespace RestaurantService.Controllers
             }
             else
             {
-                IEnumerable<Restaurant> res = await _db.Restaurants.Where(b => b.deleted != true).ToListAsync();
+                IEnumerable<Restaurant> res = await _db.Restaurants.Where(b => b.Deleted != true).ToListAsync();
 
                 IEnumerable<LibBookingService.Dtos.Restaurant> restaurants = res.Select(b => CreateRestaurantFromDbRestaurant(b)).OrderBy(b => b.Name);
 
@@ -77,13 +77,13 @@ namespace RestaurantService.Controllers
             {
                 Restaurant newRestaurant = _db.Restaurants.Add(new Restaurant
                 {
-                    company_id = restaurant.CompanyId,
-                    name = restaurant.Name,
-                    phoneNo = restaurant.PhoneNo,
-                    addressStreet = restaurant.AddressStreet,
-                    addressCounty = restaurant.AddressCounty,
-                    addressTown = restaurant.AddressTown,
-                    addressPostalCode = restaurant.AddressPostalCode
+                    Company_id = restaurant.CompanyId,
+                    Name = restaurant.Name,
+                    PhoneNo = restaurant.PhoneNo,
+                    AddressStreet = restaurant.AddressStreet,
+                    AddressCounty = restaurant.AddressCounty,
+                    AddressTown = restaurant.AddressTown,
+                    AddressPostalCode = restaurant.AddressPostalCode
                 });
                 await _db.SaveChangesAsync();
 
@@ -93,10 +93,10 @@ namespace RestaurantService.Controllers
                     {
                         _db.Tables.Add(new Table
                         {
-                            restaurant_id = newRestaurant.id,
-                            additionalNotes = t.AdditionalNotes,
-                            noSeats = t.NoSeats,
-                            active = t.Active
+                            Restaurant_id = newRestaurant.Id,
+                            AdditionalNotes = t.AdditionalNotes,
+                            NoSeats = t.NoSeats,
+                            Active = t.Active
                         });
                         await _db.SaveChangesAsync();
                     }
@@ -108,8 +108,8 @@ namespace RestaurantService.Controllers
                     {
                         _db.RestaurantMenuItems.Add(new RestaurantMenuItem
                         {
-                            restaurant_id = newRestaurant.id,
-                            menuItem_id = m.Id
+                            Restaurant_id = newRestaurant.Id,
+                            MenuItem_id = m.Id
                         });
                         await _db.SaveChangesAsync();
                     }
@@ -134,8 +134,8 @@ namespace RestaurantService.Controllers
         {
             try
             {
-                Restaurant restaurant = await _db.Restaurants.Where(b => b.id == id).FirstOrDefaultAsync();
-                restaurant.deleted = true;
+                Restaurant restaurant = await _db.Restaurants.Where(b => b.Id == id).FirstOrDefaultAsync();
+                restaurant.Deleted = true;
 
                 _db.SetModified(restaurant);
                 await _db.SaveChangesAsync();
@@ -160,15 +160,15 @@ namespace RestaurantService.Controllers
         {
             try
             {
-                Restaurant r = await _db.Restaurants.Where(rr => rr.id == id).FirstOrDefaultAsync();
+                Restaurant r = await _db.Restaurants.Where(rr => rr.Id == id).FirstOrDefaultAsync();
 
-                r.company_id = restaurant.CompanyId;
-                r.name = restaurant.Name;
-                r.phoneNo = restaurant.PhoneNo;
-                r.addressStreet = restaurant.AddressStreet;
-                r.addressCounty = restaurant.AddressCounty;
-                r.addressTown = restaurant.AddressTown;
-                r.addressPostalCode = restaurant.AddressPostalCode;
+                r.Company_id = restaurant.CompanyId;
+                r.Name = restaurant.Name;
+                r.PhoneNo = restaurant.PhoneNo;
+                r.AddressStreet = restaurant.AddressStreet;
+                r.AddressCounty = restaurant.AddressCounty;
+                r.AddressTown = restaurant.AddressTown;
+                r.AddressPostalCode = restaurant.AddressPostalCode;
 
                 _db.SetModified(r);
                 await _db.SaveChangesAsync();
@@ -195,13 +195,13 @@ namespace RestaurantService.Controllers
         {
             try
             {
-                RestaurantMenuItem res = await _db.RestaurantMenuItems.Where(d => d.restaurant_id == id && d.menuItem_id == menuItemId).FirstOrDefaultAsync();
+                RestaurantMenuItem res = await _db.RestaurantMenuItems.Where(d => d.Restaurant_id == id && d.MenuItem_id == menuItemId).FirstOrDefaultAsync();
 
                 if (res != null)
                 {
-                    if (res.deleted)
+                    if (res.Deleted)
                     {
-                        res.deleted = false;
+                        res.Deleted = false;
                         _db.SetModified(res);
                         await _db.SaveChangesAsync();
                     }
@@ -210,8 +210,8 @@ namespace RestaurantService.Controllers
                 {
                     _db.RestaurantMenuItems.Add(new RestaurantMenuItem
                     {
-                        restaurant_id = id,
-                        menuItem_id = menuItemId
+                        Restaurant_id = id,
+                        MenuItem_id = menuItemId
                     });
                     await _db.SaveChangesAsync();
                 }
@@ -236,12 +236,12 @@ namespace RestaurantService.Controllers
         {
             try
             {
-                RestaurantMenuItem res = await _db.RestaurantMenuItems.Where(d => d.restaurant_id == id && d.menuItem_id == menuItemId).FirstOrDefaultAsync();
+                RestaurantMenuItem res = await _db.RestaurantMenuItems.Where(d => d.Restaurant_id == id && d.MenuItem_id == menuItemId).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateResponse(HttpStatusCode.OK, "Menu item does not exist for restaurant");
 
-                res.deleted = true;
+                res.Deleted = true;
 
                 _db.SetModified(res);
                 await _db.SaveChangesAsync();
@@ -263,14 +263,14 @@ namespace RestaurantService.Controllers
         {
             return new LibBookingService.Dtos.Restaurant
             {
-                Id = r.id,
-                CompanyId = r.company_id,
-                Name = r.name,
-                PhoneNo = r.phoneNo,
-                AddressStreet = r.addressStreet,
-                AddressCounty = r.addressCounty,
-                AddressTown = r.addressTown,
-                AddressPostalCode = r.addressPostalCode,
+                Id = r.Id,
+                CompanyId = r.Company_id,
+                Name = r.Name,
+                PhoneNo = r.PhoneNo,
+                AddressStreet = r.AddressStreet,
+                AddressCounty = r.AddressCounty,
+                AddressTown = r.AddressTown,
+                AddressPostalCode = r.AddressPostalCode,
                 Tables = GetTablesForRestaurant(r),
                 MenuItems = GetMenuItemsForRestaurant(r)
             };
@@ -283,16 +283,16 @@ namespace RestaurantService.Controllers
         /// <returns></returns>
         private IEnumerable<LibBookingService.Dtos.Table> GetTablesForRestaurant(Restaurant restaurant)
         {
-            IEnumerable<Table> restaurantTables = restaurant.Tables.Where(b => !b.deleted);
+            IEnumerable<Table> restaurantTables = restaurant.Tables.Where(b => !b.Deleted);
             if (restaurantTables.Any())
                 return restaurantTables.Select(t => new LibBookingService.Dtos.Table
                 {
-                    Id = t.id,
-                    RestaurantId = t.restaurant_id,
-                    TableNo = t.tableNo,
-                    NoSeats = t.noSeats,
-                    AdditionalNotes = t.additionalNotes,
-                    Active = t.active
+                    Id = t.Id,
+                    RestaurantId = t.Restaurant_id,
+                    TableNo = t.TableNo,
+                    NoSeats = t.NoSeats,
+                    AdditionalNotes = t.AdditionalNotes,
+                    Active = t.Active
                 });
             return Enumerable.Empty<LibBookingService.Dtos.Table>();
         }
@@ -304,24 +304,24 @@ namespace RestaurantService.Controllers
         /// <returns></returns>
         private IEnumerable<LibBookingService.Dtos.MenuItem> GetMenuItemsForRestaurant(Restaurant restaurant)
         {
-            IEnumerable<MenuItem> restaurantMenuItems = restaurant.RestaurantMenuItems.Where(r => !r.deleted).Select(r => r.MenuItem);
+            IEnumerable<MenuItem> restaurantMenuItems = restaurant.RestaurantMenuItems.Where(r => !r.Deleted).Select(r => r.MenuItem);
 
             if (restaurantMenuItems.Any())
                 return restaurantMenuItems.Select(mi => new LibBookingService.Dtos.MenuItem
                 {
-                    Id = mi.id,
-                    Name = mi.name,
-                    Description = mi.description,
-                    Price = Convert.ToDouble(mi.price),
-                    DietInfo = mi.MenuItemDietInfoes.Where(m => !m.deleted).Select(m => m.DietInfo).Where(m => !m.deleted).Select(m => new LibBookingService.Dtos.DietInfo
+                    Id = mi.Id,
+                    Name = mi.Name,
+                    Description = mi.Description,
+                    Price = Convert.ToDouble(mi.Price),
+                    DietInfo = mi.MenuItemDietInfoes.Where(m => !m.Deleted).Select(m => m.DietInfo).Where(m => !m.Deleted).Select(m => new LibBookingService.Dtos.DietInfo
                     {
-                        Id = m.id,
-                        Name = m.name
+                        Id = m.Id,
+                        Name = m.Name
                     }),
-                    Types = mi.MenuItemTypes.Where(t => !t.deleted).Select(t => t.Type).Where(t => !t.deleted).Select(t => new LibBookingService.Dtos.MenuItemType
+                    Types = mi.MenuItemTypes.Where(t => !t.Deleted).Select(t => t.Type).Where(t => !t.Deleted).Select(t => new LibBookingService.Dtos.MenuItemType
                     {
-                        Id = t.id,
-                        Name = t.name
+                        Id = t.Id,
+                        Name = t.Name
                     })
                 });
             return Enumerable.Empty<LibBookingService.Dtos.MenuItem>();

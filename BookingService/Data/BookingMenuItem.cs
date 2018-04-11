@@ -9,17 +9,17 @@ namespace BookingService.Data
     [Table("BookingMenuItem")]
     public partial class BookingMenuItem
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public int quantity { get; set; }
+        public int Quantity { get; set; }
 
-        public decimal total { get; set; }
+        public decimal Total { get; set; }
 
-        public int booking_id { get; set; }
+        public int Booking_id { get; set; }
 
-        public int menuItem_id { get; set; }
+        public int MenuItem_id { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual Booking Booking { get; set; }
 

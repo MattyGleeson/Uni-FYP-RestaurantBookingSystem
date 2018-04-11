@@ -43,7 +43,7 @@ namespace MenuService.Controllers
         {
             if (id != -1)
             {
-                Data.Type res = await _db.Types.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
+                Data.Type res = await _db.Types.Where(b => b.Id == id && !b.Deleted).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Type Found With ID");
@@ -54,7 +54,7 @@ namespace MenuService.Controllers
             }
             else
             {
-                IEnumerable<Data.Type> res = await _db.Types.Where(b => !b.deleted).ToListAsync();
+                IEnumerable<Data.Type> res = await _db.Types.Where(b => !b.Deleted).ToListAsync();
 
                 IEnumerable<LibBookingService.Dtos.MenuItemType> menuItemTypes = res.Select(b => CreateMenuItemTypeFromDbMenuItemType(b)).OrderBy(b => b.Name);
 
@@ -77,7 +77,7 @@ namespace MenuService.Controllers
             {
                 Data.Type newMenuItem = _db.Types.Add(new Data.Type
                 {
-                    name = menuItemType.Name
+                    Name = menuItemType.Name
                 });
                 await _db.SaveChangesAsync();
 
@@ -100,8 +100,8 @@ namespace MenuService.Controllers
         {
             try
             {
-                Data.Type menuItem = await _db.Types.Where(m => m.id == id).FirstOrDefaultAsync();
-                menuItem.deleted = true;
+                Data.Type menuItem = await _db.Types.Where(m => m.Id == id).FirstOrDefaultAsync();
+                menuItem.Deleted = true;
 
                 _db.SetModified(menuItem);
                 await _db.SaveChangesAsync();
@@ -126,9 +126,9 @@ namespace MenuService.Controllers
         {
             try
             {
-                Data.Type mi = await _db.Types.Where(m => m.id == id).FirstOrDefaultAsync();
+                Data.Type mi = await _db.Types.Where(m => m.Id == id).FirstOrDefaultAsync();
 
-                mi.name = menuItemType.Name;
+                mi.Name = menuItemType.Name;
 
                 _db.SetModified(mi);
                 await _db.SaveChangesAsync();
@@ -152,8 +152,8 @@ namespace MenuService.Controllers
         {
             return new LibBookingService.Dtos.MenuItemType
             {
-                Id = mi.id,
-                Name = mi.name
+                Id = mi.Id,
+                Name = mi.Name
             };
         }
     }

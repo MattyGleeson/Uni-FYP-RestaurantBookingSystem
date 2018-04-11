@@ -9,13 +9,13 @@ namespace BookingService.Data
     [Table("TableBooking")]
     public partial class TableBooking
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public int booking_id { get; set; }
+        public int Booking_id { get; set; }
 
-        public int table_id { get; set; }
+        public int Table_id { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual Booking Booking { get; set; }
 

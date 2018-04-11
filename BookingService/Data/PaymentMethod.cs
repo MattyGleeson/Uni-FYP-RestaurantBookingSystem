@@ -15,15 +15,15 @@ namespace BookingService.Data
             Payments = new HashSet<Payment>();
         }
 
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(20)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public bool active { get; set; }
+        public bool Active { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }

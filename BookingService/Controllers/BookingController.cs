@@ -42,7 +42,7 @@ namespace BookingService.Controllers
         {
             if (id != -1)
             {
-                Booking res = await _db.Bookings.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
+                Booking res = await _db.Bookings.Where(b => b.Id == id && !b.Deleted).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Booking Found With ID");
@@ -53,7 +53,7 @@ namespace BookingService.Controllers
             }
             else
             {
-                IEnumerable<Booking> res = await _db.Bookings.Where(b => b.deleted != true).ToListAsync();
+                IEnumerable<Booking> res = await _db.Bookings.Where(b => b.Deleted != true).ToListAsync();
 
                 IEnumerable<LibBookingService.Dtos.Booking> bookings = res.Select(b => CreateBoookingFromDbBooking(b));
 
@@ -76,17 +76,17 @@ namespace BookingService.Controllers
             {
                 Booking newBoooking = _db.Bookings.Add(new Booking
                 {
-                    customer_id = booking.CustomerId,
-                    restaurant_id = booking.RestaurantId,
-                    bookingMadeDate = booking.BookingMadeDate,
-                    bookingMadeTime = booking.BookingMadeTime,
-                    startTime = booking.StartTime,
-                    endTime = booking.EndTime,
-                    paymentTotal = booking.PaymentTotal,
-                    paymentMadeDate = booking.PaymentMadeDate,
-                    noCustomers = booking.NoCustomers,
-                    comments = booking.Comments,
-                    cancelled = booking.Cancelled
+                    Customer_id = booking.CustomerId,
+                    Restaurant_id = booking.RestaurantId,
+                    BookingMadeDate = booking.BookingMadeDate,
+                    BookingMadeTime = booking.BookingMadeTime,
+                    StartTime = booking.StartTime,
+                    EndTime = booking.EndTime,
+                    PaymentTotal = booking.PaymentTotal,
+                    PaymentMadeDate = booking.PaymentMadeDate,
+                    NoCustomers = booking.NoCustomers,
+                    Comments = booking.Comments,
+                    Cancelled = booking.Cancelled
                 });
                 await _db.SaveChangesAsync();
 
@@ -96,8 +96,8 @@ namespace BookingService.Controllers
                     {
                         _db.TableBookings.Add(new TableBooking
                         {
-                            table_id = t.Id,
-                            booking_id = newBoooking.id
+                            Table_id = t.Id,
+                            Booking_id = newBoooking.Id
                         });
                         await _db.SaveChangesAsync();
                     }
@@ -109,11 +109,11 @@ namespace BookingService.Controllers
                     {
                         _db.Payments.Add(new Payment
                         {
-                            paymentMethod_id = p.PaymentMethod.Id,
-                            customer_id = p.CustomerId,
-                            booking_id = p.BookingId,
-                            amount = p.Amount,
-                            comments = p.Comments
+                            PaymentMethod_id = p.PaymentMethod.Id,
+                            Customer_id = p.CustomerId,
+                            Booking_id = p.BookingId,
+                            Amount = p.Amount,
+                            Comments = p.Comments
                         });
                         await _db.SaveChangesAsync();
                     }
@@ -125,9 +125,9 @@ namespace BookingService.Controllers
                     {
                         _db.BookingMenuItems.Add(new BookingMenuItem
                         {
-                            booking_id = newBoooking.id,
-                            menuItem_id = m.MenuItemId,
-                            quantity = m.Quantity
+                            Booking_id = newBoooking.Id,
+                            MenuItem_id = m.MenuItemId,
+                            Quantity = m.Quantity
                         });
                         await _db.SaveChangesAsync();
                     }
@@ -152,8 +152,8 @@ namespace BookingService.Controllers
         {
             try
             {
-                Booking booking = await _db.Bookings.Where(b => b.id == id).FirstOrDefaultAsync();
-                booking.deleted = true;
+                Booking booking = await _db.Bookings.Where(b => b.Id == id).FirstOrDefaultAsync();
+                booking.Deleted = true;
 
                 _db.SetModified(booking);
                 await _db.SaveChangesAsync();
@@ -178,19 +178,19 @@ namespace BookingService.Controllers
         {
             try
             {
-                Booking b = await _db.Bookings.Where(bb => bb.id == id).FirstOrDefaultAsync();
+                Booking b = await _db.Bookings.Where(bb => bb.Id == id).FirstOrDefaultAsync();
 
-                b.customer_id = booking.CustomerId;
-                b.restaurant_id = booking.RestaurantId;
-                b.bookingMadeDate = booking.BookingMadeDate;
-                b.bookingMadeTime = booking.BookingMadeTime;
-                b.startTime = booking.StartTime;
-                b.endTime = booking.EndTime;
-                b.paymentTotal = booking.PaymentTotal;
-                b.paymentMadeDate = booking.PaymentMadeDate;
-                b.noCustomers = booking.NoCustomers;
-                b.comments = booking.Comments;
-                b.cancelled = booking.Cancelled;
+                b.Customer_id = booking.CustomerId;
+                b.Restaurant_id = booking.RestaurantId;
+                b.BookingMadeDate = booking.BookingMadeDate;
+                b.BookingMadeTime = booking.BookingMadeTime;
+                b.StartTime = booking.StartTime;
+                b.EndTime = booking.EndTime;
+                b.PaymentTotal = booking.PaymentTotal;
+                b.PaymentMadeDate = booking.PaymentMadeDate;
+                b.NoCustomers = booking.NoCustomers;
+                b.Comments = booking.Comments;
+                b.Cancelled = booking.Cancelled;
 
                 _db.SetModified(b);
                 await _db.SaveChangesAsync();
@@ -214,18 +214,18 @@ namespace BookingService.Controllers
         {
             return new LibBookingService.Dtos.Booking
             {
-                Id = b.id,
-                CustomerId = b.customer_id,
-                RestaurantId = b.restaurant_id,
-                BookingMadeDate = b.bookingMadeDate,
-                BookingMadeTime = b.bookingMadeTime,
-                StartTime = b.startTime,
-                EndTime = b.endTime,
-                PaymentTotal = b.paymentTotal,
-                PaymentMadeDate = b.paymentMadeDate,
-                NoCustomers = b.noCustomers,
-                Comments = b.comments,
-                Cancelled = b.cancelled,
+                Id = b.Id,
+                CustomerId = b.Customer_id,
+                RestaurantId = b.Restaurant_id,
+                BookingMadeDate = b.BookingMadeDate,
+                BookingMadeTime = b.BookingMadeTime,
+                StartTime = b.StartTime,
+                EndTime = b.EndTime,
+                PaymentTotal = b.PaymentTotal,
+                PaymentMadeDate = b.PaymentMadeDate,
+                NoCustomers = b.NoCustomers,
+                Comments = b.Comments,
+                Cancelled = b.Cancelled,
                 Tables = GetTablesForBooking(b),
                 Payments = GetPaymentsForBooking(b),
                 MenuItems = GetBookingMenuItemsForBooking(b)
@@ -239,15 +239,15 @@ namespace BookingService.Controllers
         /// <returns></returns>
         private IEnumerable<LibBookingService.Dtos.Table> GetTablesForBooking(Booking booking)
         {
-            IEnumerable<Table> bookingTables = booking.TableBookings.Where(b => !b.deleted).Select(b => b.Table).Where(b => !b.deleted);
+            IEnumerable<Table> bookingTables = booking.TableBookings.Where(b => !b.Deleted).Select(b => b.Table).Where(b => !b.Deleted);
             if (bookingTables.Any())
                 return bookingTables.Select(t => new LibBookingService.Dtos.Table
                 {
-                    Id = t.id,
-                    RestaurantId = t.restaurant_id,
-                    NoSeats = t.noSeats,
-                    AdditionalNotes = t.additionalNotes,
-                    Active = t.active
+                    Id = t.Id,
+                    RestaurantId = t.Restaurant_id,
+                    NoSeats = t.NoSeats,
+                    AdditionalNotes = t.AdditionalNotes,
+                    Active = t.Active
                 });
             return Enumerable.Empty<LibBookingService.Dtos.Table>();
         }
@@ -259,21 +259,21 @@ namespace BookingService.Controllers
         /// <returns></returns>
         private IEnumerable<LibBookingService.Dtos.Payment> GetPaymentsForBooking(Booking booking)
         {
-            IEnumerable<Payment> bookingPayments = booking.Payments.Where(p => !p.deleted);
+            IEnumerable<Payment> bookingPayments = booking.Payments.Where(p => !p.Deleted);
             if (bookingPayments.Any())
                 return bookingPayments.Select(p => new LibBookingService.Dtos.Payment
                 {
-                    Id = p.id,
-                    BookingId = booking.id,
-                    CustomerId = p.customer_id,
+                    Id = p.Id,
+                    BookingId = booking.Id,
+                    CustomerId = p.Customer_id,
                     PaymentMethod = new LibBookingService.Dtos.PaymentMethod
                     {
-                        Id = p.PaymentMethod.id,
-                        Name = p.PaymentMethod.name,
-                        Active = p.PaymentMethod.active
+                        Id = p.PaymentMethod.Id,
+                        Name = p.PaymentMethod.Name,
+                        Active = p.PaymentMethod.Active
                     },
-                    Amount = p.amount,
-                    Comments = p.comments
+                    Amount = p.Amount,
+                    Comments = p.Comments
                 });
             return Enumerable.Empty<LibBookingService.Dtos.Payment>();
         }
@@ -285,14 +285,14 @@ namespace BookingService.Controllers
         /// <returns></returns>
         private IEnumerable<LibBookingService.Dtos.BookingMenuItem> GetBookingMenuItemsForBooking(Booking booking)
         {
-            IEnumerable<BookingMenuItem> bookingMenuItems = booking.BookingMenuItems.Where(p => !p.deleted);
+            IEnumerable<BookingMenuItem> bookingMenuItems = booking.BookingMenuItems.Where(p => !p.Deleted);
             if (bookingMenuItems.Any())
                 return bookingMenuItems.Select(mi => new LibBookingService.Dtos.BookingMenuItem
                 {
-                    Id = mi.id,
-                    BookingId = booking.id,
-                    MenuItemId = mi.menuItem_id,
-                    Quantity = mi.quantity
+                    Id = mi.Id,
+                    BookingId = booking.Id,
+                    MenuItemId = mi.MenuItem_id,
+                    Quantity = mi.Quantity
                 });
             return Enumerable.Empty<LibBookingService.Dtos.BookingMenuItem>();
         }

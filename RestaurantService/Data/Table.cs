@@ -9,30 +9,21 @@ namespace RestaurantService.Data
     [Table("Table")]
     public partial class Table
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Table()
-        {
-            TableBookings = new HashSet<TableBooking>();
-        }
+        public int Id { get; set; }
 
-        public int id { get; set; }
+        public int Restaurant_id { get; set; }
 
-        public int restaurant_id { get; set; }
-
-        public int tableNo { get; set; }
+        public int TableNo { get; set; }
 
         [StringLength(150)]
-        public string additionalNotes { get; set; }
+        public string AdditionalNotes { get; set; }
 
-        public int noSeats { get; set; }
+        public int NoSeats { get; set; }
 
-        public bool active { get; set; }
+        public bool Active { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableBooking> TableBookings { get; set; }
     }
 }

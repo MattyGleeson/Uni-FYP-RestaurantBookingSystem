@@ -16,59 +16,63 @@ namespace CustomerService.Data
             Payments = new HashSet<Payment>();
         }
 
-        public int id { get; set; }
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string UserName { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string OwinUserId { get; set; }
 
         [Required]
         [StringLength(4)]
-        public string title { get; set; }
+        public string Title { get; set; }
 
         [Required]
         [StringLength(20)]
-        public string forename { get; set; }
+        public string Forename { get; set; }
 
         [Required]
         [StringLength(25)]
-        public string surname { get; set; }
+        public string Surname { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime dob { get; set; }
+        public DateTime Dob { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string addressStreet { get; set; }
+        public string AddressStreet { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string addressTown { get; set; }
+        public string AddressTown { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string addressCounty { get; set; }
+        public string AddressCounty { get; set; }
 
         [Required]
         [StringLength(8)]
-        public string addressPostalCode { get; set; }
+        public string AddressPostalCode { get; set; }
 
         [Required]
         [StringLength(15)]
-        public string homePhoneNo { get; set; }
+        public string HomePhoneNo { get; set; }
 
         [StringLength(15)]
-        public string workPhoneNo { get; set; }
+        public string WorkPhoneNo { get; set; }
 
         [Required]
         [StringLength(15)]
-        public string mobilePhoneNo { get; set; }
+        public string MobilePhoneNo { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string email { get; set; }
+        public string Email { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string password { get; set; }
-
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }

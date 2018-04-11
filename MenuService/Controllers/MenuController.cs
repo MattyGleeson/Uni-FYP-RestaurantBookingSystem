@@ -43,7 +43,7 @@ namespace MenuService.Controllers
         {
             if (id != -1)
             {
-                MenuItem res = await _db.MenuItems.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
+                MenuItem res = await _db.MenuItems.Where(b => b.Id == id && !b.Deleted).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Found With ID");
@@ -54,7 +54,7 @@ namespace MenuService.Controllers
             }
             else
             {
-                IEnumerable<MenuItem> res = await _db.MenuItems.Where(b => !b.deleted).ToListAsync();
+                IEnumerable<MenuItem> res = await _db.MenuItems.Where(b => !b.Deleted).ToListAsync();
 
                 IEnumerable<LibBookingService.Dtos.MenuItem> menuItems = res.Select(b => CreateMenuItemFromDbMenuItem(b)).OrderBy(b => b.Name);
 
@@ -77,9 +77,9 @@ namespace MenuService.Controllers
             {
                 MenuItem newMenuItem = _db.MenuItems.Add(new MenuItem
                 {
-                    name = menuItem.Name,
-                    description = menuItem.Description,
-                    price = Convert.ToDecimal(menuItem.Price)
+                    Name = menuItem.Name,
+                    Description = menuItem.Description,
+                    Price = Convert.ToDecimal(menuItem.Price)
                 });
                 await _db.SaveChangesAsync();
 
@@ -89,8 +89,8 @@ namespace MenuService.Controllers
                     {
                         _db.MenuItemDietInfoes.Add(new MenuItemDietInfo
                         {
-                            menuItem_id = newMenuItem.id,
-                            dietInfo_id = di.Id
+                            MenuItem_id = newMenuItem.Id,
+                            DietInfo_id = di.Id
                         });
                         await _db.SaveChangesAsync();
                     }
@@ -102,8 +102,8 @@ namespace MenuService.Controllers
                     {
                         _db.MenuItemTypes.Add(new MenuItemType
                         {
-                            menuItem_id = newMenuItem.id,
-                            type_id = t.Id
+                            MenuItem_id = newMenuItem.Id,
+                            Type_id = t.Id
                         });
                         await _db.SaveChangesAsync();
                     }
@@ -128,8 +128,8 @@ namespace MenuService.Controllers
         {
             try
             {
-                MenuItem menuItem = await _db.MenuItems.Where(m => m.id == id).FirstOrDefaultAsync();
-                menuItem.deleted = true;
+                MenuItem menuItem = await _db.MenuItems.Where(m => m.Id == id).FirstOrDefaultAsync();
+                menuItem.Deleted = true;
 
                 _db.SetModified(menuItem);
                 await _db.SaveChangesAsync();
@@ -154,11 +154,11 @@ namespace MenuService.Controllers
         {
             try
             {
-                MenuItem mi = await _db.MenuItems.Where(m => m.id == id).FirstOrDefaultAsync();
+                MenuItem mi = await _db.MenuItems.Where(m => m.Id == id).FirstOrDefaultAsync();
 
-                mi.name = menuItem.Name;
-                mi.description = menuItem.Description;
-                mi.price = Convert.ToDecimal(menuItem.Price);
+                mi.Name = menuItem.Name;
+                mi.Description = menuItem.Description;
+                mi.Price = Convert.ToDecimal(menuItem.Price);
                 
                 _db.SetModified(mi);
                 await _db.SaveChangesAsync();
@@ -185,13 +185,13 @@ namespace MenuService.Controllers
         {
             try
             {
-                MenuItemDietInfo res = await _db.MenuItemDietInfoes.Where(d => d.menuItem_id == id && d.dietInfo_id == dietInfoId).FirstOrDefaultAsync();
+                MenuItemDietInfo res = await _db.MenuItemDietInfoes.Where(d => d.MenuItem_id == id && d.DietInfo_id == dietInfoId).FirstOrDefaultAsync();
 
                 if (res != null)
                 {
-                    if(res.deleted)
+                    if(res.Deleted)
                     {
-                        res.deleted = false;
+                        res.Deleted = false;
                         _db.SetModified(res);
                         await _db.SaveChangesAsync();
                     }
@@ -200,8 +200,8 @@ namespace MenuService.Controllers
                 {
                     _db.MenuItemDietInfoes.Add(new MenuItemDietInfo
                     {
-                        menuItem_id = id,
-                        dietInfo_id = dietInfoId
+                        MenuItem_id = id,
+                        DietInfo_id = dietInfoId
                     });
                     await _db.SaveChangesAsync();
                 }
@@ -226,12 +226,12 @@ namespace MenuService.Controllers
         {
             try
             {
-                MenuItemDietInfo res = await _db.MenuItemDietInfoes.Where(d => d.menuItem_id == id && d.dietInfo_id == dietInfoId).FirstOrDefaultAsync();
+                MenuItemDietInfo res = await _db.MenuItemDietInfoes.Where(d => d.MenuItem_id == id && d.DietInfo_id == dietInfoId).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateResponse(HttpStatusCode.OK, "Diet info does not exist for menu item");
 
-                res.deleted = true;
+                res.Deleted = true;
 
                 _db.SetModified(res);
                 await _db.SaveChangesAsync();
@@ -256,13 +256,13 @@ namespace MenuService.Controllers
         {
             try
             {
-                MenuItemType res = await _db.MenuItemTypes.Where(d => d.menuItem_id == id && d.type_id == menuItemTypeId).FirstOrDefaultAsync();
+                MenuItemType res = await _db.MenuItemTypes.Where(d => d.MenuItem_id == id && d.Type_id == menuItemTypeId).FirstOrDefaultAsync();
 
                 if (res != null)
                 {
-                    if (res.deleted)
+                    if (res.Deleted)
                     {
-                        res.deleted = false;
+                        res.Deleted = false;
                         _db.SetModified(res);
                         await _db.SaveChangesAsync();
                     }
@@ -271,8 +271,8 @@ namespace MenuService.Controllers
                 {
                     _db.MenuItemTypes.Add(new MenuItemType
                     {
-                        menuItem_id = id,
-                        type_id = menuItemTypeId
+                        MenuItem_id = id,
+                        Type_id = menuItemTypeId
                     });
                     await _db.SaveChangesAsync();
                 }
@@ -297,12 +297,12 @@ namespace MenuService.Controllers
         {
             try
             {
-                MenuItemType res = await _db.MenuItemTypes.Where(d => d.menuItem_id == id && d.type_id == menuItemTypeId).FirstOrDefaultAsync();
+                MenuItemType res = await _db.MenuItemTypes.Where(d => d.MenuItem_id == id && d.Type_id == menuItemTypeId).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateResponse(HttpStatusCode.OK, "Category does not exist for menu item");
 
-                res.deleted = true;
+                res.Deleted = true;
 
                 _db.SetModified(res);
                 await _db.SaveChangesAsync();
@@ -324,19 +324,19 @@ namespace MenuService.Controllers
         {
             return new LibBookingService.Dtos.MenuItem
             {
-                Id = mi.id,
-                Name = mi.name,
-                Description = mi.description,
-                Price = Convert.ToDouble(mi.price),
-                DietInfo = mi.MenuItemDietInfoes.Where(m => !m.deleted).Select(m => m.DietInfo).Where(m => !m.deleted).Select(m => new LibBookingService.Dtos.DietInfo
+                Id = mi.Id,
+                Name = mi.Name,
+                Description = mi.Description,
+                Price = Convert.ToDouble(mi.Price),
+                DietInfo = mi.MenuItemDietInfoes.Where(m => !m.Deleted).Select(m => m.DietInfo).Where(m => !m.Deleted).Select(m => new LibBookingService.Dtos.DietInfo
                 {
-                    Id = m.id,
-                    Name = m.name
+                    Id = m.Id,
+                    Name = m.Name
                 }).OrderBy(b => b.Name),
-                Types = mi.MenuItemTypes.Where(t => !t.deleted).Select(t => t.Type).Where(t => !t.deleted).Select(t => new LibBookingService.Dtos.MenuItemType
+                Types = mi.MenuItemTypes.Where(t => !t.Deleted).Select(t => t.Type).Where(t => !t.Deleted).Select(t => new LibBookingService.Dtos.MenuItemType
                 {
-                    Id = t.id,
-                    Name = t.name
+                    Id = t.Id,
+                    Name = t.Name
                 }).OrderBy(b => b.Name)
             };
         }

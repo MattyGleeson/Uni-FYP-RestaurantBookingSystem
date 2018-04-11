@@ -9,13 +9,13 @@ namespace RestaurantService.Data
     [Table("MenuItemDietInfo")]
     public partial class MenuItemDietInfo
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public int menuItem_id { get; set; }
+        public int MenuItem_id { get; set; }
 
-        public int dietInfo_id { get; set; }
+        public int DietInfo_id { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual DietInfo DietInfo { get; set; }
 

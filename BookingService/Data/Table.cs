@@ -15,20 +15,20 @@ namespace BookingService.Data
             TableBookings = new HashSet<TableBooking>();
         }
 
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public int restaurant_id { get; set; }
+        public int Restaurant_id { get; set; }
 
-        public int tableNo { get; set; }
+        public int TableNo { get; set; }
 
         [StringLength(150)]
-        public string additionalNotes { get; set; }
+        public string AdditionalNotes { get; set; }
 
-        public int noSeats { get; set; }
+        public int NoSeats { get; set; }
 
-        public bool active { get; set; }
+        public bool Active { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
 

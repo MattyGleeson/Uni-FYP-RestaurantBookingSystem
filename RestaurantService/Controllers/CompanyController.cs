@@ -41,26 +41,26 @@ namespace RestaurantService.Controllers
         [HttpGet]
         public async Task<HttpResponseMessage> Get()
         {
-            Company res = await _db.Companies.Where(b => !b.deleted).FirstOrDefaultAsync();
+            Company res = await _db.Companies.Where(b => !b.Deleted).FirstOrDefaultAsync();
 
             if (res == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Company Found With ID");
 
             LibBookingService.Dtos.Company company = new LibBookingService.Dtos.Company
             {
-                Id = res.id,
-                Name = res.name,
-                Description = res.description,
-                PhoneNo = res.phoneNo,
-                AddressStreet = res.addressStreet,
-                AddressTown = res.addressTown,
-                AddressCounty = res.addressCounty,
-                AddressPostalCode = res.addressPostalCode,
-                Email = res.email,
+                Id = res.Id,
+                Name = res.Name,
+                Description = res.Description,
+                PhoneNo = res.PhoneNo,
+                AddressStreet = res.AddressStreet,
+                AddressTown = res.AddressTown,
+                AddressCounty = res.AddressCounty,
+                AddressPostalCode = res.AddressPostalCode,
+                Email = res.Email,
                 Restaurants = res.Restaurants.Select(r => new LibBookingService.Dtos.Restaurant
                 {
-                    Id = r.id,
-                    Name = r.name
+                    Id = r.Id,
+                    Name = r.Name
                 }).OrderBy(b => b.Name)
             };
 

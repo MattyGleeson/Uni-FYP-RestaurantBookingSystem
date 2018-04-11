@@ -43,7 +43,7 @@ namespace RestaurantService.Controllers
         {
             if (id != -1)
             {
-                Table res = await _db.Tables.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
+                Table res = await _db.Tables.Where(b => b.Id == id && !b.Deleted).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Table Found With ID");
@@ -54,7 +54,7 @@ namespace RestaurantService.Controllers
             }
             else
             {
-                IEnumerable<Table> res = await _db.Tables.Where(b => b.deleted != true).ToListAsync();
+                IEnumerable<Table> res = await _db.Tables.Where(b => b.Deleted != true).ToListAsync();
 
                 IEnumerable<LibBookingService.Dtos.Table> restaurants = res.Select(b => CreateTableFromDbTable(b)).OrderBy(b => b.TableNo);
 
@@ -77,10 +77,10 @@ namespace RestaurantService.Controllers
             {
                 Table newTable = _db.Tables.Add(new Table
                 {
-                    restaurant_id = table.RestaurantId,
-                    tableNo = table.TableNo,
-                    noSeats = table.NoSeats,
-                    additionalNotes = table.AdditionalNotes
+                    Restaurant_id = table.RestaurantId,
+                    TableNo = table.TableNo,
+                    NoSeats = table.NoSeats,
+                    AdditionalNotes = table.AdditionalNotes
                 });
                 await _db.SaveChangesAsync();
 
@@ -103,8 +103,8 @@ namespace RestaurantService.Controllers
         {
             try
             {
-                Table table = await _db.Tables.Where(b => b.id == id).FirstOrDefaultAsync();
-                table.deleted = true;
+                Table table = await _db.Tables.Where(b => b.Id == id).FirstOrDefaultAsync();
+                table.Deleted = true;
 
                 _db.SetModified(table);
                 await _db.SaveChangesAsync();
@@ -129,13 +129,13 @@ namespace RestaurantService.Controllers
         {
             try
             {
-                Table r = await _db.Tables.Where(rr => rr.id == id).FirstOrDefaultAsync();
+                Table r = await _db.Tables.Where(rr => rr.Id == id).FirstOrDefaultAsync();
 
-                r.restaurant_id = table.RestaurantId;
-                r.tableNo = table.TableNo;
-                r.noSeats = table.NoSeats;
-                r.additionalNotes = table.AdditionalNotes;
-                r.active = table.Active;
+                r.Restaurant_id = table.RestaurantId;
+                r.TableNo = table.TableNo;
+                r.NoSeats = table.NoSeats;
+                r.AdditionalNotes = table.AdditionalNotes;
+                r.Active = table.Active;
 
                 _db.SetModified(r);
                 await _db.SaveChangesAsync();
@@ -159,12 +159,12 @@ namespace RestaurantService.Controllers
         {
             return new LibBookingService.Dtos.Table
             {
-                Id = r.id,
-                RestaurantId = r.restaurant_id,
-                TableNo = r.tableNo,
-                NoSeats = r.noSeats,
-                AdditionalNotes = r.additionalNotes,
-                Active = r.active
+                Id = r.Id,
+                RestaurantId = r.Restaurant_id,
+                TableNo = r.TableNo,
+                NoSeats = r.NoSeats,
+                AdditionalNotes = r.AdditionalNotes,
+                Active = r.Active
             };
         }
     }

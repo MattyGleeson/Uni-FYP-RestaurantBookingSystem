@@ -9,20 +9,20 @@ namespace BookingService.Data
     [Table("Payment")]
     public partial class Payment
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public int paymentMethod_id { get; set; }
+        public int PaymentMethod_id { get; set; }
 
-        public int customer_id { get; set; }
+        public int Customer_id { get; set; }
 
-        public int booking_id { get; set; }
+        public int Booking_id { get; set; }
 
-        public decimal amount { get; set; }
+        public decimal Amount { get; set; }
 
         [StringLength(150)]
-        public string comments { get; set; }
+        public string Comments { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual Booking Booking { get; set; }
 

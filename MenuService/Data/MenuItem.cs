@@ -12,27 +12,23 @@ namespace MenuService.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MenuItem()
         {
-            BookingMenuItems = new HashSet<BookingMenuItem>();
             MenuItemDietInfoes = new HashSet<MenuItemDietInfo>();
             MenuItemTypes = new HashSet<MenuItemType>();
             RestaurantMenuItems = new HashSet<RestaurantMenuItem>();
         }
 
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [StringLength(255)]
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        public decimal price { get; set; }
+        public decimal Price { get; set; }
 
-        public bool deleted { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BookingMenuItem> BookingMenuItems { get; set; }
+        public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MenuItemDietInfo> MenuItemDietInfoes { get; set; }

@@ -43,7 +43,7 @@ namespace MenuService.Controllers
         {
             if (id != -1)
             {
-                DietInfo res = await _db.DietInfoes.Where(b => b.id == id && !b.deleted).FirstOrDefaultAsync();
+                DietInfo res = await _db.DietInfoes.Where(b => b.Id == id && !b.Deleted).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Diet Info Found With ID");
@@ -54,7 +54,7 @@ namespace MenuService.Controllers
             }
             else
             {
-                IEnumerable<DietInfo> res = await _db.DietInfoes.Where(b => !b.deleted).ToListAsync();
+                IEnumerable<DietInfo> res = await _db.DietInfoes.Where(b => !b.Deleted).ToListAsync();
 
                 IEnumerable<LibBookingService.Dtos.DietInfo> dietInfoList = res.Select(b => CreateDietInfoFromDbDietInfo(b)).OrderBy(b => b.Name);
 
@@ -77,7 +77,7 @@ namespace MenuService.Controllers
             {
                 DietInfo newDietInfo = _db.DietInfoes.Add(new DietInfo
                 {
-                    name = dietInfo.Name
+                    Name = dietInfo.Name
                 });
                 await _db.SaveChangesAsync();
 
@@ -100,8 +100,8 @@ namespace MenuService.Controllers
         {
             try
             {
-                DietInfo menuItem = await _db.DietInfoes.Where(m => m.id == id).FirstOrDefaultAsync();
-                menuItem.deleted = true;
+                DietInfo menuItem = await _db.DietInfoes.Where(m => m.Id == id).FirstOrDefaultAsync();
+                menuItem.Deleted = true;
 
                 _db.SetModified(menuItem);
                 await _db.SaveChangesAsync();
@@ -126,9 +126,9 @@ namespace MenuService.Controllers
         {
             try
             {
-                DietInfo di = await _db.DietInfoes.Where(m => m.id == id).FirstOrDefaultAsync();
+                DietInfo di = await _db.DietInfoes.Where(m => m.Id == id).FirstOrDefaultAsync();
 
-                di.name = dietInfo.Name;
+                di.Name = dietInfo.Name;
 
                 _db.SetModified(di);
                 await _db.SaveChangesAsync();
@@ -152,8 +152,8 @@ namespace MenuService.Controllers
         {
             return new LibBookingService.Dtos.DietInfo
             {
-                Id = mi.id,
-                Name = mi.name
+                Id = mi.Id,
+                Name = mi.Name
             };
         }
     }

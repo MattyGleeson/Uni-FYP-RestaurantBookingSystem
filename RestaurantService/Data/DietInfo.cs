@@ -15,13 +15,13 @@ namespace RestaurantService.Data
             MenuItemDietInfoes = new HashSet<MenuItemDietInfo>();
         }
 
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MenuItemDietInfo> MenuItemDietInfoes { get; set; }
