@@ -53,6 +53,8 @@
     <Compile Include="Dtos\Restaurant.cs" />
     <Compile Include="Dtos\Table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Title.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -155,6 +155,7 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
+    <Compile Include="Facades\AuthFacade.cs" />
     <Compile Include="Facades\BookingFacade.cs" />
     <Compile Include="Facades\CompanyFacade.cs" />
     <Compile Include="Facades\Core\GenericFacade.cs" />
@@ -175,9 +176,11 @@
     <Compile Include="View Models\CompanyVM.cs" />
     <Compile Include="View Models\DietInfoVM.cs" />
     <Compile Include="View Models\HomeDatePickerVM.cs" />
+    <Compile Include="View Models\LoginVM.cs" />
     <Compile Include="View Models\ManageDietInfoVM.cs" />
     <Compile Include="View Models\MenuItemTypeVM.cs" />
     <Compile Include="View Models\MenuItemVM.cs" />
+    <Compile Include="View Models\RegisterVM.cs" />
     <Compile Include="View Models\RestaurantVM.cs" />
     <Compile Include="View Models\TableVM.cs" />
   </ItemGroup>
@@ -302,12 +305,13 @@
     <Content Include="Views\RestaurantAdmin\NewTable.cshtml" />
     <Content Include="Views\Shared\_Toastr.cshtml" />
     <Content Include="Views\Booking\Create.cshtml" />
+    <Content Include="Views\Customer\Login.cshtml" />
+    <Content Include="Views\Customer\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\fonts\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Customer\" />
     <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>

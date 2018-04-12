@@ -1,0 +1,30 @@
+﻿@model BookingSystemApp.View_Models.LoginVM
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin-top: 100px;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Username)
+            @Html.LabelFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.LabelFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group" style="text-align:end;">
+            <input type="submit" value="Login" class="btn btn-primary dark-blue" />
+        </div>
+    </div>
+}

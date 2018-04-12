@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -50,11 +51,50 @@ namespace AuthService.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("UserInfo")]
+        public async Task<IHttpActionResult> UserInfo()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+
+            var id = identity.Claims.Where(c => c.Type == "UserId").Select(c => c.Value).FirstOrDefault();
+
+            if (id != null)
+            {
+                return Ok(new { UserId = id });      
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [Authorize]
+        [Route("AddCustomerRole")]
+        public async Task<IHttpActionResult> AddCustomerRole()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+
+            var id = identity.Claims.Where(c => c.Type == "UserId").Select(c => c.Value).FirstOrDefault();
+
+            if (id != null)
+            {
+                var res = await _repo.AssignRole(id, "Customer");
+
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _repo.Dispose();
+                //_repo.Dispose();
             }
 
             base.Dispose(disposing);

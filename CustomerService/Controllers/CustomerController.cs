@@ -10,7 +10,6 @@ using System.Web.Http;
 
 namespace CustomerService.Controllers
 {
-    [RoutePrefix("Customer")]
     public class CustomerController : ApiController
     {
         private BookingSystemDb _db;
@@ -64,7 +63,20 @@ namespace CustomerService.Controllers
             {
                 Customer newCustomer = _db.Customers.Add(new Customer
                 {
-                    
+                    OwinUserId = customer.OwinUserId,
+                    UserName = customer.UserName,
+                    Title = customer.Title,
+                    Forename = customer.Forename,
+                    Surname = customer.Surname,
+                    Dob = customer.DoB,
+                    AddressStreet = customer.AddressStreet,
+                    AddressTown = customer.AddressTown,
+                    AddressCounty = customer.AddressCounty,
+                    AddressPostalCode = customer.AddressPostalCode,
+                    HomePhoneNo = customer.HomePhoneNo,
+                    WorkPhoneNo = customer.WorkPhoneNo,
+                    MobilePhoneNo = customer.MobilePhoneNo,
+                    Email = customer.Email
                 });
                 await _db.SaveChangesAsync();
 
@@ -115,7 +127,20 @@ namespace CustomerService.Controllers
             {
                 Customer c = await _db.Customers.Where(m => m.Id == id).FirstOrDefaultAsync();
 
-                
+                c.OwinUserId = customer.OwinUserId;
+                c.UserName = customer.UserName;
+                c.Title = customer.Title;
+                c.Forename = customer.Forename;
+                c.Surname = customer.Surname;
+                c.Dob = customer.DoB;
+                c.AddressStreet = customer.AddressStreet;
+                c.AddressTown = customer.AddressTown;
+                c.AddressCounty = customer.AddressCounty;
+                c.AddressPostalCode = customer.AddressPostalCode;
+                c.HomePhoneNo = customer.HomePhoneNo;
+                c.WorkPhoneNo = customer.WorkPhoneNo;
+                c.MobilePhoneNo = customer.MobilePhoneNo;
+                c.Email = customer.Email;
 
                 _db.SetModified(c);
                 await _db.SaveChangesAsync();

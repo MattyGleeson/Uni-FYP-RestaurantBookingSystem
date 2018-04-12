@@ -11,6 +11,48 @@ namespace BookingSystemApp.Facades.Core
 {
     public class GenericFacade
     {
+        public static string Token
+        {
+            get
+            {
+                HttpContext c = HttpContext.Current;
+                return (string) c.Session["AuthToken"];
+            }
+            set
+            {
+                HttpContext c = HttpContext.Current;
+                c.Session["AuthToken"] = value;
+            }
+        }
+
+        public static string UserName
+        {
+            get
+            {
+                HttpContext c = HttpContext.Current;
+                return (string) c.Session["AuthUserName"];
+            }
+            set
+            {
+                HttpContext c = HttpContext.Current;
+                c.Session["AuthUserName"] = value;
+            }
+        }
+
+        public static string OwinId
+        {
+            get
+            {
+                HttpContext c = HttpContext.Current;
+                return (string) c.Session["AuthOwinId"];
+            }
+            set
+            {
+                HttpContext c = HttpContext.Current;
+                c.Session["AuthOwinId"] = value;
+            }
+        }
+
         /// <summary>
         /// Http client used to send http requests.
         /// </summary>
@@ -32,6 +74,7 @@ namespace BookingSystemApp.Facades.Core
         public GenericFacade(string apiController)
         {
             _client = new HttpClient();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
             _baseUrl += apiController;

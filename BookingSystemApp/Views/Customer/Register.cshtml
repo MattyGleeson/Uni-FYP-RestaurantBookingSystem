@@ -1,0 +1,137 @@
+﻿@model BookingSystemApp.View_Models.RegisterVM
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin-top: 100px;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Username)
+            @Html.LabelFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.LabelFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.ConfirmPassword)
+            @Html.LabelFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.LabelFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Forename)
+            @Html.LabelFor(model => model.Forename)
+            @Html.ValidationMessageFor(model => model.Forename, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Surname)
+            @Html.LabelFor(model => model.Surname)
+            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.LabelFor(model => model.Dob)
+            @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.AddressStreet)
+            @Html.LabelFor(model => model.AddressStreet)
+            @Html.ValidationMessageFor(model => model.AddressStreet, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.AddressTown)
+            @Html.LabelFor(model => model.AddressTown)
+            @Html.ValidationMessageFor(model => model.AddressTown, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.AddressCounty)
+            @Html.LabelFor(model => model.AddressCounty)
+            @Html.ValidationMessageFor(model => model.AddressCounty, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.AddressPostalCode)
+            @Html.LabelFor(model => model.AddressPostalCode)
+            @Html.ValidationMessageFor(model => model.AddressPostalCode, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.HomePhoneNo)
+            @Html.LabelFor(model => model.HomePhoneNo)
+            @Html.ValidationMessageFor(model => model.HomePhoneNo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.WorkPhoneNo)
+            @Html.LabelFor(model => model.WorkPhoneNo)
+            @Html.ValidationMessageFor(model => model.WorkPhoneNo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.MobilePhoneNo)
+            @Html.LabelFor(model => model.MobilePhoneNo)
+            @Html.ValidationMessageFor(model => model.MobilePhoneNo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.LabelFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group" style="text-align:end;">
+            <input type="submit" value="Register" class="btn btn-primary dark-blue" />
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            setDefaultDate: true,
+            firstDay: 1,
+            showMonthAfterYear: true,
+            showDaysInNextAndPreviousMonths: true,
+            showClearBtn: true,
+            onSelect: function () {
+                $.ajax({
+                    url: "/Booking/GetTimes",
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#StartTime').empty()
+                        $.each(data, function (key, value) {
+                            $('#StartTime')
+                                .append($('<option>', { value: key.Value })
+                                    .text(value.Text));
+                        });
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                    }
+                })
+            }
+        });
+    });
+</script>

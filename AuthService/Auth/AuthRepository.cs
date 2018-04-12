@@ -15,11 +15,13 @@ namespace AuthService.Auth
         private AuthContext _ctx;
 
         private UserManager<IdentityUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         public AuthRepository()
         {
             _ctx = new AuthContext();
             _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            _roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_ctx));
         }
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
@@ -41,16 +43,27 @@ namespace AuthService.Auth
             return user;
         }
 
+        public async Task<bool> AssignRole(string id, string role)
+        {
+            var res = await _userManager.AddToRoleAsync(id, role);
+            return true;
+        }
+
         public async Task<IList<string>> GetRoles(string userId)
         {
             return await _userManager.GetRolesAsync(userId);
+        }
+
+        public IList<IdentityRole> GetRoles()
+        {
+            return _roleManager.Roles.ToList();
         }
 
         public void Dispose()
         {
             _ctx.Dispose();
             _userManager.Dispose();
-
+            _roleManager.Dispose();
         }
     }
 }

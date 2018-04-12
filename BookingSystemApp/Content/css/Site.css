@@ -52,11 +52,11 @@ nav.top-nav h3.header {
     color: #000033 !important;
 }
 /* label focus color */
-.input-field input[type=text]:focus + label, .input-field input[type=number]:focus + label {
+.input-field input[type=text]:focus + label, .input-field input[type=number]:focus + label, .input-field input[type=password]:focus + label {
     color: #000033 !important;
 }
 /* label underline focus color */
-.input-field input[type=text]:focus, .input-field input[type=number]:focus {
+.input-field input[type=text]:focus, .input-field input[type=number]:focus, .input-field input[type=password]:focus {
     border-bottom: 1px solid #000033 !important;
     box-shadow: 0 1px 0 0 #000033 !important;
 }
@@ -68,6 +68,10 @@ nav.top-nav h3.header {
 .input-field textarea[type=text]:focus {
     border-bottom: 1px solid #000033 !important;
     box-shadow: 0 1px 0 0 #000033 !important;
+}
+
+.dropdown-content li span {
+    color: #000033 !important;
 }
 
 .fab-bottom-right {

@@ -54,7 +54,7 @@ namespace BookingSystemApp.Facades
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Post,
-                    RequestUri = new Uri(_baseUrl + "Create"),
+                    RequestUri = new Uri(_baseUrl + "Post"),
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 
