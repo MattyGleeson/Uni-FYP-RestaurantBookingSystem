@@ -81,6 +81,29 @@ namespace WebApi.Facades
         }
 
         /// <summary>
+        /// Returns a bookings with the customer id parameter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IQueryable<Booking>> GetBookingsByCustomerId(int id)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "GetByCustomer/" + id)
+                };
+
+                return await ExecuteRequestAsyncList<Booking>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Posts a booking to the service and returns the updated model.
         /// </summary>
         /// <param name="booking"></param>
@@ -136,6 +159,16 @@ namespace WebApi.Facades
         public async Task<bool> RemoveBooking(int id)
         {
             return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
+        }
+
+        /// <summary>
+        /// Cancels the booking with the id parameter.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> CancelBooking(int id)
+        {
+            return await ExecuteRemove(new Uri(_baseUrl + "Cancel/" + id));
         }
     }
 }

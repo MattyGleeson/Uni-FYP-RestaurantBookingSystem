@@ -80,18 +80,18 @@ namespace BookingSystemApp.Facades
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri(_baseUrl + "Get")
+                    RequestUri = new Uri(_baseUrl + "GetByCustomer/" + id)
                 };
 
-                IEnumerable<Booking> bookings = ExecuteRequestList<Booking>(request);
+                IEnumerable<Booking> res = ExecuteRequestList<Booking>(request);
 
-                bookings = bookings.Where(b => b.CustomerId == id);
-
-                return bookings;
+                return res.Any()
+                    ? res
+                    : Enumerable.Empty<Booking>();
             }
             catch (Exception ex)
             {
-                return null;
+                return Enumerable.Empty<Booking>();
             }
         }
 
@@ -151,6 +151,16 @@ namespace BookingSystemApp.Facades
         public bool Delete(int id)
         {
             return ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
+        }
+
+        /// <summary>
+        /// Sends a cancel request to the web api and returns true if successful.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool Cancel(int id)
+        {
+            return ExecuteRemove(new Uri(_baseUrl + "Cancel/" + id));
         }
     }
 }

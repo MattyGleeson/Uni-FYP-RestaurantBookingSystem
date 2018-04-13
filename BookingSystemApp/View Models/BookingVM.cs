@@ -15,6 +15,11 @@ namespace BookingSystemApp.View_Models
         public int CustomerId { get; set; }
 
         [Required]
+        public int RestaurantId { get; set; }
+
+        public RestaurantVM Restaurant { get; set; }
+
+        [Required]
         public DateTime BookingMadeDate { get; set; }
 
         [Required]
@@ -44,5 +49,7 @@ namespace BookingSystemApp.View_Models
         [StringLength(150)]
         [DisplayName("Additional Comments")]
         public string Comments { get; set; }
+
+        public bool Cancelled { get; set; }
     }
 }

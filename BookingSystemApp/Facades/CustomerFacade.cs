@@ -43,6 +43,28 @@ namespace BookingSystemApp.Facades
         }
 
         /// <summary>
+        /// Returns a customer model using auth.
+        /// </summary>
+        /// <returns></returns>
+        public Customer Get()
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "GetByAuth")
+                };
+
+                return ExecuteRequest<Customer>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Posts a customer model to the web api and returns the saved model.
         /// </summary>
         /// <param name="model"></param>

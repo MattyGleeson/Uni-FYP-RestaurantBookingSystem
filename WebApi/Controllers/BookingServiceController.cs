@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Endpoint to get a list of restaurants.
+        /// Endpoint to get a list of bookings.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -44,7 +44,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Endpoint to get a restaurant by id.
+        /// Endpoint to get a booking by id.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -60,7 +60,23 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Endpoint to post a restaurant.
+        /// Endpoint to get a booking by customer id.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetByCustomer/{id:int?}")]
+        public async Task<HttpResponseMessage> GetByCustomer(int id)
+        {
+            IEnumerable<Booking> bookings = await _facade.GetBookingsByCustomerId(id);
+
+            if (bookings != null)
+                return Request.CreateResponse(HttpStatusCode.OK, bookings);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Bookings Found For Customer Id");
+        }
+
+        /// <summary>
+        /// Endpoint to post a booking.
         /// </summary>
         /// <param name="booking"></param>
         /// <returns></returns>
@@ -94,7 +110,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Endpoint to delete a restaurant.
+        /// Endpoint to delete a booking.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -108,6 +124,23 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
 
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Deleting");
+        }
+
+        /// <summary>
+        /// Endpoint to cancel a booking.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("Cancel/{id:int?}")]
+        public async Task<HttpResponseMessage> Cancel(int id)
+        {
+            bool res = await _facade.CancelBooking(id);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Cancelling");
         }
     }
 }

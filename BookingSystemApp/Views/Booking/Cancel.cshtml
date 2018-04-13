@@ -1,0 +1,41 @@
+﻿@model BookingSystemApp.View_Models.BookingVM
+@{
+    ViewBag.Title = "Cancel Booking";
+}
+
+<div class="form-horizontal" style="margin-top: 100px;">
+    <p style="font-weight:bold; font-size: 1.2em">Are you sure you want to cancel this booking?</p>
+
+    <div class="row">
+        @Html.LabelFor(model => model.Restaurant.Name, "Restaurant")<br />
+        @Html.DisplayFor(model => model.Restaurant.Name)
+    </div>
+
+    <div class="row">
+        @Html.LabelFor(model => model.BookingDate, "Date")<br />
+        @Html.DisplayFor(model => model.BookingDate)
+    </div>
+
+    <div class="row">
+        @Html.LabelFor(model => model.StartTime, "Time")<br />
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+    <div class="row">
+        @Html.LabelFor(model => model.NoCustomers, "Number of Customers")<br />
+        @Html.DisplayFor(model => model.NoCustomers)
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <input type="button" value="Cancel" class="btn-flat" onclick="location.href='@Url.Action("Index")'" />
+            <div style="text-align:end; display: inline-block; float: right;">
+                <input type="submit" value="Confirm" class="btn btn-primary dark-blue" />
+            </div>
+        </div>
+    }
+
+</div>

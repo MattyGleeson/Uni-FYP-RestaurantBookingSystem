@@ -5,7 +5,6 @@ if (toastr != null)
 {
         <script>
       $(document).ready(function () {
-        toastr.options.closeButton = '@toastr.ShowCloseButton';
         toastr.options.newestOnTop = '@toastr.ShowNewestOnTop';
 
         @foreach (ToastMessage message in toastr.ToastMessages)

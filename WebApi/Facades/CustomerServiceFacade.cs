@@ -57,6 +57,31 @@ namespace WebApi.Facades
         }
 
         /// <summary>
+        /// Returns a customer from the customer service.
+        /// </summary>
+        /// <param name="owinId"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public async Task<Customer> GetCustomer(string owinId, string username)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "GetByAuth"),
+                    Content = new StringContent(JsonConvert.SerializeObject(new Customer { OwinUserId = owinId, UserName = username }), Encoding.UTF8, "application/json")
+                };
+
+                return await ExecuteRequestAsync<Customer>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Posts a customer to the service and returns the updated model.
         /// </summary>
         /// <param name="customer"></param>

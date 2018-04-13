@@ -51,6 +51,25 @@ namespace CustomerService.Controllers
         }
 
         /// <summary>
+        /// Gets a customer from the database using a username and owin id.
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        [Route("GetByAuth")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetByAuth(Customer customer)
+        {
+            Data.Customer res = await _db.Customers.Where(c => !c.Deleted && c.UserName == customer.UserName && c.OwinUserId == customer.OwinUserId).FirstOrDefaultAsync();
+
+            if (res == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Customer Found With ID");
+
+            LibBookingService.Dtos.Customer cust = CreateCustomerFromDbCustomer(res);
+
+            return Request.CreateResponse(HttpStatusCode.OK, cust);
+        }
+
+        /// <summary>
         /// Posts a customer Dto to the database.
         /// </summary>
         /// <param name="customer"></param>

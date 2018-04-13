@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BookingSystemApp.View_Models.BookingVM>
+@{
+    ViewBag.Title = "Bookings";
+}
+
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>
+                Restaurant
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Time
+            </th>
+            <th>
+                No. Customers
+            </th>
+            <th>
+                Cancelled
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => booking.Restaurant.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => booking.BookingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => booking.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => booking.NoCustomers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => booking.Cancelled)
+                </td>
+                <td class="table-cell-align-end">
+                    <input type="button" value="Details" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Details", new { id = booking.Id })'" />
+                    @if (!booking.Cancelled)
+                    {
+                        <input type="button" value="Cancel" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Cancel", new { id = booking.Id })'" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

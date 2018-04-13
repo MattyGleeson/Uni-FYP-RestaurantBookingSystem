@@ -1,3 +1,47 @@
-﻿@{
+﻿@model IEnumerable<BookingSystemApp.View_Models.MenuItemVM>
+
+@{
     ViewBag.Title = "Menu";
 }
+
+<div class="row" style="margin-top: 5em; overflow: hidden;">
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Diet Info
+            </th>
+            <th>
+                Categories
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+        @foreach (var menuItem in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItem.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItem.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItem.DietInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => menuItem.Types)
+                </td>
+                <td>
+                    £@Html.DisplayFor(modelItem => menuItem.Price)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

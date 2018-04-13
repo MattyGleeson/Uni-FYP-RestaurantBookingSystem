@@ -34,6 +34,10 @@
             @Html.DisplayFor(model => model.AddressPostalCode)
         </div>
     </div>
+
+    <div class="row" style="text-align:end;">
+        <input type="button" value="Book Table" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("create", "booking", new { RestaurantId = Model.Id })'" />
+    </div>
 </div>
 
 <hr/>

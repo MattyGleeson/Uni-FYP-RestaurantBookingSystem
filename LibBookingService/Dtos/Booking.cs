@@ -34,6 +34,8 @@ namespace LibBookingService.Dtos
 
         public virtual bool Cancelled { get; set; }
 
+        public virtual Restaurant Restaurant { get; set; }
+
         public virtual IEnumerable<BookingMenuItem> MenuItems { get; set; }
 
         public virtual IEnumerable<Payment> Payments { get; set; }

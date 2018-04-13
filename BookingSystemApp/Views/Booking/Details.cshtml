@@ -1,0 +1,68 @@
+﻿@model BookingSystemApp.View_Models.BookingVM
+@{
+    ViewBag.Title = "Booking Details";
+}
+
+<div class="form-horizontal" style="margin-top: 5em; overflow: hidden;">
+    <h5>Restaurant</h5>
+
+    <div class="row">
+        <div class="col s3">
+            @Html.LabelFor(model => model.Restaurant.Name, "Name")<br />
+            @Html.DisplayFor(model => model.Restaurant.Name)
+        </div>
+        <div class="col s3">
+            @Html.LabelFor(model => model.Restaurant.PhoneNo, "Phone No.")<br />
+            @Html.DisplayFor(model => model.Restaurant.PhoneNo)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s3">
+            @Html.LabelFor(model => model.Restaurant.AddressStreet, "Street")<br />
+            @Html.DisplayFor(model => model.Restaurant.AddressStreet)
+        </div>
+        <div class="col s3">
+            @Html.LabelFor(model => model.Restaurant.AddressTown, "Town")<br />
+            @Html.DisplayFor(model => model.Restaurant.AddressTown)
+        </div>
+        <div class="col s3">
+            @Html.LabelFor(model => model.Restaurant.AddressCounty, "County")<br />
+            @Html.DisplayFor(model => model.Restaurant.AddressCounty)
+        </div>
+        <div class="col s3">
+            @Html.LabelFor(model => model.Restaurant.AddressPostalCode, "Postal Code")<br />
+            @Html.DisplayFor(model => model.Restaurant.AddressPostalCode)
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="form-horizontal" style="overflow: hidden;">
+    <h5>Details</h5>
+
+    <div class="row">
+        @Html.LabelFor(model => model.BookingDate, "Date")<br />
+        @Html.DisplayFor(model => model.BookingDate)
+    </div>
+
+    <div class="row">
+        @Html.LabelFor(model => model.StartTime, "Time")<br />
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+    <div class="row">
+        @Html.LabelFor(model => model.NoCustomers, "Number of Customers")<br />
+        @Html.DisplayFor(model => model.NoCustomers)
+    </div>
+
+    <div class="row">
+        @Html.LabelFor(model => model.BookingMadeDate, "Booking Made")<br />
+        @Html.DisplayFor(model => model.BookingMadeDate)
+    </div>
+
+    <div class="row" style="text-align:end;">
+        <input type="button" value="Cancel" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Cancel", new { Id = Model.Id })'" />
+    </div>
+</div>

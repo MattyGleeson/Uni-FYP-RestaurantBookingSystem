@@ -63,6 +63,23 @@ namespace BookingService.Controllers
             }
         }
 
+        [Route("GetByCustomer/{id:int?}")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetByCustomer(int id = -1)
+        {
+            if (id != -1)
+            {
+                IEnumerable<Booking> res = await _db.Bookings.Where(b => !b.Deleted && b.Customer_id == id).ToListAsync();
+
+                if (!res.Any())
+                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Bookings Found With ID");
+
+                return Request.CreateResponse(HttpStatusCode.OK, res.Select(b => CreateBoookingFromDbBooking(b)));
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Invalid Customer Id");
+        }
+
         /// <summary>
         /// Posts a booking Dto to the database.
         /// </summary>
@@ -167,6 +184,31 @@ namespace BookingService.Controllers
         }
 
         /// <summary>
+        /// Cancels a booking.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("Cancel/{id:int?}")]
+        [HttpDelete]
+        public async Task<HttpResponseMessage> Cancel(int id)
+        {
+            try
+            {
+                Booking booking = await _db.Bookings.Where(b => b.Id == id).FirstOrDefaultAsync();
+                booking.Cancelled = true;
+
+                _db.SetModified(booking);
+                await _db.SaveChangesAsync();
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        /// <summary>
         /// Puts a booking to the database.
         /// </summary>
         /// <param name="id"></param>
@@ -217,6 +259,17 @@ namespace BookingService.Controllers
                 Id = b.Id,
                 CustomerId = b.Customer_id,
                 RestaurantId = b.Restaurant_id,
+                Restaurant = new LibBookingService.Dtos.Restaurant
+                {
+                    Id = b.Restaurant.Id,
+                    CompanyId = b.Restaurant.Company_id,
+                    Name = b.Restaurant.Name,
+                    PhoneNo = b.Restaurant.PhoneNo,
+                    AddressStreet = b.Restaurant.AddressStreet,
+                    AddressTown = b.Restaurant.AddressTown,
+                    AddressCounty = b.Restaurant.AddressCounty,
+                    AddressPostalCode = b.Restaurant.AddressPostalCode
+                },
                 BookingMadeDate = b.BookingMadeDate,
                 BookingMadeTime = b.BookingMadeTime,
                 StartTime = b.StartTime,

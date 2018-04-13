@@ -6,6 +6,7 @@ using LibBookingService.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,6 +27,35 @@ namespace BookingSystemApp.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Customer res = _customerFacade.Get();
+
+            if (res == null)
+                return HttpNotFound();
+
+            return View(new RegisterVM
+            {
+                Id = res.Id,
+                Username = res.UserName,
+                Title = res.Title,
+                Forename = res.Forename,
+                Surname = res.Surname,
+                Dob = res.DoB,
+                AddressStreet = res.AddressStreet,
+                AddressTown = res.AddressTown,
+                AddressCounty = res.AddressCounty,
+                AddressPostalCode = res.AddressPostalCode,
+                HomePhoneNo = res.HomePhoneNo,
+                WorkPhoneNo = res.WorkPhoneNo ?? "No number",
+                MobilePhoneNo = res.MobilePhoneNo,
+                Email = res.Email,
+            });
         }
 
         public ActionResult Register()
@@ -96,10 +126,15 @@ namespace BookingSystemApp.Controllers
             if (ModelState.IsValid)
             {
                 _authFacade.GetToken(login.Username, login.Password);
-                string owinId = _authFacade.GetUserId();
-                Session["UserId"] = owinId;
-                Session["Username"] = login.Username;
-                return RedirectToAction("index", "home");
+
+                Customer c = _customerFacade.Get();
+
+                if (c != null)
+                {
+                    Session[Global.UserIdSessionVar] = c.Id;
+                    Session[Global.UsernameSessionVar] = login.Username;
+                    return RedirectToAction("index", "home");
+                }
             }
 
             return View(login);
@@ -107,8 +142,8 @@ namespace BookingSystemApp.Controllers
 
         public ActionResult Logout()
         {
-            Session["UserId"] = null;
-            Session["Username"] =  null;
+            Session[Global.UserIdSessionVar] = null;
+            Session[Global.UsernameSessionVar] =  null;
 
             GenericFacade.Token = null;
             GenericFacade.UserName = null;
