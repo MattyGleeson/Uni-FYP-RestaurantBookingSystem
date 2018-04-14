@@ -104,6 +104,30 @@ namespace WebApi.Facades
         }
 
         /// <summary>
+        /// Returns a table that doesn't conflict with other bookings
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
+        public async Task<Table> GetAvailableTable(Booking booking)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "GetAvailableTable"),
+                    Content = new StringContent(JsonConvert.SerializeObject(booking), Encoding.UTF8, "application/json")
+                };
+
+                return await ExecuteRequestAsync<Table>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Posts a booking to the service and returns the updated model.
         /// </summary>
         /// <param name="booking"></param>

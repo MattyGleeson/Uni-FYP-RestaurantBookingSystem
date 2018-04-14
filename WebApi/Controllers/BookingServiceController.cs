@@ -46,6 +46,7 @@ namespace WebApi.Controllers
         /// <summary>
         /// Endpoint to get a booking by id.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("Get/{id:int?}")]
@@ -62,6 +63,7 @@ namespace WebApi.Controllers
         /// <summary>
         /// Endpoint to get a booking by customer id.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("GetByCustomer/{id:int?}")]
@@ -73,6 +75,23 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, bookings);
 
             return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Bookings Found For Customer Id");
+        }
+
+        /// <summary>
+        /// Endpoint to get a table that doesn't conflict with other bookings.
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetAvailableTable/{id:int?}")]
+        public async Task<HttpResponseMessage> GetAvailableTable(Booking booking)
+        {
+            Table table = await _facade.GetAvailableTable(booking);
+
+            if (table != null)
+                return Request.CreateResponse(HttpStatusCode.OK, table);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Available Tables Found");
         }
 
         /// <summary>

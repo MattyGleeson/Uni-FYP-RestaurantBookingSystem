@@ -21,16 +21,18 @@ namespace BookingSystemApp.Controllers
         }
 
         // GET: Booking
-        public ActionResult Index(int userId = -1)
+        public ActionResult Index()
         {
-            if (userId != -1)
+            int? userId = (int?) Session[Global.UserIdSessionVar];
+
+            if (userId != null)
             {
-                IEnumerable<Booking> res = _bookingFacade.FindByCustomerId(userId);
+                IEnumerable<Booking> res = _bookingFacade.FindByCustomerId((int) userId);
 
                 return View(res.Select(b => CreateBookingVMFromDto(b)));
             }
 
-            return View(Enumerable.Empty<BookingVM>());
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // GET: Booking/5
@@ -56,7 +58,7 @@ namespace BookingSystemApp.Controllers
             if (Session[Global.UserIdSessionVar] == null)
             {
                 AddToastMessage("Login", "You must login before booking a table", Toast.ToastType.Warning);
-                return RedirectToAction("login", "customer");
+                return RedirectToAction("Login", "Customer");
             }
 
             Session[Global.RestaurantIdSessionVar] = RestaurantId;
@@ -72,18 +74,19 @@ namespace BookingSystemApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StartTime,BookingDate,NoCustomers,Comments")] BookingVM booking)
         {
-            //booking.CustomerId = Convert.ToInt16(Session["UserId"]);
             booking.BookingMadeDate = DateTime.Now;
             booking.BookingMadeTime = DateTime.Now.TimeOfDay;
             booking.RestaurantId = (int) Session[Global.RestaurantIdSessionVar];
             booking.CustomerId = (int) Session[Global.UserIdSessionVar];
+            booking.EndTime = booking.StartTime.Add(new TimeSpan(1, 30, 0));
 
             if (ModelState.IsValid)
             {
-                Booking res = _bookingFacade.Create(new Booking
+                Booking res = new Booking
                 {
                     Id = booking.Id,
                     CustomerId = booking.CustomerId,
+                    RestaurantId = booking.RestaurantId,
                     BookingMadeDate = booking.BookingMadeDate,
                     BookingMadeTime = booking.BookingMadeTime,
                     BookingDate = booking.BookingDate,
@@ -93,8 +96,24 @@ namespace BookingSystemApp.Controllers
                     PaymentMadeDate = booking.PaymentMadeDate,
                     NoCustomers = booking.NoCustomers,
                     Comments = booking.Comments
-                });
-                return RedirectToAction("Index");
+                };
+
+                Table table = _bookingFacade.GetAvailableTable(res);
+
+                if (table != null)
+                {
+                    List<Table> resTables = new List<Table>
+                    {
+                        table
+                    };
+                    res.Tables = resTables.AsEnumerable();
+                    _bookingFacade.Create(res);
+                    return RedirectToAction("Index", new { userId = Session[Global.UserIdSessionVar] });
+                }
+                else
+                {
+                    AddToastMessage("No Table", "There are no available tables for the time selected", Toast.ToastType.Info);
+                }
             }
 
             GetTimes();

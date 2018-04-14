@@ -96,6 +96,30 @@ namespace BookingSystemApp.Facades
         }
 
         /// <summary>
+        /// Returns an available table.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Table GetAvailableTable(Booking model)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "GetAvailableTable"),
+                    Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
+                };
+
+                return ExecuteRequest<Table>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Posts a booking model to the web api and returns the saved model.
         /// </summary>
         /// <param name="model"></param>
@@ -107,7 +131,7 @@ namespace BookingSystemApp.Facades
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Post,
-                    RequestUri = new Uri(_baseUrl + "Create"),
+                    RequestUri = new Uri(_baseUrl + "Post"),
                     Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
                 };
 

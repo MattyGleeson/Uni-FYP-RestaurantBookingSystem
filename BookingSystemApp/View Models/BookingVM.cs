@@ -20,6 +20,8 @@ namespace BookingSystemApp.View_Models
         public RestaurantVM Restaurant { get; set; }
 
         [Required]
+        [DataType(DataType.Text)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BookingMadeDate { get; set; }
 
         [Required]

@@ -91,3 +91,11 @@ nav.top-nav h3.header {
 button.datepicker-done, button.datepicker-cancel {
     color: #000033 !important;
 }
+
+.datepicker-table td.is-selected {
+    background-color: #000033 !important;
+}
+
+.datepicker-table td.is-today {
+    color: #000033 !important;
+}

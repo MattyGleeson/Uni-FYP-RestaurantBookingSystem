@@ -63,6 +63,11 @@ namespace BookingService.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all bookings by customer id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("GetByCustomer/{id:int?}")]
         [HttpGet]
         public async Task<HttpResponseMessage> GetByCustomer(int id = -1)
@@ -78,6 +83,81 @@ namespace BookingService.Controllers
             }
 
             return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Invalid Customer Id");
+        }
+
+        /// <summary>
+        /// Gets a list of available tables using a booking model
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
+        [Route("GetAvailableTable")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetAvailableTable(LibBookingService.Dtos.Booking booking)
+        {
+            if (booking == null)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid booking model");
+
+            IEnumerable<Booking> res = await _db.Bookings
+                .Where(b => !b.Deleted && !b.Cancelled && b.Restaurant_id == booking.RestaurantId)
+                .ToListAsync();
+
+            if (!res.Any())
+            {
+                IEnumerable<Table> restaurantTables = _db.Tables.Where(t => t.Restaurant_id == booking.RestaurantId).OrderBy(t => t.NoSeats);
+                restaurantTables = restaurantTables.Where(t => !t.Deleted && t.Active);
+                restaurantTables = restaurantTables.Where(t => t.NoSeats > booking.NoCustomers);
+
+                if (restaurantTables.Any())
+                {
+                    Table restaurantTable = restaurantTables.FirstOrDefault();
+
+                    return Request.CreateResponse(HttpStatusCode.OK, new LibBookingService.Dtos.Table
+                    {
+                        Id = restaurantTable.Id,
+                        RestaurantId = restaurantTable.Restaurant_id,
+                        AdditionalNotes = restaurantTable.AdditionalNotes,
+                        NoSeats = restaurantTable.NoSeats,
+                        TableNo = restaurantTable.TableNo
+                    });
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No tables available");
+                }
+            }
+
+            if (booking.StartTime != null && booking.EndTime != null)
+            {
+                res = res.Where(b => 
+                    (TimeSpan.Compare(booking.StartTime, b.StartTime) == 1 && TimeSpan.Compare(booking.StartTime, b.EndTime) == -1) ||
+                    (TimeSpan.Compare(booking.EndTime, b.StartTime) == 1 && TimeSpan.Compare(booking.EndTime, b.EndTime) == -1) ||
+                    (booking.StartTime == b.StartTime && booking.EndTime == b.EndTime)
+                );
+
+                IEnumerable<Table> resTables = res.SelectMany(b => b.TableBookings.Select(bb => bb.Table));
+
+                IEnumerable<Table> restaurantTables = _db.Tables.Where(t => t.Restaurant_id == booking.RestaurantId && !t.Deleted && t.Active && t.NoSeats > booking.NoCustomers).OrderBy(t => t.NoSeats);
+
+                List<Table> result = new List<Table>();
+
+                foreach (var t in restaurantTables)
+                {
+                    if (resTables.Where(tt => tt.Id == t.Id).FirstOrDefault() == null)
+                        result.Add(t);
+                }
+
+                if (result.Any())
+                    return Request.CreateResponse(HttpStatusCode.OK, new LibBookingService.Dtos.Table
+                    {
+                        Id = result.First().Id,
+                        RestaurantId = result.First().Restaurant_id,
+                        AdditionalNotes = result.First().AdditionalNotes,
+                        NoSeats = result.First().NoSeats,
+                        TableNo = result.First().TableNo
+                    });
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No tables available");
         }
 
         /// <summary>
@@ -97,6 +177,7 @@ namespace BookingService.Controllers
                     Restaurant_id = booking.RestaurantId,
                     BookingMadeDate = booking.BookingMadeDate,
                     BookingMadeTime = booking.BookingMadeTime,
+                    BookingDate = booking.BookingDate,
                     StartTime = booking.StartTime,
                     EndTime = booking.EndTime,
                     PaymentTotal = booking.PaymentTotal,
@@ -149,6 +230,8 @@ namespace BookingService.Controllers
                         await _db.SaveChangesAsync();
                     }
                 }
+
+                _db.Entry(newBoooking).Reload();
 
                 return Request.CreateResponse(HttpStatusCode.OK, CreateBoookingFromDbBooking(newBoooking));
             }
@@ -226,6 +309,7 @@ namespace BookingService.Controllers
                 b.Restaurant_id = booking.RestaurantId;
                 b.BookingMadeDate = booking.BookingMadeDate;
                 b.BookingMadeTime = booking.BookingMadeTime;
+                b.BookingDate = booking.BookingDate;
                 b.StartTime = booking.StartTime;
                 b.EndTime = booking.EndTime;
                 b.PaymentTotal = booking.PaymentTotal;
@@ -259,7 +343,7 @@ namespace BookingService.Controllers
                 Id = b.Id,
                 CustomerId = b.Customer_id,
                 RestaurantId = b.Restaurant_id,
-                Restaurant = new LibBookingService.Dtos.Restaurant
+                Restaurant = b.Restaurant != null ? new LibBookingService.Dtos.Restaurant
                 {
                     Id = b.Restaurant.Id,
                     CompanyId = b.Restaurant.Company_id,
@@ -268,10 +352,12 @@ namespace BookingService.Controllers
                     AddressStreet = b.Restaurant.AddressStreet,
                     AddressTown = b.Restaurant.AddressTown,
                     AddressCounty = b.Restaurant.AddressCounty,
-                    AddressPostalCode = b.Restaurant.AddressPostalCode
-                },
+                    AddressPostalCode = b.Restaurant.AddressPostalCode,
+                    Tables = b.Restaurant.Tables.Select(t => new LibBookingService.Dtos.Table { Id = t.Id })
+                } : null,
                 BookingMadeDate = b.BookingMadeDate,
                 BookingMadeTime = b.BookingMadeTime,
+                BookingDate = b.BookingDate,
                 StartTime = b.StartTime,
                 EndTime = b.EndTime,
                 PaymentTotal = b.PaymentTotal,
@@ -292,6 +378,10 @@ namespace BookingService.Controllers
         /// <returns></returns>
         private IEnumerable<LibBookingService.Dtos.Table> GetTablesForBooking(Booking booking)
         {
+            IEnumerable<TableBooking> tb = booking.TableBookings.Where(b => !b.Deleted);
+            IEnumerable<Table> tbTables = tb.Select(b => _db.Tables.Where( bb => bb.Id == b.Table_id).FirstOrDefault());
+            IEnumerable<Table> tbTables1 = tbTables.Where(b => !b.Deleted);
+
             IEnumerable<Table> bookingTables = booking.TableBookings.Where(b => !b.Deleted).Select(b => b.Table).Where(b => !b.Deleted);
             if (bookingTables.Any())
                 return bookingTables.Select(t => new LibBookingService.Dtos.Table

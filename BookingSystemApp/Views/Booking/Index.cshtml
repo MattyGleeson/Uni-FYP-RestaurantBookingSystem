@@ -39,9 +39,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => booking.NoCustomers)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => booking.Cancelled)
-                </td>
+                @if (booking.Cancelled)
+                {
+                    <td>
+                        Cancelled
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Not Cancelled
+                    </td>
+                }
                 <td class="table-cell-align-end">
                     <input type="button" value="Details" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Details", new { id = booking.Id })'" />
                     @if (!booking.Cancelled)
