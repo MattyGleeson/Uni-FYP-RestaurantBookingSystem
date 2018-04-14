@@ -13,7 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the restaurant service facade.
     /// </summary>
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin,Manager")]
     [RoutePrefix("api/Restaurant")]
     public class RestaurantServiceController : ApiController
     {
@@ -31,6 +31,7 @@ namespace WebApi.Controllers
         /// Endpoint to get a list of restaurants.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("Get")]
         public async Task<HttpResponseMessage> Get()
@@ -47,6 +48,7 @@ namespace WebApi.Controllers
         /// Endpoint to get a restaurant by id.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("Get/{id:int?}")]
         public async Task<HttpResponseMessage> Get(int id)

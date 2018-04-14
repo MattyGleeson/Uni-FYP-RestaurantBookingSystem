@@ -69,6 +69,33 @@ namespace BookingSystemApp.Facades
         }
 
         /// <summary>
+        /// Returns an IEnumerable of menu items by restaurant id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IEnumerable<MenuItem> FindByRestaurantId(int id)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "GetByRestaurant/" + id)
+                };
+
+                IEnumerable<MenuItem> res = ExecuteRequestList<MenuItem>(request);
+
+                return res.Any()
+                    ? res
+                    : Enumerable.Empty<MenuItem>();
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<MenuItem>();
+            }
+        }
+
+        /// <summary>
         /// Posts a menu item model to the web api and returns the saved model.
         /// </summary>
         /// <param name="model"></param>

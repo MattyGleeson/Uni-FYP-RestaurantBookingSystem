@@ -65,6 +65,24 @@ namespace MenuService.Controllers
         }
 
         /// <summary>
+        /// Gets all menu items for a restaurant.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("GetByRestaurant/{id:int?}")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetByRestaurant(int id)
+        {
+            IEnumerable<MenuItem> res = await _db.RestaurantMenuItems.Where(b => !b.Deleted).Select(b => b.MenuItem).Where(b => !b.Deleted).ToListAsync();
+
+            IEnumerable<LibBookingService.Dtos.MenuItem> menuItems = res.Select(b => CreateMenuItemFromDbMenuItem(b)).OrderBy(b => b.Name);
+
+            return menuItems.Any() ?
+                Request.CreateResponse(HttpStatusCode.OK, menuItems) :
+                Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Items For Restaurant");
+        }
+
+        /// <summary>
         /// Posts a menu item Dto to the database.
         /// </summary>
         /// <param name="menuItem"></param>

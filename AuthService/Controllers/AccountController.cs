@@ -70,6 +70,15 @@ namespace AuthService.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("IsAdmin")]
+        public async Task<IHttpActionResult> IsAdmin()
+        {
+            bool res = User.IsInRole("Admin");
+            return Ok(res);
+        }
+
         [Authorize]
         [Route("AddCustomerRole")]
         public async Task<IHttpActionResult> AddCustomerRole()

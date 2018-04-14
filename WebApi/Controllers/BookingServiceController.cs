@@ -13,7 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the booking service facade.
     /// </summary>
-    [AllowAnonymous]
+    [Authorize]
     [RoutePrefix("api/Booking")]
     public class BookingServiceController : ApiController
     {
@@ -31,6 +31,7 @@ namespace WebApi.Controllers
         /// Endpoint to get a list of bookings.
         /// </summary>
         /// <returns></returns>
+        [Authorize(Roles = ("Admin,Manager"))]
         [HttpGet]
         [Route("Get")]
         public async Task<HttpResponseMessage> Get()

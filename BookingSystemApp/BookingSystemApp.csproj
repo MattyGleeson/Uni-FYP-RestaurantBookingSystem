@@ -173,6 +173,8 @@
     <Compile Include="Toast\ToastMessage.cs" />
     <Compile Include="Toast\Toastr.cs" />
     <Compile Include="Toast\ToastType.cs" />
+    <Compile Include="View Models\AddMenuItemVM.cs" />
+    <Compile Include="View Models\AddMenuItemsVM.cs" />
     <Compile Include="View Models\BookingVM.cs" />
     <Compile Include="View Models\CompanyVM.cs" />
     <Compile Include="View Models\DietInfoVM.cs" />
@@ -312,6 +314,7 @@
     <Content Include="Views\Booking\Cancel.cshtml" />
     <Content Include="Views\Booking\Details.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Booking\AddMenuItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -25,6 +25,20 @@ namespace BookingSystemApp.Facades.Core
             }
         }
 
+        public static bool IsAdmin
+        {
+            get
+            {
+                HttpContext c = HttpContext.Current;
+                return (bool)c.Session["AuthIsAdmin"];
+            }
+            set
+            {
+                HttpContext c = HttpContext.Current;
+                c.Session["AuthIsAdmin"] = value;
+            }
+        }
+
         public static string UserName
         {
             get

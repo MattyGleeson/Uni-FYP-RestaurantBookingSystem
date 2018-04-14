@@ -73,6 +73,20 @@ namespace BookingSystemApp.Facades
                 var model = JsonConvert.DeserializeObject<Dictionary<string, string>>(content, _serializerSettings);
 
                 GenericFacade.Token = model["access_token"];
+
+                request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "api/Account/IsAdmin"),
+                    Content = new FormUrlEncodedContent(dictionary)
+                };
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GenericFacade.Token);
+
+                res = _client.SendAsync(request).Result;
+
+                content = res.Content.ReadAsStringAsync().Result;
+
+                GenericFacade.IsAdmin = bool.Parse(content);
             }
             catch (Exception ex)
             {

@@ -1,0 +1,75 @@
+﻿@model IList<BookingSystemApp.View_Models.AddMenuItemVM>
+
+@{
+    ViewBag.Title = "Add Menu Items";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin-top: 100px;">
+
+        <table class="table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Diet Information
+                </th>
+                <th>
+                    Categories
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>Selected</th>
+            </tr>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(x => x[i].Name)
+                        @Html.DisplayFor(x => x[i].Name)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x[i].Description)
+                        @Html.DisplayFor(x => x[i].Description)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x[i].DietInfo)
+                        @Html.DisplayFor(x => x[i].DietInfo)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x[i].Types)
+                        @Html.DisplayFor(x => x[i].Types)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x[i].Price)
+                        £@Html.DisplayFor(x => x[i].Price)
+                    </td>
+                    <td>
+                        @*<div class="">
+                            <p>
+                                <label>*@
+                                    @*@Html.HiddenFor(x => x[i].Selected)*@
+                        @Html.LabelFor(x => x[i].Selected)
+                                    @Html.CheckBoxFor(x => x[i].Selected)
+                                    @*<span>lol</span>*@
+                                @*</label>
+                            </p>
+                            
+                        </div>*@
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="form-group" style="text-align:end;">
+            <input type="submit" value="Next" class="btn btn-primary dark-blue" />
+        </div>
+    </div>
+}

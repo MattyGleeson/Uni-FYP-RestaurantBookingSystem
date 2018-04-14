@@ -13,7 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the menu service facade.
     /// </summary>
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin,Manager")]
     [RoutePrefix("api/Menu")]
     public class MenuServiceController : ApiController
     {
@@ -31,6 +31,7 @@ namespace WebApi.Controllers
         /// Endpoint to get a list of menu items.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("Get")]
         public async Task<HttpResponseMessage> Get()
@@ -47,6 +48,7 @@ namespace WebApi.Controllers
         /// Endpoint to get a menu item by id.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("Get/{id:int?}")]
         public async Task<HttpResponseMessage> Get(int id)
@@ -57,6 +59,24 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, menuItem);
 
             return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Found For Id");
+        }
+
+        /// <summary>
+        /// Endpoint to get menu items by restaurant id.
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("GetByRestaurant/{id:int?}")]
+        public async Task<HttpResponseMessage> GetByRestaurant(int id)
+        {
+            IEnumerable<MenuItem> menuItems = await _facade.GetMenuItemsByRestaurantId(id);
+
+            if (menuItems.Any())
+                return Request.CreateResponse(HttpStatusCode.OK, menuItems);
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Items Found For Restaurant Id");
+            
         }
 
         /// <summary>

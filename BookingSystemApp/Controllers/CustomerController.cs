@@ -81,6 +81,8 @@ namespace BookingSystemApp.Controllers
                     GenericFacade.OwinId = owinId;
                     _authFacade.AddCustomerRole();
 
+                    Session[Global.IsAdminSessionVar] = GenericFacade.IsAdmin;
+
                     _customerFacade.Create(new Customer
                     {
                         OwinUserId = owinId,
@@ -99,8 +101,10 @@ namespace BookingSystemApp.Controllers
                         Email = registration.Email
                     });
 
-                    Session["UserId"] = owinId;
-                    Session["Username"] = registration.Username;
+                    Customer c = _customerFacade.Get();
+
+                    Session[Global.UserIdSessionVar] = c.Id;
+                    Session[Global.UsernameSessionVar] = registration.Username;
 
                     return RedirectToAction("index", "home");
                 }
@@ -129,12 +133,20 @@ namespace BookingSystemApp.Controllers
 
                 Customer c = _customerFacade.Get();
 
+                //Session[Global.IsAdminSessionVar] = GenericFacade.IsAdmin;
+
+                //if (c != null && !GenericFacade.IsAdmin)
                 if (c != null)
                 {
                     Session[Global.UserIdSessionVar] = c.Id;
                     Session[Global.UsernameSessionVar] = login.Username;
                     return RedirectToAction("index", "home");
                 }
+                //else if (GenericFacade.IsAdmin)
+                //{
+                //    Session[Global.UsernameSessionVar] = login.Username;
+                //    return RedirectToAction("index", "home");
+                //}
             }
 
             return View(login);
@@ -144,10 +156,12 @@ namespace BookingSystemApp.Controllers
         {
             Session[Global.UserIdSessionVar] = null;
             Session[Global.UsernameSessionVar] =  null;
+            Session[Global.IsAdminSessionVar] = null;
 
             GenericFacade.Token = null;
             GenericFacade.UserName = null;
             GenericFacade.OwinId = null;
+            GenericFacade.IsAdmin = false;
 
             return RedirectToAction("index", "home");
         }

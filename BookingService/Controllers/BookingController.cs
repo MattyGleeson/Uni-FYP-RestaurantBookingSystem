@@ -105,7 +105,7 @@ namespace BookingService.Controllers
             {
                 IEnumerable<Table> restaurantTables = _db.Tables.Where(t => t.Restaurant_id == booking.RestaurantId).OrderBy(t => t.NoSeats);
                 restaurantTables = restaurantTables.Where(t => !t.Deleted && t.Active);
-                restaurantTables = restaurantTables.Where(t => t.NoSeats > booking.NoCustomers);
+                restaurantTables = restaurantTables.Where(t => t.NoSeats >= booking.NoCustomers);
 
                 if (restaurantTables.Any())
                 {
@@ -136,7 +136,9 @@ namespace BookingService.Controllers
 
                 IEnumerable<Table> resTables = res.SelectMany(b => b.TableBookings.Select(bb => bb.Table));
 
-                IEnumerable<Table> restaurantTables = _db.Tables.Where(t => t.Restaurant_id == booking.RestaurantId && !t.Deleted && t.Active && t.NoSeats > booking.NoCustomers).OrderBy(t => t.NoSeats);
+                IEnumerable<Table> restaurantTables = _db.Tables.Where(t => t.Restaurant_id == booking.RestaurantId).OrderBy(t => t.NoSeats);
+                restaurantTables = restaurantTables.Where(t => !t.Deleted && t.Active);
+                restaurantTables = restaurantTables.Where(t => t.NoSeats >= booking.NoCustomers);
 
                 List<Table> result = new List<Table>();
 

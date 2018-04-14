@@ -81,6 +81,32 @@ namespace WebApi.Facades.MenuService
         }
 
         /// <summary>
+        /// Returns an IQueryable of menu items from the menu service by restaurant id.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IQueryable<MenuItem>> GetMenuItemsByRestaurantId(int id)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "GetByRestaurant/" + id)
+                };
+
+                IQueryable<MenuItem> res = await ExecuteRequestAsyncList<MenuItem>(request);
+
+                return res.Any()
+                    ? res
+                    : Enumerable.Empty<MenuItem>().AsQueryable();
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<MenuItem>().AsQueryable();
+            }
+        }
+
+        /// <summary>
         /// Posts a menu item to the service and returns the updated model.
         /// </summary>
         /// <param name="menuItem"></param>

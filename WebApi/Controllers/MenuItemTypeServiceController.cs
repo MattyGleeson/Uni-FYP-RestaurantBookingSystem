@@ -12,7 +12,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the menu service type facade.
     /// </summary>
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin,Manager")]
     [RoutePrefix("api/MenuItemType")]
     public class MenuItemTypeServiceController : ApiController
     {
@@ -30,6 +30,7 @@ namespace WebApi.Controllers
         /// Endpoint to get a list of menu item types.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("Get")]
         public async Task<HttpResponseMessage> Get()

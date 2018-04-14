@@ -14,10 +14,12 @@ namespace BookingSystemApp.Controllers
     public class BookingController : MessageControllerBase
     {
         private readonly BookingFacade _bookingFacade;
+        private readonly MenuFacade _menuFacade;
 
         public BookingController()
         {
             _bookingFacade = new BookingFacade();
+            _menuFacade = new MenuFacade();
         }
 
         // GET: Booking
@@ -78,7 +80,7 @@ namespace BookingSystemApp.Controllers
             booking.BookingMadeTime = DateTime.Now.TimeOfDay;
             booking.RestaurantId = (int) Session[Global.RestaurantIdSessionVar];
             booking.CustomerId = (int) Session[Global.UserIdSessionVar];
-            booking.EndTime = booking.StartTime.Add(new TimeSpan(1, 30, 0));
+            booking.EndTime = booking.StartTime.Add(new TimeSpan(1, 29, 59));
 
             if (ModelState.IsValid)
             {
@@ -108,6 +110,7 @@ namespace BookingSystemApp.Controllers
                     };
                     res.Tables = resTables.AsEnumerable();
                     _bookingFacade.Create(res);
+                    AddToastMessage("Confirmed", "Booking Confirmed", Toast.ToastType.Success);
                     return RedirectToAction("Index", new { userId = Session[Global.UserIdSessionVar] });
                 }
                 else
@@ -118,6 +121,35 @@ namespace BookingSystemApp.Controllers
 
             GetTimes();
             return View(booking);
+        }
+
+        public ActionResult AddMenuItems()
+        {
+            IEnumerable<MenuItem> res = _menuFacade.FindByRestaurantId((int) Session[Global.RestaurantIdSessionVar]);
+
+            return View(res.Select(m => new AddMenuItemVM
+            {
+                Id = m.Id,
+                Name = m.Name,
+                Description = m.Description,
+                Price = m.Price,
+                DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
+                Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
+            }).ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddMenuItems([Bind(Include = "Id,Name,Description,Price,Selected")] IList<AddMenuItemVM> menuItems)
+        {
+            IEnumerable<AddMenuItemVM> selected = menuItems.Where(m => m.Selected);
+
+            if (selected.Any())
+            {
+
+            }
+
+            return RedirectToAction("Index", new { userId = Session[Global.UserIdSessionVar] });
         }
 
         // GET: Booking/Cancel/5

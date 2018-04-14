@@ -13,7 +13,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the customer service facade.
     /// </summary>
-    [AllowAnonymous]
+    [Authorize]
     [RoutePrefix("api/Customer")]
     public class CustomerServiceController : ApiController
     {
@@ -104,6 +104,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut]
         [Route("Update")]
         public async Task<HttpResponseMessage> Update(Customer customer)
@@ -121,6 +122,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete]
         [Route("Delete/{id:int?}")]
         public async Task<HttpResponseMessage> Delete(int id)

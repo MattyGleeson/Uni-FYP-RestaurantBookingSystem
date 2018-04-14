@@ -12,7 +12,7 @@ namespace WebApi.Controllers
     /// <summary>
     /// Controller to communicate with the menu service diet info facade.
     /// </summary>
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin,Manager")]
     [RoutePrefix("api/DietInfo")]
     public class DietInfoServiceController : ApiController
     {
@@ -30,6 +30,7 @@ namespace WebApi.Controllers
         /// Endpoint to get a list of diet info.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("Get")]
         public async Task<HttpResponseMessage> Get()

@@ -42,29 +42,33 @@
                 <a href="/Home/About" class="waves-effect">About</a>
             </li>
 
-            @*@if (ViewBag.Admin != null && ViewBag.Admin == true)
-            {*@
+            @if (Session[Global.IsAdminSessionVar] != null && (bool)Session[Global.IsAdminSessionVar])
+            {
                 <li>
                     <hr />
                 </li>
                 <li>
                     <a href="/Admin" class="waves-effect">Admin</a>
                 </li>
-            @*}*@
+            }
 
             <li>
                 <hr />
             </li>
 
-            @if (Session[Global.UserIdSessionVar] != null && Session[Global.UsernameSessionVar] != null)
+            @if (Session[Global.UsernameSessionVar] != null)
             {
                 <li style="padding: 0 32px;"><b>Username:</b> @Session[Global.UsernameSessionVar]</li>
-                <li>
-                    <a href="@Url.Action("details", "customer", new { id = Session[Global.UserIdSessionVar] })" class="waves-effect">Details</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("index", "booking", new { userId = Session[Global.UserIdSessionVar] })" class="waves-effect">Bookings</a>
-                </li>
+
+                if (Session[Global.UserIdSessionVar] != null)
+                {
+                    <li>
+                        <a href="@Url.Action("details", "customer", new { id = Session[Global.UserIdSessionVar] })" class="waves-effect">Details</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("index", "booking", new { userId = Session[Global.UserIdSessionVar] })" class="waves-effect">Bookings</a>
+                    </li>
+                }
                 <li>
                     <a href="/Customer/Logout" class="waves-effect">Logout</a>
                 </li>
