@@ -3,25 +3,55 @@
 
   <group android:checkableBehavior="single">
     <item
-        android:id="@+id/nav_home_1"
+        android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_1"
-        android:title="Home 1" />
+        android:title="@string/home" />
     <item
-        android:id="@+id/nav_home_2"
+        android:id="@+id/nav_restaurants"
         android:icon="@drawable/ic_home_2"
-        android:title="Home 2" />
+        android:title="@string/restaurants" />
+    <item
+        android:id="@+id/nav_menu"
+        android:icon="@drawable/ic_home_2"
+        android:title="@string/menu" />
   </group>
 
-  <item android:title="Sub items">
+  <item android:id="@+id/user_menu_logged_out" android:title="@string/user">
     <menu>
       <item
           android:icon="@drawable/ic_home_1"
-          android:title="Sub item 1" 
+          android:title="@string/login" 
           android:checkable="true" />
       <item
           android:icon="@drawable/ic_home_2"
-          android:title="Sub item 2"
+          android:title="@string/register"
           android:checkable="true"  />
+    </menu>
+  </item>
+
+  <item android:id="@+id/user_menu_logged_in" android:title="@string/user">
+    <menu>
+      <item
+          android:icon="@drawable/ic_home_1"
+          android:title="@string/details"
+          android:checkable="true" />
+      <item
+          android:icon="@drawable/ic_home_2"
+          android:title="@string/bookings"
+          android:checkable="true"  />
+      <item
+          android:icon="@drawable/ic_home_2"
+          android:title="@string/logout"
+          android:checkable="true"  />
+    </menu>
+  </item>
+
+  <item android:title="@string/system">
+    <menu>
+      <item
+          android:icon="@drawable/ic_home_1"
+          android:title="@string/exit"
+          android:checkable="true" />
     </menu>
   </item>
 

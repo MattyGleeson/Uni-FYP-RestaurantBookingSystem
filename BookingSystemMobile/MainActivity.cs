@@ -64,10 +64,10 @@ namespace BookingSystemMobile
 
                 switch (e.MenuItem.ItemId)
                 {
-                    case Resource.Id.nav_home_1:
+                    case Resource.Id.nav_home:
                         ListItemClicked(0);
                         break;
-                    case Resource.Id.nav_home_2:
+                    case Resource.Id.nav_restaurants:
                         ListItemClicked(1);
                         break;
                 }
@@ -80,7 +80,7 @@ namespace BookingSystemMobile
             //if first time you will want to go ahead and click first item.
             if (savedInstanceState == null)
             {
-                navigationView.SetCheckedItem(Resource.Id.nav_home_1);
+                navigationView.SetCheckedItem(Resource.Id.nav_home);
                 ListItemClicked(0);
             }
         }
@@ -98,10 +98,10 @@ namespace BookingSystemMobile
             switch (position)
             {
                 case 0:
-                    fragment = Fragment1.NewInstance();
+                    fragment = HomeFragment.NewInstance();
                     break;
                 case 1:
-                    fragment = Fragment2.NewInstance();
+                    fragment = RestaurantIndexFragment.NewInstance();
                     break;
             }
 

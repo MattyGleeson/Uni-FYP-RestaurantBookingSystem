@@ -4,7 +4,7 @@ using Android.Views;
 
 namespace BookingSystemMobile.Fragments
 {
-    public class Fragment1 : Fragment
+    public class RestaurantIndexFragment : Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -13,17 +13,17 @@ namespace BookingSystemMobile.Fragments
             // Create your fragment here
         }
 
-        public static Fragment1 NewInstance()
+        public static RestaurantIndexFragment NewInstance()
         {
-            var frag1 = new Fragment1 { Arguments = new Bundle() };
-            return frag1;
+            var frag2 = new RestaurantIndexFragment { Arguments = new Bundle() };
+            return frag2;
         }
 
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
-            return inflater.Inflate(Resource.Layout.fragment1, null);
+            return inflater.Inflate(Resource.Layout.restaurant_index, null);
         }
     }
 }
