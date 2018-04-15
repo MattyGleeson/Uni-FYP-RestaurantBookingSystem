@@ -81,7 +81,7 @@ namespace BookingSystemApp.Controllers
                     GenericFacade.OwinId = owinId;
                     _authFacade.AddCustomerRole();
 
-                    Session[Global.IsAdminSessionVar] = GenericFacade.IsAdmin;
+                    Session[Global.RolesSessionVar] = GenericFacade.IsAdmin;
 
                     _customerFacade.Create(new Customer
                     {
@@ -133,20 +133,15 @@ namespace BookingSystemApp.Controllers
 
                 Customer c = _customerFacade.Get();
 
-                //Session[Global.IsAdminSessionVar] = GenericFacade.IsAdmin;
+                Session[Global.RolesSessionVar] = GenericFacade.Roles;
+                Session[Global.UsernameSessionVar] = login.Username;
 
-                //if (c != null && !GenericFacade.IsAdmin)
-                if (c != null)
+                if (c != null || !GenericFacade.Roles.Contains(Global.AdminRole))
                 {
                     Session[Global.UserIdSessionVar] = c.Id;
-                    Session[Global.UsernameSessionVar] = login.Username;
-                    return RedirectToAction("index", "home");
                 }
-                //else if (GenericFacade.IsAdmin)
-                //{
-                //    Session[Global.UsernameSessionVar] = login.Username;
-                //    return RedirectToAction("index", "home");
-                //}
+
+                return RedirectToAction("index", "home");
             }
 
             return View(login);
@@ -156,12 +151,13 @@ namespace BookingSystemApp.Controllers
         {
             Session[Global.UserIdSessionVar] = null;
             Session[Global.UsernameSessionVar] =  null;
-            Session[Global.IsAdminSessionVar] = null;
+            Session[Global.RolesSessionVar] = null;
 
             GenericFacade.Token = null;
             GenericFacade.UserName = null;
             GenericFacade.OwinId = null;
             GenericFacade.IsAdmin = false;
+            GenericFacade.Roles = null;
 
             return RedirectToAction("index", "home");
         }

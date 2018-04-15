@@ -181,6 +181,7 @@
     <Compile Include="View Models\HomeDatePickerVM.cs" />
     <Compile Include="View Models\LoginVM.cs" />
     <Compile Include="View Models\ManageDietInfoVM.cs" />
+    <Compile Include="View Models\MenuIndexVM.cs" />
     <Compile Include="View Models\MenuItemTypeVM.cs" />
     <Compile Include="View Models\MenuItemVM.cs" />
     <Compile Include="View Models\RegisterVM.cs" />

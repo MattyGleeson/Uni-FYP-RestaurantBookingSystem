@@ -76,9 +76,8 @@ namespace BookingSystemApp.Facades
 
                 request = new HttpRequestMessage
                 {
-                    Method = HttpMethod.Post,
-                    RequestUri = new Uri(_baseUrl + "api/Account/IsAdmin"),
-                    Content = new FormUrlEncodedContent(dictionary)
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "api/Account/GetRoles")
                 };
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GenericFacade.Token);
 
@@ -86,7 +85,9 @@ namespace BookingSystemApp.Facades
 
                 content = res.Content.ReadAsStringAsync().Result;
 
-                GenericFacade.IsAdmin = bool.Parse(content);
+                var roles = JsonConvert.DeserializeObject<IList<string>>(content, _serializerSettings);
+
+                GenericFacade.Roles = roles;
             }
             catch (Exception ex)
             {

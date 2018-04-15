@@ -39,6 +39,20 @@ namespace BookingSystemApp.Facades.Core
             }
         }
 
+        public static IList<string> Roles
+        {
+            get
+            {
+                HttpContext c = HttpContext.Current;
+                return c.Session["AuthRoles"] as IList<string>;
+            }
+            set
+            {
+                HttpContext c = HttpContext.Current;
+                c.Session["AuthRoles"] = value;
+            }
+        }
+
         public static string UserName
         {
             get

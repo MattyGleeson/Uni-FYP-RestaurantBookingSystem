@@ -27,9 +27,9 @@
         </nav>
         <ul id="nav-mobile" class="sidenav sidenav-fixed">
             <li class="logo">
-                <img src="~/images/side-logo.jpg" alt="Logo" style="padding: 0 32px;" />
+                <img src="~/images/side-logo.jpg" alt="Logo" style="padding: 0 32px;" onclick="location.href='/Home'" />
             </li>
-            <li class="bold" style="margin-top:20px;">
+            <li class="bold" style="margin-top:2em;">
                 <a href="/Home" class="waves-effect">Home</a>
             </li>
             <li class="bold">
@@ -42,7 +42,7 @@
                 <a href="/Home/About" class="waves-effect">About</a>
             </li>
 
-            @if (Session[Global.IsAdminSessionVar] != null && (bool)Session[Global.IsAdminSessionVar])
+            @if (Session[Global.RolesSessionVar] != null && ((IList<string>)Session[Global.RolesSessionVar]).Contains(Global.AdminRole))
             {
                 <li>
                     <hr />
@@ -63,10 +63,10 @@
                 if (Session[Global.UserIdSessionVar] != null)
                 {
                     <li>
-                        <a href="@Url.Action("details", "customer", new { id = Session[Global.UserIdSessionVar] })" class="waves-effect">Details</a>
+                        <a href="@Url.Action("Details", "Customer", new { id = Session[Global.UserIdSessionVar] })" class="waves-effect">Details</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("index", "booking", new { userId = Session[Global.UserIdSessionVar] })" class="waves-effect">Bookings</a>
+                        <a href="@Url.Action("Index", "Booking", new { userId = Session[Global.UserIdSessionVar] })" class="waves-effect">Bookings</a>
                     </li>
                 }
                 <li>

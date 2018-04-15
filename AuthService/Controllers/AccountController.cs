@@ -79,6 +79,18 @@ namespace AuthService.Controllers
             return Ok(res);
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("GetRoles")]
+        public async Task<IHttpActionResult> GetRoles()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+
+            IEnumerable<string> roles = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+
+            return Ok(roles);
+        }
+
         [Authorize]
         [Route("AddCustomerRole")]
         public async Task<IHttpActionResult> AddCustomerRole()

@@ -11,6 +11,11 @@ namespace BookingSystemApp
         public static readonly string UserIdSessionVar = "UserId";
         public static readonly string UsernameSessionVar = "Username";
         public static readonly string RestaurantIdSessionVar = "RestaurantId";
-        public static readonly string IsAdminSessionVar = "IsAdmin";
+        public static readonly string RolesSessionVar = "IsAdmin";
+
+        //Role names
+        public static readonly string AdminRole = "Admin";
+        public static readonly string ManagerRole = "Manager";
+        public static readonly string CustomerRole = "Customer";
     }
 }
