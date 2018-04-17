@@ -35,6 +35,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService.Tests", "AuthSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystemMobile", "BookingSystemMobile\BookingSystemMobile.csproj", "{1E2D730C-56A7-4D16-A742-58BEC46AAD7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseContext", "DatabaseContext\DatabaseContext.csproj", "{F2A82738-7F87-47CC-82F2-0B54F529481B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageService\ImageService.csproj", "{BCB3B60F-EDD4-499B-9339-96D24A268C39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Tests", "ImageService.Tests\ImageService.Tests.csproj", "{0426416F-A367-4D7B-89B9-06142943147C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +113,18 @@ Global
 		{1E2D730C-56A7-4D16-A742-58BEC46AAD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E2D730C-56A7-4D16-A742-58BEC46AAD7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E2D730C-56A7-4D16-A742-58BEC46AAD7C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F2A82738-7F87-47CC-82F2-0B54F529481B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2A82738-7F87-47CC-82F2-0B54F529481B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2A82738-7F87-47CC-82F2-0B54F529481B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2A82738-7F87-47CC-82F2-0B54F529481B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCB3B60F-EDD4-499B-9339-96D24A268C39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCB3B60F-EDD4-499B-9339-96D24A268C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCB3B60F-EDD4-499B-9339-96D24A268C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCB3B60F-EDD4-499B-9339-96D24A268C39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0426416F-A367-4D7B-89B9-06142943147C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0426416F-A367-4D7B-89B9-06142943147C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0426416F-A367-4D7B-89B9-06142943147C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0426416F-A367-4D7B-89B9-06142943147C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

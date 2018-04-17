@@ -1,4 +1,4 @@
-﻿using CustomerService.Data;
+﻿using DatabaseContext.Data;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -40,7 +40,7 @@ namespace CustomerService.Controllers
         [HttpGet]
         public async Task<HttpResponseMessage> Get(int id = -1)
         {
-            Data.Customer res = await _db.Customers.Where(c => c.Id == id && !c.Deleted).FirstOrDefaultAsync();
+            Customer res = await _db.Customers.Where(c => c.Id == id && !c.Deleted).FirstOrDefaultAsync();
 
             if (res == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Customer Found With ID");
@@ -59,7 +59,7 @@ namespace CustomerService.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> GetByAuth(Customer customer)
         {
-            Data.Customer res = await _db.Customers.Where(c => !c.Deleted && c.UserName == customer.UserName && c.OwinUserId == customer.OwinUserId).FirstOrDefaultAsync();
+            Customer res = await _db.Customers.Where(c => !c.Deleted && c.UserName == customer.UserName && c.OwinUserId == customer.OwinUserId).FirstOrDefaultAsync();
 
             if (res == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Customer Found With ID");
@@ -191,7 +191,7 @@ namespace CustomerService.Controllers
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        private LibBookingService.Dtos.Customer CreateCustomerFromDbCustomer(Data.Customer c)
+        private LibBookingService.Dtos.Customer CreateCustomerFromDbCustomer(Customer c)
         {
             return new LibBookingService.Dtos.Customer
             {

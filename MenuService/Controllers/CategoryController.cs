@@ -1,4 +1,4 @@
-﻿using MenuService.Data;
+﻿using DatabaseContext.Data;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -43,7 +43,7 @@ namespace MenuService.Controllers
         {
             if (id != -1)
             {
-                Data.Type res = await _db.Types.Where(b => b.Id == id && !b.Deleted).FirstOrDefaultAsync();
+                DatabaseContext.Data.Type res = await _db.Types.Where(b => b.Id == id && !b.Deleted).FirstOrDefaultAsync();
 
                 if (res == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Menu Item Type Found With ID");
@@ -54,7 +54,7 @@ namespace MenuService.Controllers
             }
             else
             {
-                IEnumerable<Data.Type> res = await _db.Types.Where(b => !b.Deleted).ToListAsync();
+                IEnumerable<DatabaseContext.Data.Type> res = await _db.Types.Where(b => !b.Deleted).ToListAsync();
 
                 IEnumerable<LibBookingService.Dtos.MenuItemType> menuItemTypes = res.Select(b => CreateMenuItemTypeFromDbMenuItemType(b)).OrderBy(b => b.Name);
 
@@ -75,7 +75,7 @@ namespace MenuService.Controllers
         {
             try
             {
-                Data.Type newMenuItem = _db.Types.Add(new Data.Type
+                DatabaseContext.Data.Type newMenuItem = _db.Types.Add(new DatabaseContext.Data.Type
                 {
                     Name = menuItemType.Name
                 });
@@ -100,7 +100,7 @@ namespace MenuService.Controllers
         {
             try
             {
-                Data.Type menuItem = await _db.Types.Where(m => m.Id == id).FirstOrDefaultAsync();
+                DatabaseContext.Data.Type menuItem = await _db.Types.Where(m => m.Id == id).FirstOrDefaultAsync();
                 menuItem.Deleted = true;
 
                 _db.SetModified(menuItem);
@@ -126,7 +126,7 @@ namespace MenuService.Controllers
         {
             try
             {
-                Data.Type mi = await _db.Types.Where(m => m.Id == id).FirstOrDefaultAsync();
+                DatabaseContext.Data.Type mi = await _db.Types.Where(m => m.Id == id).FirstOrDefaultAsync();
 
                 mi.Name = menuItemType.Name;
 
@@ -148,7 +148,7 @@ namespace MenuService.Controllers
         /// </summary>
         /// <param name="mi"></param>
         /// <returns></returns>
-        private LibBookingService.Dtos.MenuItemType CreateMenuItemTypeFromDbMenuItemType(Data.Type mi)
+        private LibBookingService.Dtos.MenuItemType CreateMenuItemTypeFromDbMenuItemType(DatabaseContext.Data.Type mi)
         {
             return new LibBookingService.Dtos.MenuItemType
             {

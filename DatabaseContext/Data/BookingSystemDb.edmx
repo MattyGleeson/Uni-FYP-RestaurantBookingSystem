@@ -1,0 +1,1334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RestaurantBookingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_id" Type="int" Nullable="false" />
+          <Property Name="Restaurant_id" Type="int" Nullable="false" />
+          <Property Name="BookingMadeDate" Type="date" Nullable="false" />
+          <Property Name="BookingMadeTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="BookingDate" Type="date" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="PaymentTotal" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PaymentMadeDate" Type="date" />
+          <Property Name="NoCustomers" Type="int" Nullable="false" />
+          <Property Name="Comments" Type="varchar" MaxLength="150" />
+          <Property Name="Cancelled" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookingMenuItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Booking_id" Type="int" Nullable="false" />
+          <Property Name="MenuItem_id" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="PhoneNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="AddressStreet" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddressCounty" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressTown" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressPostalCode" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="OwinUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Forename" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Dob" Type="date" Nullable="false" />
+          <Property Name="AddressStreet" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddressTown" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressCounty" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressPostalCode" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="HomePhoneNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="WorkPhoneNo" Type="varchar" MaxLength="15" />
+          <Property Name="MobilePhoneNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DietInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Size" Type="bigint" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileContent" Type="varbinary(max)" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuItemDietInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuItem_id" Type="int" Nullable="false" />
+          <Property Name="DietInfo_id" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuItemImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuItem_id" Type="int" Nullable="false" />
+          <Property Name="Image_id" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuItemType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuItem_id" Type="int" Nullable="false" />
+          <Property Name="Type_id" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentMethod_id" Type="int" Nullable="false" />
+          <Property Name="Customer_id" Type="int" Nullable="false" />
+          <Property Name="Booking_id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Comments" Type="varchar" MaxLength="150" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company_id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="AddressStreet" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddressCounty" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressTown" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressPostalCode" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RestaurantMenuItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Restaurant_id" Type="int" Nullable="false" />
+          <Property Name="MenuItem_id" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Restaurant_id" Type="int" Nullable="false" />
+          <Property Name="TableNo" Type="int" Nullable="false" />
+          <Property Name="AdditionalNotes" Type="varchar" MaxLength="150" />
+          <Property Name="NoSeats" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableBooking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Booking_id" Type="int" Nullable="false" />
+          <Property Name="Table_id" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="Booking_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Booking_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="Restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookingMenuItem_Booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="BookingMenuItem" Type="Self.BookingMenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingMenuItem">
+              <PropertyRef Name="Booking_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookingMenuItem_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="BookingMenuItem" Type="Self.BookingMenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingMenuItem">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemDietInfo_DietInfo">
+          <End Role="DietInfo" Type="Self.DietInfo" Multiplicity="1" />
+          <End Role="MenuItemDietInfo" Type="Self.MenuItemDietInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemDietInfo">
+              <PropertyRef Name="DietInfo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemDietInfo_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="MenuItemDietInfo" Type="Self.MenuItemDietInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemDietInfo">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemImage_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="MenuItemImage" Type="Self.MenuItemImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemImage">
+              <PropertyRef Name="Image_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemImage_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="MenuItemImage" Type="Self.MenuItemImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemImage">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemType_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="MenuItemType" Type="Self.MenuItemType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemType">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemType_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="MenuItemType" Type="Self.MenuItemType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemType">
+              <PropertyRef Name="Type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="payment_booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="Booking_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="payment_customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Payment_PaymentMethod">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentMethod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Restaurant_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Restaurant">
+              <PropertyRef Name="Company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RestaurantMenuItem_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="RestaurantMenuItem" Type="Self.RestaurantMenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RestaurantMenuItem">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RestaurantMenuItem_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="RestaurantMenuItem" Type="Self.RestaurantMenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RestaurantMenuItem">
+              <PropertyRef Name="Restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Room_Hotel">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="Table" Type="Self.Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Table">
+              <PropertyRef Name="Restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoomBooking_Booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="TableBooking" Type="Self.TableBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TableBooking">
+              <PropertyRef Name="Booking_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoomBooking_Room">
+          <End Role="Table" Type="Self.Table" Multiplicity="1" />
+          <End Role="TableBooking" Type="Self.TableBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TableBooking">
+              <PropertyRef Name="Table_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RestaurantBookingSystemModelStoreContainer">
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingMenuItem" EntityType="Self.BookingMenuItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DietInfo" EntityType="Self.DietInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuItem" EntityType="Self.MenuItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuItemDietInfo" EntityType="Self.MenuItemDietInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuItemImage" EntityType="Self.MenuItemImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuItemType" EntityType="Self.MenuItemType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RestaurantMenuItem" EntityType="Self.RestaurantMenuItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableBooking" EntityType="Self.TableBooking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Booking_Customer" Association="Self.Booking_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="Booking_Restaurant" Association="Self.Booking_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="BookingMenuItem_Booking" Association="Self.BookingMenuItem_Booking">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="BookingMenuItem" EntitySet="BookingMenuItem" />
+          </AssociationSet>
+          <AssociationSet Name="BookingMenuItem_MenuItem" Association="Self.BookingMenuItem_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItem" />
+            <End Role="BookingMenuItem" EntitySet="BookingMenuItem" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemDietInfo_DietInfo" Association="Self.MenuItemDietInfo_DietInfo">
+            <End Role="DietInfo" EntitySet="DietInfo" />
+            <End Role="MenuItemDietInfo" EntitySet="MenuItemDietInfo" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemDietInfo_MenuItem" Association="Self.MenuItemDietInfo_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItem" />
+            <End Role="MenuItemDietInfo" EntitySet="MenuItemDietInfo" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemImage_Image" Association="Self.MenuItemImage_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="MenuItemImage" EntitySet="MenuItemImage" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemImage_MenuItem" Association="Self.MenuItemImage_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItem" />
+            <End Role="MenuItemImage" EntitySet="MenuItemImage" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemType_MenuItem" Association="Self.MenuItemType_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItem" />
+            <End Role="MenuItemType" EntitySet="MenuItemType" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemType_Type" Association="Self.MenuItemType_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="MenuItemType" EntitySet="MenuItemType" />
+          </AssociationSet>
+          <AssociationSet Name="payment_booking" Association="Self.payment_booking">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="payment_customer" Association="Self.payment_customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="Payment_PaymentMethod" Association="Self.Payment_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="Restaurant_Company" Association="Self.Restaurant_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Restaurant" EntitySet="Restaurant" />
+          </AssociationSet>
+          <AssociationSet Name="RestaurantMenuItem_MenuItem" Association="Self.RestaurantMenuItem_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItem" />
+            <End Role="RestaurantMenuItem" EntitySet="RestaurantMenuItem" />
+          </AssociationSet>
+          <AssociationSet Name="RestaurantMenuItem_Restaurant" Association="Self.RestaurantMenuItem_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="RestaurantMenuItem" EntitySet="RestaurantMenuItem" />
+          </AssociationSet>
+          <AssociationSet Name="Room_Hotel" Association="Self.Room_Hotel">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="Table" EntitySet="Table" />
+          </AssociationSet>
+          <AssociationSet Name="RoomBooking_Booking" Association="Self.RoomBooking_Booking">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="TableBooking" EntitySet="TableBooking" />
+          </AssociationSet>
+          <AssociationSet Name="RoomBooking_Room" Association="Self.RoomBooking_Room">
+            <End Role="Table" EntitySet="Table" />
+            <End Role="TableBooking" EntitySet="TableBooking" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RestaurantBookingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_id" Type="Int32" Nullable="false" />
+          <Property Name="Restaurant_id" Type="Int32" Nullable="false" />
+          <Property Name="BookingMadeDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BookingMadeTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="PaymentTotal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PaymentMadeDate" Type="DateTime" Precision="0" />
+          <Property Name="NoCustomers" Type="Int32" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Cancelled" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.Booking_Customer" FromRole="Booking" ToRole="Customer" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.Booking_Restaurant" FromRole="Booking" ToRole="Restaurant" />
+          <NavigationProperty Name="BookingMenuItems" Relationship="Self.BookingMenuItem_Booking" FromRole="Booking" ToRole="BookingMenuItem" />
+          <NavigationProperty Name="Payments" Relationship="Self.payment_booking" FromRole="Booking" ToRole="Payment" />
+          <NavigationProperty Name="TableBookings" Relationship="Self.RoomBooking_Booking" FromRole="Booking" ToRole="TableBooking" />
+        </EntityType>
+        <EntityType Name="BookingMenuItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Booking_id" Type="Int32" Nullable="false" />
+          <Property Name="MenuItem_id" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="Self.BookingMenuItem_Booking" FromRole="BookingMenuItem" ToRole="Booking" />
+          <NavigationProperty Name="MenuItem" Relationship="Self.BookingMenuItem_MenuItem" FromRole="BookingMenuItem" ToRole="MenuItem" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressStreet" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressTown" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressPostalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Restaurants" Relationship="Self.Restaurant_Company" FromRole="Company" ToRole="Restaurant" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwinUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Forename" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dob" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AddressStreet" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressTown" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressPostalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HomePhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WorkPhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MobilePhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.Booking_Customer" FromRole="Customer" ToRole="Booking" />
+          <NavigationProperty Name="Payments" Relationship="Self.payment_customer" FromRole="Customer" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="DietInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MenuItemDietInfoes" Relationship="Self.MenuItemDietInfo_DietInfo" FromRole="DietInfo" ToRole="MenuItemDietInfo" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Size" Type="Int64" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="MenuItemImages" Relationship="Self.MenuItemImage_Image" FromRole="Image" ToRole="MenuItemImage" />
+        </EntityType>
+        <EntityType Name="MenuItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookingMenuItems" Relationship="Self.BookingMenuItem_MenuItem" FromRole="MenuItem" ToRole="BookingMenuItem" />
+          <NavigationProperty Name="MenuItemDietInfoes" Relationship="Self.MenuItemDietInfo_MenuItem" FromRole="MenuItem" ToRole="MenuItemDietInfo" />
+          <NavigationProperty Name="MenuItemImages" Relationship="Self.MenuItemImage_MenuItem" FromRole="MenuItem" ToRole="MenuItemImage" />
+          <NavigationProperty Name="MenuItemTypes" Relationship="Self.MenuItemType_MenuItem" FromRole="MenuItem" ToRole="MenuItemType" />
+          <NavigationProperty Name="RestaurantMenuItems" Relationship="Self.RestaurantMenuItem_MenuItem" FromRole="MenuItem" ToRole="RestaurantMenuItem" />
+        </EntityType>
+        <EntityType Name="MenuItemDietInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuItem_id" Type="Int32" Nullable="false" />
+          <Property Name="DietInfo_id" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DietInfo" Relationship="Self.MenuItemDietInfo_DietInfo" FromRole="MenuItemDietInfo" ToRole="DietInfo" />
+          <NavigationProperty Name="MenuItem" Relationship="Self.MenuItemDietInfo_MenuItem" FromRole="MenuItemDietInfo" ToRole="MenuItem" />
+        </EntityType>
+        <EntityType Name="MenuItemImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuItem_id" Type="Int32" Nullable="false" />
+          <Property Name="Image_id" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="Self.MenuItemImage_Image" FromRole="MenuItemImage" ToRole="Image" />
+          <NavigationProperty Name="MenuItem" Relationship="Self.MenuItemImage_MenuItem" FromRole="MenuItemImage" ToRole="MenuItem" />
+        </EntityType>
+        <EntityType Name="MenuItemType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuItem_id" Type="Int32" Nullable="false" />
+          <Property Name="Type_id" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MenuItem" Relationship="Self.MenuItemType_MenuItem" FromRole="MenuItemType" ToRole="MenuItem" />
+          <NavigationProperty Name="Type" Relationship="Self.MenuItemType_Type" FromRole="MenuItemType" ToRole="Type" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMethod_id" Type="Int32" Nullable="false" />
+          <Property Name="Customer_id" Type="Int32" Nullable="false" />
+          <Property Name="Booking_id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="Self.payment_booking" FromRole="Payment" ToRole="Booking" />
+          <NavigationProperty Name="Customer" Relationship="Self.payment_customer" FromRole="Payment" ToRole="Customer" />
+          <NavigationProperty Name="PaymentMethod" Relationship="Self.Payment_PaymentMethod" FromRole="Payment" ToRole="PaymentMethod" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="Self.Payment_PaymentMethod" FromRole="PaymentMethod" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company_id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressStreet" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressTown" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressPostalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.Booking_Restaurant" FromRole="Restaurant" ToRole="Booking" />
+          <NavigationProperty Name="Company" Relationship="Self.Restaurant_Company" FromRole="Restaurant" ToRole="Company" />
+          <NavigationProperty Name="RestaurantMenuItems" Relationship="Self.RestaurantMenuItem_Restaurant" FromRole="Restaurant" ToRole="RestaurantMenuItem" />
+          <NavigationProperty Name="Tables" Relationship="Self.Room_Hotel" FromRole="Restaurant" ToRole="Table" />
+        </EntityType>
+        <EntityType Name="RestaurantMenuItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Restaurant_id" Type="Int32" Nullable="false" />
+          <Property Name="MenuItem_id" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MenuItem" Relationship="Self.RestaurantMenuItem_MenuItem" FromRole="RestaurantMenuItem" ToRole="MenuItem" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.RestaurantMenuItem_Restaurant" FromRole="RestaurantMenuItem" ToRole="Restaurant" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Restaurant_id" Type="Int32" Nullable="false" />
+          <Property Name="TableNo" Type="Int32" Nullable="false" />
+          <Property Name="AdditionalNotes" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="NoSeats" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.Room_Hotel" FromRole="Table" ToRole="Restaurant" />
+          <NavigationProperty Name="TableBookings" Relationship="Self.RoomBooking_Room" FromRole="Table" ToRole="TableBooking" />
+        </EntityType>
+        <EntityType Name="TableBooking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Booking_id" Type="Int32" Nullable="false" />
+          <Property Name="Table_id" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="Self.RoomBooking_Booking" FromRole="TableBooking" ToRole="Booking" />
+          <NavigationProperty Name="Table" Relationship="Self.RoomBooking_Room" FromRole="TableBooking" ToRole="Table" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MenuItemTypes" Relationship="Self.MenuItemType_Type" FromRole="Type" ToRole="MenuItemType" />
+        </EntityType>
+        <Association Name="Booking_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Booking_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="Restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookingMenuItem_Booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="BookingMenuItem" Type="Self.BookingMenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingMenuItem">
+              <PropertyRef Name="Booking_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="payment_booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="Booking_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoomBooking_Booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="TableBooking" Type="Self.TableBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TableBooking">
+              <PropertyRef Name="Booking_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookingMenuItem_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="BookingMenuItem" Type="Self.BookingMenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingMenuItem">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Restaurant_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Restaurant">
+              <PropertyRef Name="Company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="payment_customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemDietInfo_DietInfo">
+          <End Role="DietInfo" Type="Self.DietInfo" Multiplicity="1" />
+          <End Role="MenuItemDietInfo" Type="Self.MenuItemDietInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemDietInfo">
+              <PropertyRef Name="DietInfo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemImage_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="MenuItemImage" Type="Self.MenuItemImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemImage">
+              <PropertyRef Name="Image_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemDietInfo_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="MenuItemDietInfo" Type="Self.MenuItemDietInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemDietInfo">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemImage_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="MenuItemImage" Type="Self.MenuItemImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemImage">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemType_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="MenuItemType" Type="Self.MenuItemType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemType">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RestaurantMenuItem_MenuItem">
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="RestaurantMenuItem" Type="Self.RestaurantMenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RestaurantMenuItem">
+              <PropertyRef Name="MenuItem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuItemType_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="MenuItemType" Type="Self.MenuItemType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItemType">
+              <PropertyRef Name="Type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Payment_PaymentMethod">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentMethod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RestaurantMenuItem_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="RestaurantMenuItem" Type="Self.RestaurantMenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RestaurantMenuItem">
+              <PropertyRef Name="Restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Room_Hotel">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="Table" Type="Self.Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Table">
+              <PropertyRef Name="Restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoomBooking_Room">
+          <End Role="Table" Type="Self.Table" Multiplicity="1" />
+          <End Role="TableBooking" Type="Self.TableBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TableBooking">
+              <PropertyRef Name="Table_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookingSystemDb" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="BookingMenuItems" EntityType="Self.BookingMenuItem" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="DietInfoes" EntityType="Self.DietInfo" />
+          <EntitySet Name="Images" EntityType="Self.Image" />
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItem" />
+          <EntitySet Name="MenuItemDietInfoes" EntityType="Self.MenuItemDietInfo" />
+          <EntitySet Name="MenuItemImages" EntityType="Self.MenuItemImage" />
+          <EntitySet Name="MenuItemTypes" EntityType="Self.MenuItemType" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
+          <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+          <EntitySet Name="RestaurantMenuItems" EntityType="Self.RestaurantMenuItem" />
+          <EntitySet Name="Tables" EntityType="Self.Table" />
+          <EntitySet Name="TableBookings" EntityType="Self.TableBooking" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <AssociationSet Name="Booking_Customer" Association="Self.Booking_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="Booking_Restaurant" Association="Self.Booking_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="BookingMenuItem_Booking" Association="Self.BookingMenuItem_Booking">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="BookingMenuItem" EntitySet="BookingMenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="payment_booking" Association="Self.payment_booking">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="RoomBooking_Booking" Association="Self.RoomBooking_Booking">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="TableBooking" EntitySet="TableBookings" />
+          </AssociationSet>
+          <AssociationSet Name="BookingMenuItem_MenuItem" Association="Self.BookingMenuItem_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="BookingMenuItem" EntitySet="BookingMenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="Restaurant_Company" Association="Self.Restaurant_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Restaurant" EntitySet="Restaurants" />
+          </AssociationSet>
+          <AssociationSet Name="payment_customer" Association="Self.payment_customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemDietInfo_DietInfo" Association="Self.MenuItemDietInfo_DietInfo">
+            <End Role="DietInfo" EntitySet="DietInfoes" />
+            <End Role="MenuItemDietInfo" EntitySet="MenuItemDietInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemImage_Image" Association="Self.MenuItemImage_Image">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="MenuItemImage" EntitySet="MenuItemImages" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemDietInfo_MenuItem" Association="Self.MenuItemDietInfo_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="MenuItemDietInfo" EntitySet="MenuItemDietInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemImage_MenuItem" Association="Self.MenuItemImage_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="MenuItemImage" EntitySet="MenuItemImages" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemType_MenuItem" Association="Self.MenuItemType_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="MenuItemType" EntitySet="MenuItemTypes" />
+          </AssociationSet>
+          <AssociationSet Name="RestaurantMenuItem_MenuItem" Association="Self.RestaurantMenuItem_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="RestaurantMenuItem" EntitySet="RestaurantMenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItemType_Type" Association="Self.MenuItemType_Type">
+            <End Role="Type" EntitySet="Types" />
+            <End Role="MenuItemType" EntitySet="MenuItemTypes" />
+          </AssociationSet>
+          <AssociationSet Name="Payment_PaymentMethod" Association="Self.Payment_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="RestaurantMenuItem_Restaurant" Association="Self.RestaurantMenuItem_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="RestaurantMenuItem" EntitySet="RestaurantMenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="Room_Hotel" Association="Self.Room_Hotel">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Table" EntitySet="Tables" />
+          </AssociationSet>
+          <AssociationSet Name="RoomBooking_Room" Association="Self.RoomBooking_Room">
+            <End Role="Table" EntitySet="Tables" />
+            <End Role="TableBooking" EntitySet="TableBookings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RestaurantBookingSystemModelStoreContainer" CdmEntityContainer="BookingSystemDb">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+                <ScalarProperty Name="Restaurant_id" ColumnName="Restaurant_id" />
+                <ScalarProperty Name="BookingMadeDate" ColumnName="BookingMadeDate" />
+                <ScalarProperty Name="BookingMadeTime" ColumnName="BookingMadeTime" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="PaymentTotal" ColumnName="PaymentTotal" />
+                <ScalarProperty Name="PaymentMadeDate" ColumnName="PaymentMadeDate" />
+                <ScalarProperty Name="NoCustomers" ColumnName="NoCustomers" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingMenuItems">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.BookingMenuItem">
+              <MappingFragment StoreEntitySet="BookingMenuItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Booking_id" ColumnName="Booking_id" />
+                <ScalarProperty Name="MenuItem_id" ColumnName="MenuItem_id" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
+                <ScalarProperty Name="AddressCounty" ColumnName="AddressCounty" />
+                <ScalarProperty Name="AddressTown" ColumnName="AddressTown" />
+                <ScalarProperty Name="AddressPostalCode" ColumnName="AddressPostalCode" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="OwinUserId" ColumnName="OwinUserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Forename" ColumnName="Forename" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
+                <ScalarProperty Name="AddressTown" ColumnName="AddressTown" />
+                <ScalarProperty Name="AddressCounty" ColumnName="AddressCounty" />
+                <ScalarProperty Name="AddressPostalCode" ColumnName="AddressPostalCode" />
+                <ScalarProperty Name="HomePhoneNo" ColumnName="HomePhoneNo" />
+                <ScalarProperty Name="WorkPhoneNo" ColumnName="WorkPhoneNo" />
+                <ScalarProperty Name="MobilePhoneNo" ColumnName="MobilePhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DietInfoes">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.DietInfo">
+              <MappingFragment StoreEntitySet="DietInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItems">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.MenuItem">
+              <MappingFragment StoreEntitySet="MenuItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItemDietInfoes">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.MenuItemDietInfo">
+              <MappingFragment StoreEntitySet="MenuItemDietInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuItem_id" ColumnName="MenuItem_id" />
+                <ScalarProperty Name="DietInfo_id" ColumnName="DietInfo_id" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItemImages">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.MenuItemImage">
+              <MappingFragment StoreEntitySet="MenuItemImage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuItem_id" ColumnName="MenuItem_id" />
+                <ScalarProperty Name="Image_id" ColumnName="Image_id" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItemTypes">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.MenuItemType">
+              <MappingFragment StoreEntitySet="MenuItemType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuItem_id" ColumnName="MenuItem_id" />
+                <ScalarProperty Name="Type_id" ColumnName="Type_id" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PaymentMethod_id" ColumnName="PaymentMethod_id" />
+                <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+                <ScalarProperty Name="Booking_id" ColumnName="Booking_id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentMethods">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.PaymentMethod">
+              <MappingFragment StoreEntitySet="PaymentMethod">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurants">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.Restaurant">
+              <MappingFragment StoreEntitySet="Restaurant">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Company_id" ColumnName="Company_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
+                <ScalarProperty Name="AddressCounty" ColumnName="AddressCounty" />
+                <ScalarProperty Name="AddressTown" ColumnName="AddressTown" />
+                <ScalarProperty Name="AddressPostalCode" ColumnName="AddressPostalCode" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantMenuItems">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.RestaurantMenuItem">
+              <MappingFragment StoreEntitySet="RestaurantMenuItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Restaurant_id" ColumnName="Restaurant_id" />
+                <ScalarProperty Name="MenuItem_id" ColumnName="MenuItem_id" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Restaurant_id" ColumnName="Restaurant_id" />
+                <ScalarProperty Name="TableNo" ColumnName="TableNo" />
+                <ScalarProperty Name="AdditionalNotes" ColumnName="AdditionalNotes" />
+                <ScalarProperty Name="NoSeats" ColumnName="NoSeats" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableBookings">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.TableBooking">
+              <MappingFragment StoreEntitySet="TableBooking">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Booking_id" ColumnName="Booking_id" />
+                <ScalarProperty Name="Table_id" ColumnName="Table_id" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
