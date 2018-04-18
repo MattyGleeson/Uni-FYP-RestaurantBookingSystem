@@ -46,6 +46,7 @@
     <Compile Include="Dtos\Company.cs" />
     <Compile Include="Dtos\Customer.cs" />
     <Compile Include="Dtos\DietInfo.cs" />
+    <Compile Include="Dtos\Image.cs" />
     <Compile Include="Dtos\MenuItem.cs" />
     <Compile Include="Dtos\MenuItemType.cs" />
     <Compile Include="Dtos\Payment.cs" />

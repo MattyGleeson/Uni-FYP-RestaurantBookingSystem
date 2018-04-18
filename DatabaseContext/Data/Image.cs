@@ -27,7 +27,7 @@ namespace DatabaseContext.Data
         public byte[] FileContent { get; set; }
         public bool Deleted { get; set; }
         public System.DateTime CreatedOn { get; set; }
-        public System.DateTime ModifiedOn { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MenuItemImage> MenuItemImages { get; set; }

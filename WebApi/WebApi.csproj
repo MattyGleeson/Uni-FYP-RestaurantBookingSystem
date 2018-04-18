@@ -164,6 +164,7 @@
     <Compile Include="Controllers\Core\GenericServiceController.cs" />
     <Compile Include="Controllers\CustomerServiceController.cs" />
     <Compile Include="Controllers\DietInfoServiceController.cs" />
+    <Compile Include="Controllers\ImageServiceController.cs" />
     <Compile Include="Controllers\MenuItemTypeServiceController.cs" />
     <Compile Include="Controllers\MenuServiceController.cs" />
     <Compile Include="Controllers\RestaurantServiceController.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Facades\BookingServiceFacade.cs" />
     <Compile Include="Facades\Core\GenericServiceFacade.cs" />
     <Compile Include="Facades\CustomerServiceFacade.cs" />
+    <Compile Include="Facades\ImageServiceFacade.cs" />
     <Compile Include="Facades\MenuService\MenuServiceDietInfoFacade.cs" />
     <Compile Include="Facades\MenuService\MenuServiceFacade.cs" />
     <Compile Include="Facades\MenuService\MenuServiceTypeFacade.cs" />

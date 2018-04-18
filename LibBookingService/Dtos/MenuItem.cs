@@ -19,5 +19,7 @@ namespace LibBookingService.Dtos
         public virtual IEnumerable<MenuItemType> Types { get; set; }
 
         public virtual IEnumerable<DietInfo> DietInfo { get; set; }
+
+        public virtual int? ImageId { get; set; }
     }
 }

@@ -29,6 +29,9 @@
             @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
         </div>
 
+        @*@Html.LabelFor(model => model.Image, "Replace image")
+        <input type="file" name="Image" id="Image" />*@
+
         <script type="text/javascript">
             $(document).ready(function () {
                 $('input#Name, textarea#Description').characterCounter();

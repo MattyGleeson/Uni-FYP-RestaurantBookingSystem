@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookingSystemApp.View_Models.MenuItemVM>
+﻿@model IEnumerable<BookingSystemApp.View_Models.MenuItemViewVM>
 
 @{
     ViewBag.Title = "Menu Item Admin Index";
@@ -7,6 +7,7 @@
 <div class="row">
     <table class="table">
         <tr>
+            <th></th>
             <th>
                 Name
             </th>
@@ -29,16 +30,19 @@
         {
             <tr>
                 <td>
+                    <img src="@Url.Action("ImageFromId", new { id = menuItem.ImageId })" style="height: 5em;" />
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => menuItem.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => menuItem.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => menuItem.DietInfo)
+                    @Html.DisplayFor(modelItem => menuItem.DietInfoS)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => menuItem.Types)
+                    @Html.DisplayFor(modelItem => menuItem.TypesS)
                 </td>
                 <td>
                     £@Html.DisplayFor(modelItem => menuItem.Price)

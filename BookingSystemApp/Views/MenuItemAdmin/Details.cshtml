@@ -1,4 +1,4 @@
-﻿@model LibBookingService.Dtos.MenuItem
+﻿@model BookingSystemApp.View_Models.MenuItemViewVM
 
 @{
     ViewBag.Title = "Menu Item Details";
@@ -7,6 +7,10 @@
 <div class="form-horizontal" style="margin-top: 5em; margin-bottom: 5em; overflow: hidden;">
 
     <h5>Details</h5>
+
+    <div class="row">
+        <img src="@Url.Action("ImageFromId", new { id = Model.ImageId })" style="height: 10em;" />
+    </div>
 
     <div class="row">
         @Html.LabelFor(model => model.Name, "Name")<br />

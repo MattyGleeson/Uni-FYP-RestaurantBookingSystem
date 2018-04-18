@@ -5,6 +5,7 @@ using LibBookingService.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,12 +16,14 @@ namespace BookingSystemApp.Controllers
         private readonly MenuFacade _menuFacade;
         private readonly DietInfoFacade _dietInfoFacade;
         private readonly MenuItemTypeFacade _menuItemTypeFacade;
+        private readonly ImageFacade _imageFacade;
 
         public MenuController()
         {
             _menuFacade = new MenuFacade();
             _dietInfoFacade = new DietInfoFacade();
             _menuItemTypeFacade = new MenuItemTypeFacade();
+            _imageFacade = new ImageFacade();
         }
 
         // GET: Menu
@@ -29,7 +32,7 @@ namespace BookingSystemApp.Controllers
             IQueryable<MenuItem> res = _menuFacade.Get().AsQueryable();
 
             ViewBag.Type = new SelectList(_menuItemTypeFacade.Get().OrderBy(d => d.Name), "id", "name", "Select category");
-            ViewBag.DietInfo = new SelectList(_dietInfoFacade.Get().OrderBy(d => d.Name), "id", "name", "Select category");
+            ViewBag.DietInfo = new SelectList(_dietInfoFacade.Get().OrderBy(d => d.Name), "id", "name", "Select diet information");
 
             if (indexVM != null)
             {
@@ -45,36 +48,50 @@ namespace BookingSystemApp.Controllers
                 if (indexVM.EndPrice != null)
                     res = res.Where(m => m.Price <= indexVM.EndPrice);
 
-                return View(new MenuIndexVM
+                IEnumerable<MenuItemType> types = _menuItemTypeFacade.Get();
+                List<MenuIndexCategoryVM> categories = new List<MenuIndexCategoryVM>();
+
+                foreach (var type in types)
                 {
-                    DietInfo = indexVM.DietInfo,
-                    Type = indexVM.Type,
-                    StartPrice = indexVM.StartPrice,
-                    EndPrice = indexVM.EndPrice,
-                    MenuItems = res.Select(m => new MenuItemVM
+                    categories.Add(new MenuIndexCategoryVM
                     {
-                        Id = m.Id,
-                        Name = m.Name,
-                        Description = m.Description ?? "No Description",
-                        Price = m.Price,
-                        DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
-                        Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
-                    }).AsEnumerable()
-                });
+                        Category = type,
+                        MenuItems = res.Where(m => m.Types.Where( t => t.Id == type.Id).Any()).Select(m => new MenuItemViewVM
+                        {
+                            Id = m.Id,
+                            Name = m.Name,
+                            Description = m.Description ?? "No Description",
+                            Price = m.Price,
+                            ImageId = m.ImageId,
+                            DietInfoS = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
+                            TypesS = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
+                        })
+                    });
+                }
+
+                return View(categories.AsEnumerable());
             }
 
             return View(new MenuIndexVM
             {
-                MenuItems = res.Select(m => new MenuItemVM
+                MenuItems = res.Select(m => new MenuItemViewVM
                 {
                     Id = m.Id,
                     Name = m.Name,
                     Description = m.Description ?? "No Description",
                     Price = m.Price,
-                    DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
-                    Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
+                    ImageId = m.ImageId,
+                    DietInfoS = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
+                    TypesS = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
                 }).AsEnumerable()
             });
+        }
+
+        public async Task<ActionResult> ImageFromId(int id)
+        {
+            Image i = _imageFacade.LoadImage(id);
+
+            return File(i.FileContent, i.Type);
         }
     }
 }

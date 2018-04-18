@@ -1,12 +1,14 @@
-﻿using System;
+﻿using LibBookingService.Dtos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Web;
 
 namespace BookingSystemApp.View_Models
 {
-    public class MenuItemVM
+    public class MenuItemViewVM
     {
         public int Id { get; set; }
 
@@ -23,10 +25,14 @@ namespace BookingSystemApp.View_Models
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double Price { get; set; }
 
-        public string Types { get; set; }
+        public string TypesS { get; set; }
 
-        public string DietInfo { get; set; }
+        public string DietInfoS { get; set; }
 
-        public HttpPostedFileBase Image { get; set; }
+        public virtual IEnumerable<MenuItemType> Types { get; set; }
+
+        public virtual IEnumerable<DietInfo> DietInfo { get; set; }
+
+        public int? ImageId { get; set; }
     }
 }

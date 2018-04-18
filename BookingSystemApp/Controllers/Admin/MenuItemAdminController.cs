@@ -4,8 +4,10 @@ using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,12 +19,14 @@ namespace BookingSystemApp.Controllers.Admin
         private readonly MenuFacade _menuFacade;
         private readonly DietInfoFacade _dietInfoFacade;
         private readonly MenuItemTypeFacade _menuItemTypeFacade;
+        private readonly ImageFacade _imageFacade;
 
         public MenuItemAdminController()
         {
             _menuFacade = new MenuFacade();
             _dietInfoFacade = new DietInfoFacade();
             _menuItemTypeFacade = new MenuItemTypeFacade();
+            _imageFacade = new ImageFacade();
         }
 
         // GET: Admin/MenuItem
@@ -49,7 +53,23 @@ namespace BookingSystemApp.Controllers.Admin
 
             Session["MenuItemId"] = res.Id;
 
-            return View(res);
+            return View(new MenuItemViewVM
+            {
+                Id = res.Id,
+                Name = res.Name,
+                Description = res.Description,
+                ImageId = res.ImageId,
+                Price = res.Price,
+                DietInfo = res.DietInfo,
+                Types = res.Types
+            });
+        }
+
+        public async Task<ActionResult> ImageFromId(int id)
+        {
+            Image i = _imageFacade.LoadImage(id);
+
+            return File(i.FileContent, i.Type);
         }
 
         // GET: Admin/MenuItem/ManageDietInfo/5
@@ -157,17 +177,33 @@ namespace BookingSystemApp.Controllers.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price")] MenuItemVM menuItem)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Image")] MenuItemVM menuItem)
         {
             if (ModelState.IsValid)
             {
                 MenuItem res = _menuFacade.Create(new MenuItem
                 {
-                    Id = menuItem.Id,
                     Name = menuItem.Name,
                     Description = menuItem.Description,
                     Price = menuItem.Price
                 });
+
+                var fileName = Path.GetFileName(menuItem.Image.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                Stream imgFileStream = menuItem.Image.InputStream;
+                byte[] documentBytes = new byte[imgFileStream.Length];
+                imgFileStream.Read(documentBytes, 0, documentBytes.Length);
+
+                Image img = _imageFacade.UploadMenuItemImage(new Image
+                {
+                    Name = fileName,
+                    Size = menuItem.Image.ContentLength,
+                    Type = menuItem.Image.ContentType,
+                    FileContent = documentBytes,
+                    CreatedOn = DateTime.Now,
+                    Source = res.Id
+                });
+
                 return RedirectToAction("Details", new { Id = res.Id });
             }
 
@@ -185,7 +221,15 @@ namespace BookingSystemApp.Controllers.Admin
             if (res == null)
                 return HttpNotFound();
 
-            return View(CreateVMFromDto(res));
+            return View(new MenuItemVM
+            {
+                Id = res.Id,
+                Name = res.Name,
+                Description = res.Description,
+                Price = res.Price,
+                DietInfo = res.DietInfo.Any() ? String.Join(", ", res.DietInfo.Select(d => d.Name)) : "N/A",
+                Types = res.Types.Any() ? String.Join(", ", res.Types.Select(t => t.Name)) : "N/A"
+            });
         }
 
         // POST: Admin/MenuItem/Edit/5
@@ -193,7 +237,7 @@ namespace BookingSystemApp.Controllers.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price")] MenuItemVM menuItem)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Image")] MenuItemVM menuItem)
         {
             if (ModelState.IsValid)
             {
@@ -204,6 +248,25 @@ namespace BookingSystemApp.Controllers.Admin
                     Description = menuItem.Description,
                     Price = menuItem.Price
                 });
+
+                //var fileName = Path.GetFileName(menuItem.Image.FileName);
+                //var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                //Stream imgFileStream = menuItem.Image.InputStream;
+                //byte[] documentBytes = new byte[imgFileStream.Length];
+                //imgFileStream.Read(documentBytes, 0, documentBytes.Length);
+
+                //if (fileName != null && path != null)
+                //{
+                //    Image img = _imageFacade.UploadMenuItemImage(new Image
+                //    {
+                //        Name = fileName,
+                //        Size = menuItem.Image.ContentLength,
+                //        Type = menuItem.Image.ContentType,
+                //        FileContent = documentBytes,
+                //        CreatedOn = DateTime.Now,
+                //        Source = res.Id
+                //    });
+                //}
                 return RedirectToAction("Details", new { Id = res.Id });
             }
 
@@ -233,16 +296,17 @@ namespace BookingSystemApp.Controllers.Admin
             return RedirectToAction("Index");
         }
 
-        private MenuItemVM CreateVMFromDto(MenuItem m)
+        private MenuItemViewVM CreateVMFromDto(MenuItem m)
         {
-            return new MenuItemVM
+            return new MenuItemViewVM
             {
                 Id = m.Id,
                 Name = m.Name,
                 Description = m.Description,
                 Price = m.Price,
-                DietInfo = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
-                Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
+                ImageId = m.ImageId != -1 ? m.ImageId : null,
+                DietInfoS = m.DietInfo.Any() ? String.Join(", ", m.DietInfo.Select(d => d.Name)) : "N/A",
+                TypesS = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
             };
         }
     }

@@ -4,7 +4,7 @@
     ViewBag.Title = "New Menu Item";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "MenuItemAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -28,6 +28,8 @@
             @Html.LabelFor(model => model.Price, "Price (£)")
             @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
         </div>
+
+        <input type="file" name="Image" id="Image" />
 
         <div class="form-group" style="text-align:end;">
             <input type="button" value="Cancel" class="btn-flat" onclick="location.href='@Url.Action("Index")'" />

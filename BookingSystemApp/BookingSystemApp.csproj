@@ -161,6 +161,7 @@
     <Compile Include="Facades\Core\GenericFacade.cs" />
     <Compile Include="Facades\CustomerFacade.cs" />
     <Compile Include="Facades\DietInfoFacade.cs" />
+    <Compile Include="Facades\ImageFacade.cs" />
     <Compile Include="Facades\MenuFacade.cs" />
     <Compile Include="Facades\MenuItemTypeFacade.cs" />
     <Compile Include="Facades\RestaurantFacade.cs" />
@@ -181,8 +182,10 @@
     <Compile Include="View Models\HomeDatePickerVM.cs" />
     <Compile Include="View Models\LoginVM.cs" />
     <Compile Include="View Models\ManageDietInfoVM.cs" />
+    <Compile Include="View Models\MenuIndexCategoryVM.cs" />
     <Compile Include="View Models\MenuIndexVM.cs" />
     <Compile Include="View Models\MenuItemTypeVM.cs" />
+    <Compile Include="View Models\MenuItemViewVM.cs" />
     <Compile Include="View Models\MenuItemVM.cs" />
     <Compile Include="View Models\RegisterVM.cs" />
     <Compile Include="View Models\RestaurantVM.cs" />

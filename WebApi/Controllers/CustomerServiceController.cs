@@ -85,13 +85,13 @@ namespace WebApi.Controllers
         /// <summary>
         /// Endpoint to post a customer.
         /// </summary>
-        /// <param name="restaurant"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("Post")]
-        public async Task<HttpResponseMessage> Post(Customer restaurant)
+        public async Task<HttpResponseMessage> Post(Customer customer)
         {
-            Customer newCustomer = await _facade.PostCustomer(restaurant);
+            Customer newCustomer = await _facade.PostCustomer(customer);
 
             if (newCustomer != null)
                 return Request.CreateResponse(HttpStatusCode.OK, newCustomer);

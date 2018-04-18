@@ -341,6 +341,8 @@ namespace MenuService.Controllers
         /// <returns></returns>
         private LibBookingService.Dtos.MenuItem CreateMenuItemFromDbMenuItem(MenuItem mi)
         {
+            IEnumerable<Image> images = mi.MenuItemImages.Where(m => !m.Deleted).Select(m => m.Image).Where(m => !m.Deleted);
+
             return new LibBookingService.Dtos.MenuItem
             {
                 Id = mi.Id,
@@ -356,7 +358,8 @@ namespace MenuService.Controllers
                 {
                     Id = t.Id,
                     Name = t.Name
-                }).OrderBy(b => b.Name)
+                }).OrderBy(b => b.Name),
+                ImageId = images.Any() ? images.First().Id : -1
             };
         }
     }

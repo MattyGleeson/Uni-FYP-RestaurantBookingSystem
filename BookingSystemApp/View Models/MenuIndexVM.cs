@@ -10,7 +10,7 @@ namespace BookingSystemApp.View_Models
 {
     public class MenuIndexVM
     {
-        public IEnumerable<MenuItemVM> MenuItems { get; set; }
+        public IEnumerable<MenuItemViewVM> MenuItems { get; set; }
 
         [DisplayName("Category")]
         public int? Type { get; set; }
