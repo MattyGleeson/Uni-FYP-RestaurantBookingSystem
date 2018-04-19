@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BookingSystemApp.View_Models
 {
-    public class RestaurantVM
+    public class RestaurantDetailsVM
     {
         public int Id { get; set; }
 
@@ -43,7 +43,7 @@ namespace BookingSystemApp.View_Models
         [DisplayName("Postal Code")]
         public string AddressPostalCode { get; set; }
 
-        public IEnumerable<MenuItemVM> MenuItems { get; set; }
+        public IEnumerable<MenuIndexCategoryVM> MenuItems { get; set; }
 
         [DisplayName("Number of Tables")]
         public int TableCount { get; set; }

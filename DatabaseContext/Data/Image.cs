@@ -18,6 +18,7 @@ namespace DatabaseContext.Data
         public Image()
         {
             this.MenuItemImages = new HashSet<MenuItemImage>();
+            this.RestaurantImages = new HashSet<RestaurantImage>();
         }
     
         public int Id { get; set; }
@@ -31,5 +32,7 @@ namespace DatabaseContext.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MenuItemImage> MenuItemImages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantImage> RestaurantImages { get; set; }
     }
 }

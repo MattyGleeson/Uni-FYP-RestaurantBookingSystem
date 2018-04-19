@@ -43,6 +43,68 @@ namespace BookingSystemApp.Facades
             }
         }
 
+        public bool RemoveMenuItemImage(Image model)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "RemoveMenuItemImage"),
+                    Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
+                };
+
+                return ExecuteRequest<bool>(request);
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Posts an image model to the web api and returns the saved model.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Image UploadRestaurantImage(Image model)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "UploadRestaurantImage"),
+                    Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
+                };
+
+                return ExecuteRequest<Image>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public bool RemoveRestaurantImage(Image model)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "RemoveRestaurantImage"),
+                    Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json")
+                };
+
+                return ExecuteRequest<bool>(request);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Returns an image model by id.
         /// </summary>

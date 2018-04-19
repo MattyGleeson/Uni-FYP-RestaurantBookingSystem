@@ -4,8 +4,10 @@ using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,7 +20,7 @@ namespace BookingSystemApp.Controllers.Admin
         private readonly CompanyFacade _companyFacade;
         private readonly MenuFacade _menuFacade;
         private readonly TableFacade _tableFacade;
-
+        private readonly ImageFacade _imageFacade;
 
         public RestaurantAdminController()
         {
@@ -26,6 +28,7 @@ namespace BookingSystemApp.Controllers.Admin
             _companyFacade = new CompanyFacade();
             _menuFacade = new MenuFacade();
             _tableFacade = new TableFacade();
+            _imageFacade = new ImageFacade();
         }
 
         // GET: Admin/Restaurant
@@ -263,8 +266,49 @@ namespace BookingSystemApp.Controllers.Admin
                     Types = m.Types.Any() ? String.Join(", ", m.Types.Select(t => t.Name)) : "N/A"
                 }).OrderBy(m => m.Name),
                 TableCount = r.Tables.Count(),
-                Tables = r.Tables
+                Tables = r.Tables,
+                ImageIds = r.ImageIds
             };
+        }
+
+        public int AddImage(int Id, HttpPostedFileBase Image)
+        {
+            if (Image != null)
+            {
+                var fileName = Path.GetFileName(Image.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                Stream imgFileStream = Image.InputStream;
+                byte[] documentBytes = new byte[imgFileStream.Length];
+                imgFileStream.Read(documentBytes, 0, documentBytes.Length);
+
+                Image img = _imageFacade.UploadRestaurantImage(new Image
+                {
+                    Name = fileName,
+                    Size = Image.ContentLength,
+                    Type = Image.ContentType,
+                    FileContent = documentBytes,
+                    CreatedOn = DateTime.Now,
+                    Source = Id
+                });
+
+                return img.Id;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public void RemoveImage(int Id, int ImgId)
+        {
+            _imageFacade.RemoveRestaurantImage(new Image { Id = ImgId, Source = Id });
+        }
+
+        public async Task<ActionResult> ImageFromId(int id)
+        {
+            Image i = _imageFacade.LoadImage(id);
+
+            return File(i.FileContent, i.Type);
         }
     }
 }

@@ -20,6 +20,7 @@ namespace DatabaseContext.Data
             this.Bookings = new HashSet<Booking>();
             this.RestaurantMenuItems = new HashSet<RestaurantMenuItem>();
             this.Tables = new HashSet<Table>();
+            this.RestaurantImages = new HashSet<RestaurantImage>();
         }
     
         public int Id { get; set; }
@@ -39,5 +40,7 @@ namespace DatabaseContext.Data
         public virtual ICollection<RestaurantMenuItem> RestaurantMenuItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Table> Tables { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantImage> RestaurantImages { get; set; }
     }
 }

@@ -1,46 +1,7 @@
-﻿@*@model BookingSystemApp.View_Models.MenuIndexVM*@
-@model IEnumerable<BookingSystemApp.View_Models.MenuIndexCategoryVM>
+﻿@model IEnumerable<BookingSystemApp.View_Models.MenuIndexCategoryVM>
 @{
     ViewBag.Title = "Menu";
 }
-
-@*<div class="row" style="margin-top: 5em; overflow: hidden;">
-    @using (Html.BeginForm())
-    {
-        <div class="row">
-            <div class="col s3">
-                @Html.LabelFor(model => model.Type)
-                @Html.DropDownList("Type", null, "Select category", htmlAttributes: new { @class = "browser-default" })
-                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-            </div>
-
-            <div class="col s3">
-                @Html.LabelFor(model => model.DietInfo)
-                @Html.DropDownList("DietInfo", null, "Select diet information", htmlAttributes: new { @class = "browser-default" })
-                @Html.ValidationMessageFor(model => model.DietInfo, "", new { @class = "text-danger" })
-            </div>
-
-            <div class="col s3 input-field">
-                @Html.LabelFor(model => model.StartPrice)
-                @Html.EditorFor(model => model.StartPrice)
-                @Html.ValidationMessageFor(model => model.StartPrice, "", new { @class = "text-danger" })
-            </div>
-
-            <div class="col s3 input-field">
-                @Html.LabelFor(model => model.EndPrice)
-                @Html.EditorFor(model => model.EndPrice)
-                @Html.ValidationMessageFor(model => model.EndPrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="row" style="text-align:end;">
-            <input type="button" value="Clear Filters" class="btn-flat" onclick="location.href='@Url.Action("Index")'" />
-            <div style="text-align:end; display: inline-block; float: right;">
-                <input type="submit" value="Apply Filters" class="btn btn-primary dark-blue" />
-            </div>
-        </div>
-    }
-</div>*@
 
 @foreach (var category in Model)
 {
@@ -69,7 +30,7 @@
             {
                 <tr>
                     <td>
-                        <img src="@Url.Action("ImageFromId", new { id = menuItem.ImageId })" style="height: 5em;" />
+                        <img class="materialboxed" src="@Url.Action("ImageFromId", new { id = menuItem.ImageId })" style="height: 5em;" />
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => menuItem.Name)
@@ -92,48 +53,10 @@
     </div>
 }
 
-@*<div class="row" style="margin-top: 2em; overflow: hidden;">
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Diet Info
-            </th>
-            <th>
-                Categories
-            </th>
-            <th>
-                Price
-            </th>
-        </tr>
-        @foreach (var menuItem in Model.MenuItems)
-        {
-            <tr>
-                <td>
-                    <img src="@Url.Action("ImageFromId", new { id = menuItem.ImageId })" style="height: 5em;" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => menuItem.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => menuItem.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => menuItem.DietInfo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => menuItem.Types)
-                </td>
-                <td>
-                    £@Html.DisplayFor(modelItem => menuItem.Price)
-                </td>
-            </tr>
-            }
-    </table>
-</div>*@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.materialboxed').materialbox();
+    });
+
+</script>

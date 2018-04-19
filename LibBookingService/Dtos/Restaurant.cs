@@ -29,5 +29,7 @@ namespace LibBookingService.Dtos
         public virtual IEnumerable<MenuItem> MenuItems { get; set; }
 
         public virtual IEnumerable<Table> Tables { get; set; }
+
+        public virtual IEnumerable<int> ImageIds { get; set; }
     }
 }

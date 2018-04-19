@@ -27,7 +27,7 @@ namespace BookingSystemApp.Controllers
 
         public ActionResult Index()
         {
-            //Session["UserId"] = 1;
+            ViewBag.Description = _companyFacade.Get().Description;
             ViewBag.RestaurantId = new SelectList(_restaurantFacade.Get(), "id", "name", "Select restaurant");
             return View();
         }

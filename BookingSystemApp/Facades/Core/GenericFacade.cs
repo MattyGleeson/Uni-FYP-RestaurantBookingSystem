@@ -124,7 +124,7 @@ namespace BookingSystemApp.Facades.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected T ExecuteRequest<T>(HttpRequestMessage request) where T : Dto
+        protected T ExecuteRequest<T>(HttpRequestMessage request)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             HttpResponseMessage response = _client.SendAsync(request).Result;
@@ -139,7 +139,7 @@ namespace BookingSystemApp.Facades.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected IEnumerable<T> ExecuteRequestList<T>(HttpRequestMessage request) where T : Dto
+        protected IEnumerable<T> ExecuteRequestList<T>(HttpRequestMessage request)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             HttpResponseMessage response = _client.SendAsync(request).Result;

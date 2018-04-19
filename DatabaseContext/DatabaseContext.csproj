@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Data\Booking.cs">
       <DependentUpon>BookingSystemDb.tt</DependentUpon>
     </Compile>
@@ -103,6 +102,9 @@
       <DependentUpon>BookingSystemDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Restaurant.cs">
+      <DependentUpon>BookingSystemDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RestaurantImage.cs">
       <DependentUpon>BookingSystemDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\RestaurantMenuItem.cs">

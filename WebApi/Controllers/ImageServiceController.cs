@@ -44,6 +44,60 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
+        /// Endpoint to remove an image.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        [Authorize(Roles = ("Admin,Manager"))]
+        [HttpPost]
+        [Route("RemoveMenuItemImage")]
+        public async Task<HttpResponseMessage> RemoveMenuItemImage(Image image)
+        {
+            bool res = await _facade.RemoveMenuItemImage(image);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK, res);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Saving");
+        }
+
+        /// <summary>
+        /// Endpoint to post an image.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        [Authorize(Roles = ("Admin,Manager"))]
+        [HttpPost]
+        [Route("UploadRestaurantImage")]
+        public async Task<HttpResponseMessage> UploadRestaurantImage(Image image)
+        {
+            Image newImage = await _facade.UploadRestaurantImage(image);
+
+            if (newImage != null)
+                return Request.CreateResponse(HttpStatusCode.OK, newImage);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Saving");
+        }
+
+        /// <summary>
+        /// Endpoint to remove an image.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        [Authorize(Roles = ("Admin,Manager"))]
+        [HttpPost]
+        [Route("RemoveRestaurantImage")]
+        public async Task<HttpResponseMessage> RemoveRestaurantImage(Image image)
+        {
+            bool res = await _facade.RemoveRestaurantImage(image);
+
+            if (res)
+                return Request.CreateResponse(HttpStatusCode.OK, res);
+
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An Error Occured Whilst Saving");
+        }
+
+        /// <summary>
         /// Endpoint to get an image by id.
         /// </summary>
         /// <returns></returns>

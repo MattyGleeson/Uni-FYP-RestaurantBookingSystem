@@ -43,5 +43,6 @@ namespace DatabaseContext.Data
         public virtual DbSet<Table> Tables { get; set; }
         public virtual DbSet<TableBooking> TableBookings { get; set; }
         public virtual DbSet<Type> Types { get; set; }
+        public virtual DbSet<RestaurantImage> RestaurantImages { get; set; }
     }
 }

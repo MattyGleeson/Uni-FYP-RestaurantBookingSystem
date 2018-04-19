@@ -98,6 +98,102 @@ namespace ImageService.Controllers
             }
         }
 
+        [Route("RemoveMenuItemImage")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> RemoveMenuItemImage(LibBookingService.Dtos.Image image)
+        {
+            try
+            {
+                Image img = await _db.Images.Where(i => i.Id == image.Id).FirstOrDefaultAsync();
+
+                img.Deleted = true;
+
+                _db.SetModified(img);
+                await _db.SaveChangesAsync();
+
+                MenuItemImage resImg = await _db.MenuItemImages.Where(i => i.Image_id == image.Id && i.MenuItem_id == image.Source).FirstOrDefaultAsync();
+
+                resImg.Deleted = true;
+
+                _db.SetModified(resImg);
+                await _db.SaveChangesAsync();
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        [Route("UploadRestaurantImage")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> UploadRestaurantImage(LibBookingService.Dtos.Image image)
+        {
+            try
+            {
+                Image img = _db.Images.Add(new Image
+                {
+                    Name = image.Name,
+                    Size = image.Size,
+                    Type = image.Type,
+                    FileContent = image.FileContent,
+                    CreatedOn = image.CreatedOn
+                });
+                await _db.SaveChangesAsync();
+
+                _db.RestaurantImages.Add(new RestaurantImage
+                {
+                    Image_id = img.Id,
+                    Restaurant_id = image.Source
+                });
+                await _db.SaveChangesAsync();
+
+                return Request.CreateResponse(HttpStatusCode.OK, new LibBookingService.Dtos.Image
+                {
+                    Id = img.Id,
+                    Name = img.Name,
+                    Size = img.Size,
+                    Type = img.Type,
+                    FileContent = img.FileContent,
+                    CreatedOn = img.CreatedOn,
+                    ModifiedOn = img.ModifiedOn ?? null
+                });
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
+        [Route("RemoveRestaurantImage")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> RemoveRestaurantImage(LibBookingService.Dtos.Image image)
+        {
+            try
+            {
+                Image img = await _db.Images.Where(i => i.Id == image.Id).FirstOrDefaultAsync();
+
+                img.Deleted = true;
+
+                _db.SetModified(img);
+                await _db.SaveChangesAsync();
+
+                RestaurantImage resImg = await _db.RestaurantImages.Where(i => i.Image_id == image.Id && i.Restaurant_id == image.Source).FirstOrDefaultAsync();
+
+                resImg.Deleted = true;
+
+                _db.SetModified(resImg);
+                await _db.SaveChangesAsync();
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed");
+            }
+        }
+
         [Route("LoadImage/{id:int}")]
         [HttpGet]
         public async Task<HttpResponseMessage> LoadImage(int id)

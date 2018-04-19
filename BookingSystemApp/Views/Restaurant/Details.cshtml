@@ -1,4 +1,4 @@
-﻿@model BookingSystemApp.View_Models.RestaurantVM
+﻿@model BookingSystemApp.View_Models.RestaurantDetailsVM
 
 @{
     ViewBag.Title = "Restaurant Details";
@@ -40,47 +40,77 @@
     </div>
 </div>
 
+<hr />
+
+<h4>Images</h4>
+<div class="row">
+    @foreach (var img in Model.ImageIds)
+    {
+        <div class="col s2">
+            <img class="materialboxed responsive-img" src="@Url.Action("ImageFromId", new { id = img })" />
+        </div>
+    }
+</div>
+
 <hr/>
 
 <h4>Menu</h4>
 <div class="row">
-    <table class="table">
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Diet Info
-            </th>
-            <th>
-                Categories
-            </th>
-            <th>
-                Price
-            </th>
-        </tr>
-        @foreach (var menuItem in Model.MenuItems)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => menuItem.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => menuItem.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => menuItem.DietInfo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => menuItem.Types)
-                </td>
-                <td>
-                    £@Html.DisplayFor(modelItem => menuItem.Price)
-                </td>
-            </tr>
-        }
-    </table>
+    @foreach (var category in Model.MenuItems)
+    {
+        <div class="row" style="margin-top: 2em; overflow: hidden;">
+            <h5>@category.Category.Name</h5>
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Diet Info
+                    </th>
+                    <th>
+                        Categories
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                </tr>
+                @foreach (var menuItem in category.MenuItems)
+                {
+                    <tr>
+                        <td>
+                            <img class="materialboxed" src="@Url.Action("ImageFromId", new { id = menuItem.ImageId })" style="height: 5em;" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => menuItem.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => menuItem.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => menuItem.DietInfoS)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => menuItem.TypesS)
+                        </td>
+                        <td>
+                            £@Html.DisplayFor(modelItem => menuItem.Price)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.materialboxed').materialbox();
+        });
+
+    </script>
 </div>

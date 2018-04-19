@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="RestaurantBookingSystemModel.MenuItemType" Width="1.5" PointX="6" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="RestaurantBookingSystemModel.Payment" Width="1.5" PointX="3.75" PointY="21.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RestaurantBookingSystemModel.PaymentMethod" Width="1.5" PointX="1.5" PointY="34.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestaurantBookingSystemModel.Restaurant" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantBookingSystemModel.Restaurant" Width="1.5" PointX="0.5" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="RestaurantBookingSystemModel.RestaurantMenuItem" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="RestaurantBookingSystemModel.Table" Width="1.5" PointX="0.75" PointY="29.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RestaurantBookingSystemModel.TableBooking" Width="1.5" PointX="3" PointY="18" IsExpanded="true" />
@@ -41,6 +41,10 @@
         <AssociationConnector Association="RestaurantBookingSystemModel.RestaurantMenuItem_Restaurant" ManuallyRouted="false" />
         <AssociationConnector Association="RestaurantBookingSystemModel.Room_Hotel" ManuallyRouted="false" />
         <AssociationConnector Association="RestaurantBookingSystemModel.RoomBooking_Room" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RestaurantBookingSystemModel.RestaurantImage" Width="3.5" PointX="6" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="RestaurantBookingSystemModel.RestaurantImage_Image" />
+        <AssociationConnector Association="RestaurantBookingSystemModel.RestaurantImage_MenuItem" />
+        <AssociationConnector Association="RestaurantBookingSystemModel.RestaurantImage_Restaurant" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

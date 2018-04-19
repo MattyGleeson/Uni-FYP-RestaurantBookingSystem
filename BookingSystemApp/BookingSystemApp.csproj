@@ -188,6 +188,7 @@
     <Compile Include="View Models\MenuItemViewVM.cs" />
     <Compile Include="View Models\MenuItemVM.cs" />
     <Compile Include="View Models\RegisterVM.cs" />
+    <Compile Include="View Models\RestaurantDetailsVM.cs" />
     <Compile Include="View Models\RestaurantVM.cs" />
     <Compile Include="View Models\TableVM.cs" />
   </ItemGroup>

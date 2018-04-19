@@ -43,6 +43,92 @@
     <hr />
 
     <div class="row">
+        <h4>Images</h4>
+
+        <div class="row" id="imageContainer">
+
+            @foreach (var img in Model.ImageIds)
+            {
+                <div id="image-@img" class="col s3" style="margin-top: 1em; display: inline-block; position: relative;">
+                    <img class="materialboxed responsive-img" src="@Url.Action("ImageFromId", new { id = img })" />
+                    <a href="#modal-@img" class="modal-trigger"><img id="removeImage-@img" style="position: absolute; top: 0; right: 0;" src="http://wecision.com/enterprise/images/icons/closeIcon.png" /></a>
+                    <div id="modal-@img" class="modal">
+                        <div class="modal-content">
+                            <h4>Confirm</h4>
+                            <p>Are you sure you want to delete this image?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-dark-blue btn-flat">Cangel</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-dark-blue btn-flat" id="confirm-@img">Agree</a>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $('.modal').modal();
+                    $('#confirm-@img').on("click", function (e) {
+                        window.console && console.log('foo-@img');
+
+                        $.ajax({
+                            url: "/Admin/Restaurant/RemoveImage?Id=@Model.Id&ImgId=@img",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            method: 'POST',
+                            type: 'POST'
+                        });
+
+                        $('#image-@img').remove();
+                    });
+                </script>
+            }
+
+        </div>
+
+        @using (Html.BeginForm("AddImage", "RestaurantAdmin", FormMethod.Post, new { enctype = "multipart/form-data", id = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="file" name="Image" id="Image" />
+            
+            <input id="submitImage" type="submit" value="Add" class="btn btn-primary dark-blue" />
+        }
+
+        <script type="text/javascript">
+            $("#submitImage").on("click", function (e) {
+                e.preventDefault();
+                //window.console && console.log('foo');
+
+                var input = document.getElementById('Image');
+                var file = document.getElementById('Image').files[0];
+                var data = new FormData();
+                data.append('Image', file);
+
+                $.ajax({
+                    url: "/Admin/Restaurant/AddImage?Id=@Model.Id",
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: 'POST',
+                    type: 'POST',
+                    success: function (data) {
+                        $("form")[0].reset()
+
+                        if (data !== -1) {
+                            $("#imageContainer").append('<div class="col s3"  style="margin-top: 1em;"> <img class="materialboxed responsive-img" src="/Admin/Restaurant/ImageFromId?id=' + data + '" style="" /> </div>')
+                            $('.materialboxed').materialbox();
+                        }
+                    }
+                });
+                return false;
+            });
+        </script>
+    </div>
+
+    <hr />
+
+    <div class="row">
         <div class="col s6">
             <h4>Menu Items</h4>
             @using (Html.BeginForm("AddMenuItem", "RestaurantAdmin", FormMethod.Post, new { style = "overflow: hidden; margin-top: 1em;" }))
@@ -139,5 +225,14 @@
             </table>
         </div>
     </div>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.materialboxed').materialbox();
+        });
+
+    </script>
 
 </div>

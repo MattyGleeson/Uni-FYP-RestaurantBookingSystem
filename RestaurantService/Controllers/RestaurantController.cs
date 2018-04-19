@@ -261,6 +261,8 @@ namespace RestaurantService.Controllers
         /// <returns></returns>
         private LibBookingService.Dtos.Restaurant CreateRestaurantFromDbRestaurant(Restaurant r)
         {
+            IEnumerable<Image> images = r.RestaurantImages.Where(m => !m.Deleted).Select(m => m.Image).Where(m => !m.Deleted);
+
             return new LibBookingService.Dtos.Restaurant
             {
                 Id = r.Id,
@@ -272,7 +274,8 @@ namespace RestaurantService.Controllers
                 AddressTown = r.AddressTown,
                 AddressPostalCode = r.AddressPostalCode,
                 Tables = GetTablesForRestaurant(r),
-                MenuItems = GetMenuItemsForRestaurant(r)
+                MenuItems = GetMenuItemsForRestaurant(r),
+                ImageIds = images.Select(i => i.Id)
             };
         }
 
@@ -322,7 +325,10 @@ namespace RestaurantService.Controllers
                     {
                         Id = t.Id,
                         Name = t.Name
-                    })
+                    }),
+                    ImageId = mi.MenuItemImages.Where(m => !m.Deleted).Select(m => m.Image).Where(m => !m.Deleted).Any() 
+                        ? mi.MenuItemImages.Where(m => !m.Deleted).Select(m => m.Image).Where(m => !m.Deleted).First().Id 
+                        : -1
                 });
             return Enumerable.Empty<LibBookingService.Dtos.MenuItem>();
         }

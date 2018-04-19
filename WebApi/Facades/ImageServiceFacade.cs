@@ -58,6 +58,84 @@ namespace WebApi.Facades
         }
 
         /// <summary>
+        /// Removes an image from the service.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public async Task<bool> RemoveMenuItemImage(Image image)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "RemoveMenuItemImage"),
+                    Content = new StringContent(JsonConvert.SerializeObject(image), Encoding.UTF8, "application/json")
+                };
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Posts an image to the service and returns the updated model.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public async Task<Image> UploadRestaurantImage(Image image)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "UploadRestaurantImage"),
+                    Content = new StringContent(JsonConvert.SerializeObject(image), Encoding.UTF8, "application/json")
+                };
+
+                return await ExecuteRequestAsync<Image>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Removes an image from the service.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public async Task<bool> RemoveRestaurantImage(Image image)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri(_baseUrl + "RemoveRestaurantImage"),
+                    Content = new StringContent(JsonConvert.SerializeObject(image), Encoding.UTF8, "application/json")
+                };
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Returns an image from the customer service.
         /// </summary>
         /// <param name="id"></param>
