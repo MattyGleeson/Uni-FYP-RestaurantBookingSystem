@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace BookingService.Controllers
 {
+    [RoutePrefix("Booking")]
     public class BookingController : ApiController
     {
         private BookingSystemDb _db;

@@ -7,6 +7,7 @@ using System.Web.Http;
 using WebApi.Controllers.Core;
 using LibBookingService.Dtos;
 using System.Threading.Tasks;
+using WebApi.Facades.BookingService;
 
 namespace WebApi.Controllers
 {
@@ -20,11 +21,11 @@ namespace WebApi.Controllers
         /// <summary>
         /// Property of type BookingServiceFacade that the controller endpoints use to access the facade.
         /// </summary>
-        protected readonly Facades.BookingServiceFacade _facade;
+        protected readonly BookingServiceFacade _facade;
 
         BookingServiceController()
         {
-            _facade = new Facades.BookingServiceFacade();
+            _facade = new BookingServiceFacade();
         }
 
         /// <summary>
@@ -113,7 +114,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Endpoint to update a restaurant.
+        /// Endpoint to update a booking.
         /// </summary>
         /// <param name="booking"></param>
         /// <returns></returns>

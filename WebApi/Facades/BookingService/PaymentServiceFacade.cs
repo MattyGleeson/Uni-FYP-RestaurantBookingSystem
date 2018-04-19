@@ -1,25 +1,27 @@
-﻿using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using WebApi.Facades.Core;
-using LibBookingService.Dtos;
-using System;
+﻿using LibBookingService.Dtos;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using WebApi.Facades.Core;
 
-namespace WebApi.Facades
+namespace WebApi.Facades.BookingService
 {
     /// <summary>
-    /// Facade that handles interactions between the web api and the booking service.
+    /// Facade that handles interactions between the web api and the payment controller on the booking service.
     /// </summary>
-    public class BookingServiceFacade : GenericServiceFacade
+    public class PaymentServiceFacade : GenericServiceFacade
     {
-        private readonly string _baseUrl = "http://localhost:57465/";
+        private readonly string _baseUrl = "http://localhost:57465/Payment/";
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public BookingServiceFacade()
+        public PaymentServiceFacade()
         {
         }
 
@@ -27,15 +29,15 @@ namespace WebApi.Facades
         /// Constructor used for testing that accepts a mock HttpCient.
         /// </summary>
         /// <param name="client"></param>
-        public BookingServiceFacade(HttpClient client) : base(client)
+        public PaymentServiceFacade(HttpClient client) : base(client)
         {
         }
 
         /// <summary>
-        /// Returns an IQueryable of bookings from the booking service.
+        /// Returns an IQueryable of payments from the booking service.
         /// </summary>
         /// <returns></returns>
-        public async Task<IQueryable<Booking>> GetBookings()
+        public async Task<IQueryable<Payment>> GetPayments()
         {
             try
             {
@@ -45,24 +47,24 @@ namespace WebApi.Facades
                     RequestUri = new Uri(_baseUrl + "Get")
                 };
 
-                IQueryable<Booking> res = await ExecuteRequestAsyncList<Booking>(request);
+                IQueryable<Payment> res = await ExecuteRequestAsyncList<Payment>(request);
 
                 return res.Any()
                     ? res
-                    : Enumerable.Empty<Booking>().AsQueryable();
+                    : Enumerable.Empty<Payment>().AsQueryable();
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<Booking>().AsQueryable();
+                return Enumerable.Empty<Payment>().AsQueryable();
             }
         }
 
         /// <summary>
-        /// Returns a booking with the id parameter
+        /// Returns a payment with the id parameter
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Booking> GetBookingById(int id)
+        public async Task<Payment> GetPaymentById(int id)
         {
             try
             {
@@ -72,7 +74,7 @@ namespace WebApi.Facades
                     RequestUri = new Uri(_baseUrl + "Get/" + id)
                 };
 
-                return await ExecuteRequestAsync<Booking>(request);
+                return await ExecuteRequestAsync<Payment>(request);
             }
             catch (Exception ex)
             {
@@ -81,45 +83,47 @@ namespace WebApi.Facades
         }
 
         /// <summary>
-        /// Returns a bookings with the customer id parameter
+        /// Returns an IQueryable of payment methods from the booking service.
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IQueryable<Booking>> GetBookingsByCustomerId(int id)
+        public async Task<IQueryable<PaymentMethod>> GetPaymentMethods()
         {
             try
             {
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri(_baseUrl + "GetByCustomer/" + id)
+                    RequestUri = new Uri(_baseUrl + "GetPaymentMethod")
                 };
 
-                return await ExecuteRequestAsyncList<Booking>(request);
+                IQueryable<PaymentMethod> res = await ExecuteRequestAsyncList<PaymentMethod>(request);
+
+                return res.Any()
+                    ? res
+                    : Enumerable.Empty<PaymentMethod>().AsQueryable();
             }
             catch (Exception ex)
             {
-                return null;
+                return Enumerable.Empty<PaymentMethod>().AsQueryable();
             }
         }
 
         /// <summary>
-        /// Returns a table that doesn't conflict with other bookings
+        /// Returns a payment method with the id parameter
         /// </summary>
-        /// <param name="booking"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Table> GetAvailableTable(Booking booking)
+        public async Task<PaymentMethod> GetPaymentMethodById(int id)
         {
             try
             {
                 HttpRequestMessage request = new HttpRequestMessage
                 {
-                    Method = HttpMethod.Post,
-                    RequestUri = new Uri(_baseUrl + "GetAvailableTable"),
-                    Content = new StringContent(JsonConvert.SerializeObject(booking), Encoding.UTF8, "application/json")
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "GetPaymentMethod/" + id)
                 };
 
-                return await ExecuteRequestAsync<Table>(request);
+                return await ExecuteRequestAsync<PaymentMethod>(request);
             }
             catch (Exception ex)
             {
@@ -128,11 +132,11 @@ namespace WebApi.Facades
         }
 
         /// <summary>
-        /// Posts a booking to the service and returns the updated model.
+        /// Posts a payment to the service and returns the updated model.
         /// </summary>
-        /// <param name="booking"></param>
+        /// <param name="payment"></param>
         /// <returns></returns>
-        public async Task<Booking> PostBooking(Booking booking)
+        public async Task<Payment> PostPayment(Payment payment)
         {
             try
             {
@@ -140,10 +144,10 @@ namespace WebApi.Facades
                 {
                     Method = HttpMethod.Post,
                     RequestUri = new Uri(_baseUrl + "Create"),
-                    Content = new StringContent(JsonConvert.SerializeObject(booking), Encoding.UTF8, "application/json")
+                    Content = new StringContent(JsonConvert.SerializeObject(payment), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<Booking>(request);
+                return await ExecuteRequestAsync<Payment>(request);
             }
             catch (Exception ex)
             {
@@ -152,22 +156,22 @@ namespace WebApi.Facades
         }
 
         /// <summary>
-        /// Updates a booking and returns the updated model.
+        /// Updates a payment and returns the updated model.
         /// </summary>
-        /// <param name="booking"></param>
+        /// <param name="payment"></param>
         /// <returns></returns>
-        public async Task<Booking> UpdateBooking(Booking booking)
+        public async Task<Payment> UpdatePayment(Payment payment)
         {
             try
             {
                 HttpRequestMessage request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Put,
-                    RequestUri = new Uri(_baseUrl + "Update/" + booking.Id),
-                    Content = new StringContent(JsonConvert.SerializeObject(booking), Encoding.UTF8, "application/json")
+                    RequestUri = new Uri(_baseUrl + "Update/" + payment.Id),
+                    Content = new StringContent(JsonConvert.SerializeObject(payment), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<Booking>(request);
+                return await ExecuteRequestAsync<Payment>(request);
             }
             catch (Exception ex)
             {
@@ -176,23 +180,13 @@ namespace WebApi.Facades
         }
 
         /// <summary>
-        /// Removes the booking with the id parameter.
+        /// Removes the payment with the id parameter.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<bool> RemoveBooking(int id)
+        public async Task<bool> RemovePayment(int id)
         {
             return await ExecuteRemove(new Uri(_baseUrl + "Delete/" + id));
-        }
-
-        /// <summary>
-        /// Cancels the booking with the id parameter.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<bool> CancelBooking(int id)
-        {
-            return await ExecuteRemove(new Uri(_baseUrl + "Cancel/" + id));
         }
     }
 }

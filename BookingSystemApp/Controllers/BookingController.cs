@@ -109,9 +109,12 @@ namespace BookingSystemApp.Controllers
                         table
                     };
                     res.Tables = resTables.AsEnumerable();
-                    _bookingFacade.Create(res);
-                    AddToastMessage("Confirmed", "Booking Confirmed", Toast.ToastType.Success);
-                    return RedirectToAction("Index", new { userId = Session[Global.UserIdSessionVar] });
+
+                    Session["Booking"] = res;
+
+                    //_bookingFacade.Create(res);
+                    //AddToastMessage("Confirmed", "Booking Confirmed", Toast.ToastType.Success);
+                    return RedirectToAction("AddMenuItems", new { userId = Session[Global.UserIdSessionVar] });
                 }
                 else
                 {
@@ -125,7 +128,9 @@ namespace BookingSystemApp.Controllers
 
         public ActionResult AddMenuItems()
         {
-            IEnumerable<MenuItem> res = _menuFacade.FindByRestaurantId((int) Session[Global.RestaurantIdSessionVar]);
+            IEnumerable<MenuItem> res = _menuFacade.FindByRestaurantId((int)Session[Global.RestaurantIdSessionVar]);
+
+            //IEnumerable<MenuItem> res = _menuFacade.Get();
 
             return View(res.Select(m => new AddMenuItemVM
             {
@@ -142,14 +147,43 @@ namespace BookingSystemApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddMenuItems([Bind(Include = "Id,Name,Description,Price,Selected")] IList<AddMenuItemVM> menuItems)
         {
-            IEnumerable<AddMenuItemVM> selected = menuItems.Where(m => m.Selected);
+            List<int> ids = Session["MenuItems"] as List<int>;
 
-            if (selected.Any())
+            if (ids.Any())
             {
-
+                return RedirectToAction("Create", "Payment");
             }
 
+            Booking booking = (Booking)Session["Booking"];
+            _bookingFacade.Create(booking);
+            AddToastMessage("Confirmed", "Booking Confirmed", Toast.ToastType.Success);
+
             return RedirectToAction("Index", new { userId = Session[Global.UserIdSessionVar] });
+        }
+
+        public void AddMenuItem(int Id)
+        {
+            if (Session["MenuItems"] == null)
+            {
+                List<int> ids = new List<int>
+                {
+                    Id
+                };
+                Session["MenuItems"] = ids;
+            }
+            else
+            {
+                List<int> ids = Session["MenuItems"] as List<int>;
+                ids.Add(Id);
+                Session["MenuItems"] = ids;
+            }
+        }
+
+        public void RemoveMenuItem(int Id)
+        {
+            List<int> ids = Session["MenuItems"] as List<int>;
+            ids.Remove(Id);
+            Session["MenuItems"] = ids;
         }
 
         // GET: Booking/Cancel/5

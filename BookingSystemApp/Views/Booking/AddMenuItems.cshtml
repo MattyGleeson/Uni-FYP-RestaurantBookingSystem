@@ -53,17 +53,34 @@
                         £@Html.DisplayFor(x => x[i].Price)
                     </td>
                     <td>
-                        @*<div class="">
-                            <p>
-                                <label>*@
-                                    @*@Html.HiddenFor(x => x[i].Selected)*@
-                        @Html.LabelFor(x => x[i].Selected)
-                                    @Html.CheckBoxFor(x => x[i].Selected)
-                                    @*<span>lol</span>*@
-                                @*</label>
-                            </p>
-                            
-                        </div>*@
+                        <label style="text-align: center; width: 100%; display: block;">
+                            <input id="select-@Model[i].Id" type="checkbox" class="filled-in" />
+                            <span></span>
+                        </label>
+
+                        <script type="text/javascript">
+                            $('#select-@Model[i].Id').on("click", function (e) {
+                                if ($(this).is(":checked")) {
+                                    $.ajax({
+                                        url: "/Booking/AddMenuItem?Id=@Model[i].Id",
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        method: 'POST',
+                                        type: 'POST'
+                                    });
+                                } else {
+                                    $.ajax({
+                                        url: "/Booking/RemoveMenuItem?Id=@Model[i].Id",
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        method: 'POST',
+                                        type: 'POST'
+                                    });
+                                }
+                            });
+                        </script>
                     </td>
                 </tr>
             }

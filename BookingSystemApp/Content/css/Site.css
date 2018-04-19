@@ -75,6 +75,11 @@ nav.top-nav h3.header {
     color: #000033 !important;
 }
 
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid #000033 !important;
+    background-color: #000033 !important;
+}
+
 .fab-bottom-right {
     position: fixed;
     bottom: 10%;
