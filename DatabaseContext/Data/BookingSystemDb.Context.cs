@@ -9,11 +9,11 @@
 
 namespace DatabaseContext.Data
 {
-    using DatabaseContext.Data.Core;
+    using Core;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class BookingSystemDb : GenericDbContext
     {
         public BookingSystemDb()
@@ -39,10 +39,10 @@ namespace DatabaseContext.Data
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
         public virtual DbSet<Restaurant> Restaurants { get; set; }
+        public virtual DbSet<RestaurantImage> RestaurantImages { get; set; }
         public virtual DbSet<RestaurantMenuItem> RestaurantMenuItems { get; set; }
         public virtual DbSet<Table> Tables { get; set; }
         public virtual DbSet<TableBooking> TableBookings { get; set; }
         public virtual DbSet<Type> Types { get; set; }
-        public virtual DbSet<RestaurantImage> RestaurantImages { get; set; }
     }
 }

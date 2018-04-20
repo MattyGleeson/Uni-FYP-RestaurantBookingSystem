@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RestaurantBookingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="RestaurantBookingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="Id" />
@@ -567,7 +567,8 @@
             <End Role="TableBooking" EntitySet="TableBooking" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RestaurantBookingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -669,7 +670,7 @@
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="MenuItemImages" Relationship="Self.MenuItemImage_Image" FromRole="Image" ToRole="MenuItemImage" />
-          <NavigationProperty Name="RestaurantImages" Relationship="RestaurantBookingSystemModel.RestaurantImage_Image" FromRole="Image" ToRole="RestaurantImage" />
+          <NavigationProperty Name="RestaurantImages" Relationship="Self.RestaurantImage_Image" FromRole="Image" ToRole="RestaurantImage" />
         </EntityType>
         <EntityType Name="MenuItem">
           <Key>
@@ -759,9 +760,20 @@
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Bookings" Relationship="Self.Booking_Restaurant" FromRole="Restaurant" ToRole="Booking" />
           <NavigationProperty Name="Company" Relationship="Self.Restaurant_Company" FromRole="Restaurant" ToRole="Company" />
+          <NavigationProperty Name="RestaurantImages" Relationship="Self.RestaurantImage_Restaurant" FromRole="Restaurant" ToRole="RestaurantImage" />
           <NavigationProperty Name="RestaurantMenuItems" Relationship="Self.RestaurantMenuItem_Restaurant" FromRole="Restaurant" ToRole="RestaurantMenuItem" />
           <NavigationProperty Name="Tables" Relationship="Self.Room_Hotel" FromRole="Restaurant" ToRole="Table" />
-          <NavigationProperty Name="RestaurantImages" Relationship="RestaurantBookingSystemModel.RestaurantImage_Restaurant" FromRole="Restaurant" ToRole="RestaurantImage" />
+        </EntityType>
+        <EntityType Name="RestaurantImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Restaurant_id" Type="Int32" Nullable="false" />
+          <Property Name="Image_id" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="Self.RestaurantImage_Image" FromRole="RestaurantImage" ToRole="Image" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.RestaurantImage_Restaurant" FromRole="RestaurantImage" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="RestaurantMenuItem">
           <Key>
@@ -928,6 +940,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="RestaurantImage_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="RestaurantImage" Type="Self.RestaurantImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RestaurantImage">
+              <PropertyRef Name="Image_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="MenuItemDietInfo_MenuItem">
           <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
           <End Role="MenuItemDietInfo" Type="Self.MenuItemDietInfo" Multiplicity="*" />
@@ -1000,6 +1024,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="RestaurantImage_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="RestaurantImage" Type="Self.RestaurantImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RestaurantImage">
+              <PropertyRef Name="Restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="RestaurantMenuItem_Restaurant">
           <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
           <End Role="RestaurantMenuItem" Type="Self.RestaurantMenuItem" Multiplicity="*" />
@@ -1050,6 +1086,7 @@
           <EntitySet Name="Payments" EntityType="Self.Payment" />
           <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+          <EntitySet Name="RestaurantImages" EntityType="Self.RestaurantImage" />
           <EntitySet Name="RestaurantMenuItems" EntityType="Self.RestaurantMenuItem" />
           <EntitySet Name="Tables" EntityType="Self.Table" />
           <EntitySet Name="TableBookings" EntityType="Self.TableBooking" />
@@ -1094,6 +1131,10 @@
             <End Role="Image" EntitySet="Images" />
             <End Role="MenuItemImage" EntitySet="MenuItemImages" />
           </AssociationSet>
+          <AssociationSet Name="RestaurantImage_Image" Association="Self.RestaurantImage_Image">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="RestaurantImage" EntitySet="RestaurantImages" />
+          </AssociationSet>
           <AssociationSet Name="MenuItemDietInfo_MenuItem" Association="Self.MenuItemDietInfo_MenuItem">
             <End Role="MenuItem" EntitySet="MenuItems" />
             <End Role="MenuItemDietInfo" EntitySet="MenuItemDietInfoes" />
@@ -1118,6 +1159,10 @@
             <End Role="PaymentMethod" EntitySet="PaymentMethods" />
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
+          <AssociationSet Name="RestaurantImage_Restaurant" Association="Self.RestaurantImage_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="RestaurantImage" EntitySet="RestaurantImages" />
+          </AssociationSet>
           <AssociationSet Name="RestaurantMenuItem_Restaurant" Association="Self.RestaurantMenuItem_Restaurant">
             <End Role="Restaurant" EntitySet="Restaurants" />
             <End Role="RestaurantMenuItem" EntitySet="RestaurantMenuItems" />
@@ -1130,51 +1175,7 @@
             <End Role="Table" EntitySet="Tables" />
             <End Role="TableBooking" EntitySet="TableBookings" />
           </AssociationSet>
-          <EntitySet Name="RestaurantImages" EntityType="RestaurantBookingSystemModel.RestaurantImage" />
-          <AssociationSet Name="RestaurantImage_Image" Association="RestaurantBookingSystemModel.RestaurantImage_Image">
-            <End Role="Image" EntitySet="Images" />
-            <End Role="RestaurantImage" EntitySet="RestaurantImages" />
-          </AssociationSet>
-          <AssociationSet Name="RestaurantImage_Restaurant" Association="RestaurantBookingSystemModel.RestaurantImage_Restaurant">
-            <End Role="Restaurant" EntitySet="Restaurants" />
-            <End Role="RestaurantImage" EntitySet="RestaurantImages" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="RestaurantImage">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Restaurant_id" Type="Int32" Nullable="false" />
-          <Property Name="Image_id" Type="Int32" Nullable="false" />
-          <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Image" Relationship="RestaurantBookingSystemModel.RestaurantImage_Image" FromRole="RestaurantImage" ToRole="Image" />
-          <NavigationProperty Name="Restaurant" Relationship="RestaurantBookingSystemModel.RestaurantImage_Restaurant" FromRole="RestaurantImage" ToRole="Restaurant" />
-        </EntityType>
-        <Association Name="RestaurantImage_Image">
-          <End Type="RestaurantBookingSystemModel.Image" Role="Image" Multiplicity="1" />
-          <End Type="RestaurantBookingSystemModel.RestaurantImage" Role="RestaurantImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Image">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RestaurantImage">
-              <PropertyRef Name="Image_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RestaurantImage_Restaurant">
-          <End Type="RestaurantBookingSystemModel.Restaurant" Role="Restaurant" Multiplicity="1" />
-          <End Type="RestaurantBookingSystemModel.RestaurantImage" Role="RestaurantImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Restaurant">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RestaurantImage">
-              <PropertyRef Name="Restaurant_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1353,6 +1354,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantImages">
+            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.RestaurantImage">
+              <MappingFragment StoreEntitySet="RestaurantImage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Restaurant_id" ColumnName="Restaurant_id" />
+                <ScalarProperty Name="Image_id" ColumnName="Image_id" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RestaurantMenuItems">
             <EntityTypeMapping TypeName="RestaurantBookingSystemModel.RestaurantMenuItem">
               <MappingFragment StoreEntitySet="RestaurantMenuItem">
@@ -1392,16 +1403,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RestaurantImages">
-            <EntityTypeMapping TypeName="RestaurantBookingSystemModel.RestaurantImage">
-              <MappingFragment StoreEntitySet="RestaurantImage">
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="Image_id" ColumnName="Image_id" />
-                <ScalarProperty Name="Restaurant_id" ColumnName="Restaurant_id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
