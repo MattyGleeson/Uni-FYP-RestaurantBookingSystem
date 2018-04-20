@@ -149,7 +149,7 @@ namespace BookingSystemApp.Controllers
         {
             List<int> ids = Session["MenuItems"] as List<int>;
 
-            if (ids.Any())
+            if (ids != null && ids.Any())
             {
                 return RedirectToAction("Create", "Payment");
             }

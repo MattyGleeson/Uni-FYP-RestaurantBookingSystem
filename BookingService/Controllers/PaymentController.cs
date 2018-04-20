@@ -195,6 +195,7 @@ namespace BookingService.Controllers
 
         private LibBookingService.Dtos.Payment CreatePaymentFromDbPayment(Payment payment)
         {
+            PaymentMethod paymentMethod = _db.PaymentMethods.Where(p => p.Id == payment.PaymentMethod_id).FirstOrDefault();
             return new LibBookingService.Dtos.Payment
             {
                 Id = payment.Id,
@@ -204,8 +205,8 @@ namespace BookingService.Controllers
                 CustomerId = payment.Customer_id,
                 PaymentMethod = new LibBookingService.Dtos.PaymentMethod
                 {
-                    Id = payment.PaymentMethod.Id,
-                    Name = payment.PaymentMethod.Name
+                    Id = paymentMethod.Id,
+                    Name = paymentMethod.Name
                 }
             };
         }

@@ -33,9 +33,11 @@ namespace BookingSystemApp.Controllers
         {
             List<int> ids = Session["MenuItems"] as List<int>;
 
+            IEnumerable<PaymentMethod> paymentMethods = _paymentFacade.GetPaymentMethod().OrderBy(p => p.Name);
+
             IEnumerable<MenuItem> selectedItems = _menuFacade.Get().Where(m => ids.Contains(m.Id));
 
-            ViewBag["PaymentMethod"] = new SelectList(_paymentFacade.GetPaymentMethod().OrderBy(d => d.Name), "id", "name", "Select payment method");
+            ViewBag.PaymentMethod = new SelectList(paymentMethods, "Id", "Name", "Select payment method");
 
             double total = 0;
 
@@ -69,6 +71,8 @@ namespace BookingSystemApp.Controllers
 
                 Booking resBooking = _bookingFacade.Create(booking);
 
+                payment.BookingId = resBooking.Id;
+
                 Payment res = _paymentFacade.Create(new Payment
                 {
                     Amount = Convert.ToDecimal(payment.Amount),
@@ -85,7 +89,7 @@ namespace BookingSystemApp.Controllers
                 return RedirectToAction("Index", "Booking", new { userId = Session[Global.UserIdSessionVar] });
             }
 
-            ViewBag["PaymentMethod"] = new SelectList(_paymentFacade.GetPaymentMethod().OrderBy(d => d.Name), "id", "name", "Select payment method");
+            ViewBag.PaymentMethod = new SelectList(_paymentFacade.GetPaymentMethod().OrderBy(d => d.Name), "id", "name", "Select payment method");
 
             return View(payment);
         }

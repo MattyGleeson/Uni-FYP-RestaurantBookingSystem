@@ -98,9 +98,9 @@ namespace BookingService.Controllers
             if (booking == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid booking model");
 
-            IEnumerable<Booking> res = await _db.Bookings
-                .Where(b => !b.Deleted && !b.Cancelled && b.Restaurant_id == booking.RestaurantId)
-                .ToListAsync();
+            IEnumerable<Booking> res = await _db.Bookings.Where(b => !b.Deleted && !b.Cancelled).ToListAsync();
+            res = res.Where(b => b.Restaurant_id == booking.RestaurantId);
+            res = res.Where(b => b.BookingDate.Date == booking.BookingDate.Date);
 
             if (!res.Any())
             {
@@ -385,14 +385,14 @@ namespace BookingService.Controllers
             IEnumerable<Table> tbTables = tb.Select(b => _db.Tables.Where( bb => bb.Id == b.Table_id).FirstOrDefault());
             IEnumerable<Table> tbTables1 = tbTables.Where(b => !b.Deleted);
 
-            IEnumerable<Table> bookingTables = booking.TableBookings.Where(b => !b.Deleted).Select(b => b.Table).Where(b => !b.Deleted);
-            if (bookingTables.Any())
-                return bookingTables.Select(t => new LibBookingService.Dtos.Table
+            //IEnumerable<Table> bookingTables = booking.TableBookings.Where(b => !b.Deleted).Select(b => b.Table).Where(b => !b.Deleted);
+            if (tbTables1.Any())
+                return tbTables1.Select(t => new LibBookingService.Dtos.Table
                 {
                     Id = t.Id,
                     RestaurantId = t.Restaurant_id,
                     NoSeats = t.NoSeats,
-                    AdditionalNotes = t.AdditionalNotes,
+                    AdditionalNotes = t.AdditionalNotes ?? "",
                     Active = t.Active
                 });
             return Enumerable.Empty<LibBookingService.Dtos.Table>();

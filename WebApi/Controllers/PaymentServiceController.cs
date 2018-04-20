@@ -31,7 +31,6 @@ namespace WebApi.Controllers
         /// Endpoint to get a list of payments.
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = ("Admin,Manager"))]
         [HttpGet]
         [Route("Get")]
         public async Task<HttpResponseMessage> Get()
@@ -65,7 +64,6 @@ namespace WebApi.Controllers
         /// Endpoint to get a list of payment methods.
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = ("Admin,Manager"))]
         [HttpGet]
         [Route("GetPaymentMethod")]
         public async Task<HttpResponseMessage> GetPaymentMethod()
@@ -100,6 +98,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="payment"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         [Route("Post")]
         public async Task<HttpResponseMessage> Post(Payment payment)
@@ -117,6 +116,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="payment"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut]
         [Route("Update")]
         public async Task<HttpResponseMessage> Update(Payment payment)
@@ -134,6 +134,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete]
         [Route("Delete/{id:int?}")]
         public async Task<HttpResponseMessage> Delete(int id)
