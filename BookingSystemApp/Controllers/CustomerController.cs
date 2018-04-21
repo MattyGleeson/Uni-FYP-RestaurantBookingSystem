@@ -140,8 +140,8 @@ namespace BookingSystemApp.Controllers
                 {
                     Session[Global.UserIdSessionVar] = c.Id;
                 }
-
-                return RedirectToAction("index", "home");
+                return RedirectToRoute(Request.UrlReferrer.ToString());
+                //return RedirectToAction("index", "home");
             }
 
             return View(login);

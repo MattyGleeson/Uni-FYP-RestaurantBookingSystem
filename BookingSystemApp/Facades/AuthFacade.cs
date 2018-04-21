@@ -25,7 +25,8 @@ namespace BookingSystemApp.Facades
         /// <summary>
         /// Readonly string which defines the base url for the web api.
         /// </summary>
-        protected readonly string _baseUrl = "http://localhost:64392/";
+        protected readonly string _baseUrl = "https://bookingauthservice.azurewebsites.net/";
+        //protected readonly string _baseUrl = "http://localhost:64392/";
 
         /// <summary>
         /// Default constructor that sets up the HttpClient and JsonSerializerSettings.

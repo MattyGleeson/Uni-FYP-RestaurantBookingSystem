@@ -31,6 +31,11 @@ namespace ImageService.Controllers
             this._db = db;
         }
 
+        /// <summary>
+        /// Uploads a menu item image to the database and returns the new model
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         [Route("UploadMenuItemImage")]
         [HttpPost]
         public async Task<HttpResponseMessage> UploadMenuItemImage(LibBookingService.Dtos.Image image)
@@ -98,6 +103,11 @@ namespace ImageService.Controllers
             }
         }
 
+        /// <summary>
+        /// Removes a menu item image from the database
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         [Route("RemoveMenuItemImage")]
         [HttpPost]
         public async Task<HttpResponseMessage> RemoveMenuItemImage(LibBookingService.Dtos.Image image)
@@ -126,6 +136,11 @@ namespace ImageService.Controllers
             }
         }
 
+        /// <summary>
+        /// Uploads a restaurant the database and returns the new model
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         [Route("UploadRestaurantImage")]
         [HttpPost]
         public async Task<HttpResponseMessage> UploadRestaurantImage(LibBookingService.Dtos.Image image)
@@ -166,6 +181,11 @@ namespace ImageService.Controllers
             }
         }
 
+        /// <summary>
+        /// Removes a restaurant image from the database
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         [Route("RemoveRestaurantImage")]
         [HttpPost]
         public async Task<HttpResponseMessage> RemoveRestaurantImage(LibBookingService.Dtos.Image image)
@@ -194,6 +214,11 @@ namespace ImageService.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets an image model by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("LoadImage/{id:int}")]
         [HttpGet]
         public async Task<HttpResponseMessage> LoadImage(int id)

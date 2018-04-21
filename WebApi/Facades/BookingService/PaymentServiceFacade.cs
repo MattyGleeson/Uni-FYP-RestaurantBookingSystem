@@ -16,7 +16,8 @@ namespace WebApi.Facades.BookingService
     /// </summary>
     public class PaymentServiceFacade : GenericServiceFacade
     {
-        private readonly string _baseUrl = "http://localhost:57465/Payment/";
+        private readonly string _baseUrl = "https://bookingbookingservice.azurewebsites.net/Payment/";
+        //private readonly string _baseUrl = "http://localhost:57465/Payment/";
 
         /// <summary>
         /// Default constructor.

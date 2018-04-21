@@ -7,6 +7,10 @@
 <div class="form-horizontal" style="margin-top: 5em; overflow: hidden;">
 
     <div class="row">
+        <input type="button" value="Back" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Index", "RestaurantAdmin")'" />
+    </div>
+
+    <div class="row">
         <div class="col s3">
             @Html.LabelFor(model => model.Name, "Name")<br />
             @Html.DisplayFor(model => model.Name)
@@ -90,7 +94,7 @@
             @Html.AntiForgeryToken()
 
             <input type="file" name="Image" id="Image" />
-            
+
             <input id="submitImage" type="submit" value="Add" class="btn btn-primary dark-blue" />
         }
 
@@ -224,6 +228,10 @@
                 }
             </table>
         </div>
+    </div>
+
+    <div class="row">
+        <input type="button" value="Back" class="btn btn-primary dark-blue" onclick="location.href='@Url.Action("Index", "RestaurantAdmin")'" />
     </div>
 
 

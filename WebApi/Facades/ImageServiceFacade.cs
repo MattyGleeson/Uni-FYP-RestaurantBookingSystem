@@ -16,7 +16,8 @@ namespace WebApi.Facades
     /// </summary>
     public class ImageServiceFacade : GenericServiceFacade
     {
-        private readonly string _baseUrl = "http://localhost:54418/";
+        private readonly string _baseUrl = "https://bookingimageservice.azurewebsites.net/";
+        //private readonly string _baseUrl = "http://localhost:54418/";
 
         /// <summary>
         /// Default constructor.

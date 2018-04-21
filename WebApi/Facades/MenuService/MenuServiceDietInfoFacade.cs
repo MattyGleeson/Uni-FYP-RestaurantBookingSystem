@@ -16,7 +16,8 @@ namespace WebApi.Facades.MenuService
     /// </summary>
     public class MenuServiceDietInfoFacade : GenericServiceFacade
     {
-        private readonly string _baseUrl = "http://localhost:57656/DietInfo/";
+        private readonly string _baseUrl = "https://bookingmenuservice.azurewebsites.net/DietInfo/";
+        //private readonly string _baseUrl = "http://localhost:57656/DietInfo/";
 
         /// <summary>
         /// Default constructor.

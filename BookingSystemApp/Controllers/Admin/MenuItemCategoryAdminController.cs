@@ -65,7 +65,11 @@ namespace BookingSystemApp.Controllers.Admin
             if (res == null)
                 return HttpNotFound();
 
-            return View(res);
+            return View(new MenuItemTypeVM
+            {
+                Id = res.Id,
+                Name = res.Name
+            });
         }
 
         // POST: Admin/MenuItemCategory/Edit/5

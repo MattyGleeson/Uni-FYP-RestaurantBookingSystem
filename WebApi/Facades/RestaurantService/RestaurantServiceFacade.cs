@@ -14,7 +14,8 @@ namespace WebApi.Facades.RestaurantService
     /// </summary>
     public class RestaurantServiceFacade : GenericServiceFacade
     {
-        private readonly string _baseUrl = "http://localhost:57565/Restaurant/";
+        private readonly string _baseUrl = "https://bookingrestaurantservice.azurewebsites.net/Restaurant/";
+        //private readonly string _baseUrl = "http://localhost:57565/Restaurant/";
 
         /// <summary>
         /// Default constructor.

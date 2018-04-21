@@ -47,6 +47,7 @@ namespace WebApi.Controllers
         /// Endpoint to get a diet info by id.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("Get/{id:int?}")]
         public async Task<HttpResponseMessage> Get(int id)
