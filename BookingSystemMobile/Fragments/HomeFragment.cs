@@ -1,11 +1,16 @@
+using Android.App;
 using Android.OS;
-using Android.Support.V4.App;
 using Android.Views;
+using Android.Widget;
+using LibBookingService.Dtos;
+using System.Collections.Generic;
 
 namespace BookingSystemMobile.Fragments
 {
     public class HomeFragment : Fragment
     {
+        private View view;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -23,7 +28,15 @@ namespace BookingSystemMobile.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
-            return inflater.Inflate(Resource.Layout.home, null);
+            view = inflater.Inflate(Resource.Layout.home, null);
+
+            Spinner spinner = view.FindViewById<Spinner>(Resource.Id.spinner_home);
+
+            var adapter = new ArrayAdapter<Restaurant>(Activity, Android.Resource.Layout.SimpleSpinnerDropDownItem, new List<Restaurant>());
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinner.Adapter = adapter;
+
+            return view;
         }
     }
 }

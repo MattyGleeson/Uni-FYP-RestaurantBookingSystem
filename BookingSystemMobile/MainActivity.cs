@@ -22,11 +22,14 @@ using System.Collections.Generic;
 
 namespace BookingSystemMobile
 {
-    [Activity(Label = "@string/app_name", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, Icon = "@drawable/Icon")]
+    //[Activity(Label = "@string/app_name", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, Icon = "@drawable/Icon")]
+    [Activity(Label = "@string/app_name")]
     public class MainActivity : AppCompatActivity
     {
-        private readonly string _webApiBaseUrl = "http://localhost:64577/api/";
-        private readonly string _authServiceBaseUrl = "http://localhost:64392/";
+        private readonly string _webApiBaseUrl = "https://bookingsystemwebapi.azurewebsites.net/api/";
+        private readonly string _authServiceBaseUrl = "https://bookingauthservice.azurewebsites.net/";
+
+        public static bool IsInDialogFragment = false;
 
         DrawerLayout drawerLayout;
         NavigationView navigationView;
@@ -70,9 +73,29 @@ namespace BookingSystemMobile
                     case Resource.Id.nav_restaurants:
                         ListItemClicked(1);
                         break;
+                    case Resource.Id.nav_menu:
+                        ListItemClicked(2);
+                        break;
+                    case Resource.Id.nav_login:
+                        ListItemClicked(3);
+                        break;
+                    case Resource.Id.nav_register:
+                        ListItemClicked(4);
+                        break;
+                    case Resource.Id.nav_account_details:
+                        ListItemClicked(5);
+                        break;
+                    case Resource.Id.nav_account_bookings:
+                        ListItemClicked(6);
+                        break;
+                    case Resource.Id.nav_logout:
+                        ListItemClicked(7);
+                        break;
+                    case Resource.Id.nav_exit:
+                        ListItemClicked(8);
+                        break;
                 }
-
-
+                
                 drawerLayout.CloseDrawers();
             };
 
@@ -84,7 +107,7 @@ namespace BookingSystemMobile
                 ListItemClicked(0);
             }
         }
-
+        
         int oldPosition = -1;
         private void ListItemClicked(int position)
         {
@@ -94,7 +117,7 @@ namespace BookingSystemMobile
 
             oldPosition = position;
 
-            Android.Support.V4.App.Fragment fragment = null;
+            Fragment fragment = null;
             switch (position)
             {
                 case 0:
@@ -103,79 +126,126 @@ namespace BookingSystemMobile
                 case 1:
                     fragment = RestaurantIndexFragment.NewInstance();
                     break;
+                case 2:
+                    fragment = MenuIndexFragment.NewInstance();
+                    break;
+                case 3:
+                    ToggleLogin();
+                    break;
+                case 7:
+                    ToggleLogout();
+                    break;
+                case 8:
+                    ExitApp();
+                    break;
             }
 
-            SupportFragmentManager.BeginTransaction()
-                .Replace(Resource.Id.content_frame, fragment)
-                .Commit();
+            if (fragment != null)
+            {
+                FragmentManager.BeginTransaction()
+                    .Replace(Resource.Id.content_frame, fragment)
+                    .Commit();
+            }
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch (item.ItemId)
+            if (!IsInDialogFragment)
             {
-                case Android.Resource.Id.Home:
-                    drawerLayout.OpenDrawer(GravityCompat.Start);
-                    return true;
+                switch (item.ItemId)
+                {
+                    case Android.Resource.Id.Home:
+                        drawerLayout.OpenDrawer(GravityCompat.Start);
+                        return true;
+                }
             }
             return base.OnOptionsItemSelected(item);
         }
 
-        private async Task<JsonValue> GetToken()
+        public void ToggleLogin()
         {
-            HttpWebRequest request = (HttpWebRequest) HttpWebRequest.Create(new Uri(_authServiceBaseUrl + "token"));
-            request.ContentType = "application/json";
-            request.Method = "GET";
-
-            using (WebResponse response = await request.GetResponseAsync())
-            {
-                using (Stream stream = response.GetResponseStream())
-                {
-                    JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                    Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-
-                    return jsonDoc;
-                }
-            }
+            navigationView.Menu.FindItem(Resource.Id.user_menu_logged_in).SetVisible(true);
+            navigationView.Menu.FindItem(Resource.Id.user_menu_logged_out).SetVisible(false);
         }
 
-        private async Task<T> ExecuteRequestAsync<T>(HttpRequestMessage request) where T : Dto
+        public void ToggleLogout()
         {
-            using (HttpClient _client = new HttpClient())
-            {
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    MissingMemberHandling = MissingMemberHandling.Ignore
-                };
-
-                HttpResponseMessage response = await _client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                string content = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(content, _serializerSettings);
-            }
+            navigationView.Menu.FindItem(Resource.Id.user_menu_logged_in).SetVisible(false);
+            navigationView.Menu.FindItem(Resource.Id.user_menu_logged_out).SetVisible(true);
         }
 
-        private async Task<List<T>> ExecuteRequestAsyncList<T>(HttpRequestMessage request) where T : Dto
+        private void ExitApp()
         {
-            using (HttpClient _client = new HttpClient())
-            {
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            new Android.App.AlertDialog.Builder(this).
+                    SetIcon(Android.Resource.Attribute.AlertDialogIcon).
+                    SetTitle("Confirm").
+                    SetMessage("Are you sure you want to exit?").
+                    SetPositiveButton("Yes", (c, ev) =>
+                    {
+                        Finish();
+                    }).
+                    SetNegativeButton("No", (c, ev) =>
+                    {
 
-                JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    MissingMemberHandling = MissingMemberHandling.Ignore
-                };
-
-                HttpResponseMessage response = await _client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                string content = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<T>>(content, _serializerSettings);
-            }
+                    }).
+                    Show();
         }
+
+        //private async Task<JsonValue> GetToken()
+        //{
+        //    HttpWebRequest request = (HttpWebRequest) HttpWebRequest.Create(new Uri(_authServiceBaseUrl + "token"));
+        //    request.ContentType = "application/json";
+        //    request.Method = "GET";
+
+        //    using (WebResponse response = await request.GetResponseAsync())
+        //    {
+        //        using (Stream stream = response.GetResponseStream())
+        //        {
+        //            JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+        //            Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
+
+        //            return jsonDoc;
+        //        }
+        //    }
+        //}
+
+        //private async Task<T> ExecuteRequestAsync<T>(HttpRequestMessage request) where T : Dto
+        //{
+        //    using (HttpClient _client = new HttpClient())
+        //    {
+        //        _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //        JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+        //        {
+        //            NullValueHandling = NullValueHandling.Ignore,
+        //            MissingMemberHandling = MissingMemberHandling.Ignore
+        //        };
+
+        //        HttpResponseMessage response = await _client.SendAsync(request);
+        //        response.EnsureSuccessStatusCode();
+        //        string content = await response.Content.ReadAsStringAsync();
+        //        return JsonConvert.DeserializeObject<T>(content, _serializerSettings);
+        //    }
+        //}
+
+        //private async Task<List<T>> ExecuteRequestAsyncList<T>(HttpRequestMessage request) where T : Dto
+        //{
+        //    using (HttpClient _client = new HttpClient())
+        //    {
+        //        _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //        JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+        //        {
+        //            NullValueHandling = NullValueHandling.Ignore,
+        //            MissingMemberHandling = MissingMemberHandling.Ignore
+        //        };
+
+        //        HttpResponseMessage response = await _client.SendAsync(request);
+        //        response.EnsureSuccessStatusCode();
+        //        string content = await response.Content.ReadAsStringAsync();
+        //        return JsonConvert.DeserializeObject<List<T>>(content, _serializerSettings);
+        //    }
+        //}
     }
 }
 

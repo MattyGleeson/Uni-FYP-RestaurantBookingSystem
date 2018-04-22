@@ -13,15 +13,64 @@ using Android.Views;
 using Android.Widget;
 using LibBookingService;
 using Newtonsoft.Json;
+using Plugin.SecureStorage;
 
 namespace BookingSystemMobile.Facades.Core
 {
     public class GenericFacade
     {
+        public static string Token
+        {
+            get
+            {
+                return CrossSecureStorage.Current.GetValue("AuthToken");
+            }
+            set
+            {
+                CrossSecureStorage.Current.SetValue("AuthToken", value);
+            }
+        }
+
+        public static bool IsAdmin
+        {
+            get
+            {
+                return Convert.ToBoolean(CrossSecureStorage.Current.GetValue("AuthIsAdmin"));
+            }
+            set
+            {
+                CrossSecureStorage.Current.SetValue("AuthIsAdmin", value.ToString());
+            }
+        }
+
+        public static string UserName
+        {
+            get
+            {
+                return CrossSecureStorage.Current.GetValue("AuthUserName");
+            }
+            set
+            {
+                CrossSecureStorage.Current.SetValue("AuthUserName", value);
+            }
+        }
+
+        public static string OwinId
+        {
+            get
+            {
+                return CrossSecureStorage.Current.GetValue("AuthOwinId");
+            }
+            set
+            {
+                CrossSecureStorage.Current.SetValue("AuthOwinId", value);
+            }
+        }
+
         /// <summary>
         /// Http client used to send http requests.
         /// </summary>
-        //protected readonly HttpClient _client;
+        protected readonly HttpClient _client;
 
         /// <summary>
         /// Json serializer settings used to define how received data is serialized.
@@ -31,16 +80,16 @@ namespace BookingSystemMobile.Facades.Core
         /// <summary>
         /// Readonly string which defines the base url for the web api.
         /// </summary>
-        protected readonly string _baseUrl = "http://192.168.148.121:64577/api/";
+        protected readonly string _baseUrl = "https://bookingsystemwebapi.azurewebsites.net/api/";
 
         /// <summary>
         /// Default constructor that sets up the HttpClient and JsonSerializerSettings.
         /// </summary>
         public GenericFacade(string apiController)
         {
-            //_client = new HttpClient();
-            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-            //_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _client = new HttpClient();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
             _baseUrl += apiController;
         }
@@ -53,15 +102,11 @@ namespace BookingSystemMobile.Facades.Core
         /// <returns></returns>
         protected async Task<T> ExecuteRequest<T>(HttpRequestMessage request) where T : Dto
         {
-            using (HttpClient _client = new HttpClient())
-            {
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                HttpResponseMessage response = await _client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                string content = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(content, _serializerSettings);
-            }
+            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            var response = _client.SendAsync(request).Result;
+            response.EnsureSuccessStatusCode();
+            string content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(content, _serializerSettings);
         }
 
         /// <summary>
@@ -72,15 +117,11 @@ namespace BookingSystemMobile.Facades.Core
         /// <returns></returns>
         protected async Task<IEnumerable<T>> ExecuteRequestList<T>(HttpRequestMessage request) where T : Dto
         {
-            using (HttpClient _client = new HttpClient())
-            {
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                HttpResponseMessage response = await _client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                string content = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<T>>(content, _serializerSettings);
-            }
+            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            var response = _client.SendAsync(request).Result;
+            response.EnsureSuccessStatusCode();
+            string content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<T>>(content, _serializerSettings);
         }
 
         /// <summary>
@@ -90,27 +131,23 @@ namespace BookingSystemMobile.Facades.Core
         /// <returns></returns>
         protected async Task<bool> ExecuteRemove(Uri uri)
         {
-            using (HttpClient _client = new HttpClient())
+            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            try
             {
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                try
+                HttpRequestMessage request = new HttpRequestMessage
                 {
-                    HttpRequestMessage request = new HttpRequestMessage
-                    {
-                        Method = HttpMethod.Delete,
-                        RequestUri = uri
-                    };
+                    Method = HttpMethod.Delete,
+                    RequestUri = uri
+                };
 
-                    HttpResponseMessage response = await _client.SendAsync(request);
-                    response.EnsureSuccessStatusCode();
+                var response = _client.SendAsync(request).Result;
+                response.EnsureSuccessStatusCode();
 
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }

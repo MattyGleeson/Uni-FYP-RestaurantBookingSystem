@@ -23,7 +23,7 @@ namespace WebApi
             );
 
             //Remove horrible
-            GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings.Add(new RequestHeaderMapping("Accept",
+            config.Formatters.JsonFormatter.MediaTypeMappings.Add(new RequestHeaderMapping("Accept",
                               "text/html",
                               StringComparison.InvariantCultureIgnoreCase,
                               true,

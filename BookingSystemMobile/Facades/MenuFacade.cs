@@ -28,7 +28,7 @@ namespace BookingSystemMobile.Facades
         /// Returns an IEnumerable of menu items from the web api.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<MenuItem>> Get()
+        public async Task<List<MenuItem>> Get()
         {
             try
             {
@@ -41,12 +41,62 @@ namespace BookingSystemMobile.Facades
                 IEnumerable<MenuItem> res = await ExecuteRequestList<MenuItem>(request);
 
                 return res.Any() 
-                    ? res 
-                    : Enumerable.Empty<MenuItem>();
+                    ? res .ToList()
+                    : new List<MenuItem>();
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<MenuItem>();
+                return new List<MenuItem>();
+            }
+        }
+
+        /// <summary>
+        /// Returns a menu item model by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<MenuItem> FindById(int id)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "Get/" + id)
+                };
+
+                return await ExecuteRequest<MenuItem>(request);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Returns an IEnumerable of menu items by restaurant id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<List<MenuItem>> FindByRestaurantId(int id)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "GetByRestaurant/" + id)
+                };
+
+                IEnumerable<MenuItem> res = await ExecuteRequestList<MenuItem>(request);
+
+                return res.Any()
+                    ? res.ToList()
+                    : new List<MenuItem>();
+            }
+            catch (Exception ex)
+            {
+                return new List<MenuItem>();
             }
         }
     }
