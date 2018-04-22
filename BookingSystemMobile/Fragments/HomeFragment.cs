@@ -32,7 +32,7 @@ namespace BookingSystemMobile.Fragments
 
             Spinner spinner = view.FindViewById<Spinner>(Resource.Id.spinner_home);
 
-            var adapter = new ArrayAdapter<Restaurant>(Activity, Android.Resource.Layout.SimpleSpinnerDropDownItem, new List<Restaurant>());
+            var adapter = new ArrayAdapter<LibBookingService.Dtos.Restaurant>(Activity, Android.Resource.Layout.SimpleSpinnerDropDownItem, new List<LibBookingService.Dtos.Restaurant>());
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
 

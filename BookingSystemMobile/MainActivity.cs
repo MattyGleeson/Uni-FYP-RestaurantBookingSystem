@@ -29,7 +29,7 @@ namespace BookingSystemMobile
         private readonly string _webApiBaseUrl = "https://bookingsystemwebapi.azurewebsites.net/api/";
         private readonly string _authServiceBaseUrl = "https://bookingauthservice.azurewebsites.net/";
 
-        public static bool IsInDialogFragment = false;
+        public static bool IsNavDisabled = false;
 
         DrawerLayout drawerLayout;
         NavigationView navigationView;
@@ -150,7 +150,7 @@ namespace BookingSystemMobile
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            if (!IsInDialogFragment)
+            if (!IsNavDisabled)
             {
                 switch (item.ItemId)
                 {

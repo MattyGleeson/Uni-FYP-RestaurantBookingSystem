@@ -71,7 +71,7 @@ namespace BookingSystemMobile.Fragments
         private void MAdapter_ItemClick(object sender, int i)
         {
             //Toast.MakeText(Activity, "This is item number " + (i + 1), ToastLength.Short).Show();
-            MainActivity.IsInDialogFragment = true;
+            MainActivity.IsNavDisabled = true;
             Android.App.DialogFragment dialog = MenuItemTypeDialogFragment.NewInstance(menuItemTypes[i].Id);
             dialog.Show(FragmentManager, "fragmentDialog");
         }
