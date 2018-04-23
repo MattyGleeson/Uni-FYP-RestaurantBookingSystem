@@ -236,6 +236,9 @@
     <AndroidResource Include="Resources\drawable\side_logo.jpg" />
     <AndroidResource Include="Resources\drawable\side_nav_bar.xml" />
     <AndroidResource Include="Resources\drawable\splash_screen.xml" />
+    <AndroidResource Include="Resources\drawable\ic_chevron_left_white.xml" />
+    <AndroidResource Include="Resources\drawable\ic_chevron_right.xml" />
+    <AndroidResource Include="Resources\drawable\textlines.xml" />
     <Content Include="THIRD-PARTY-NOTICES.txt" />
   </ItemGroup>
   <ItemGroup />

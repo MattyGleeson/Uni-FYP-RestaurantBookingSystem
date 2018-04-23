@@ -21,6 +21,8 @@ namespace BookingSystemMobile.Fragments.Restaurant
         private RecyclerView menuItemsRecyclerView;
         private LibBookingService.Dtos.Restaurant restaurant;
 
+        public static bool IsActive = true;
+
         public static RestaurantViewFragment NewInstance(int id)
         {
             var f = new RestaurantViewFragment { Arguments = new Bundle() };
@@ -39,7 +41,7 @@ namespace BookingSystemMobile.Fragments.Restaurant
         
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            //((MainActivity)Activity).SetAsNavigationToolbar();
+            ((MainActivity)Activity).SetAsNavigationToolbar();
             SetHasOptionsMenu(true);
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
             view = inflater.Inflate(Resource.Layout.restaurant_view, null);
@@ -108,7 +110,9 @@ namespace BookingSystemMobile.Fragments.Restaurant
                 foreach (var cat in types)
                 {
                     View viewCat = LayoutInflater.From(Activity).Inflate(Resource.Layout.restaurant_view_menu, null);
-
+                    LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
+                    layout.TopMargin = 16;
+                    viewCat.LayoutParameters = layout;
                     viewCat.FindViewById<TextView>(Resource.Id.restaurant_view_menu_type).Text = cat.Name;
 
                     container.AddView(viewCat);
@@ -116,6 +120,7 @@ namespace BookingSystemMobile.Fragments.Restaurant
                     viewCat.Click += delegate
                     {
                         MainActivity.IsNavDisabled = true;
+                        IsActive = false;
                         Android.App.DialogFragment dialog = RestaurantMenuItemDialogFragment.NewInstance(cat.Id, restaurant.Id);
                         dialog.Show(FragmentManager, "fragmentDialog");
                     };
@@ -126,17 +131,21 @@ namespace BookingSystemMobile.Fragments.Restaurant
             }
         }
 
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    int id = item.ItemId;
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (IsActive)
+            {
+                int id = item.ItemId;
 
-        //    if (id == Android.Resource.Id.Home)
-        //    {
-        //        Activity.OnBackPressed();
-        //        return true;
-        //    }
+                if (id == Android.Resource.Id.Home)
+                {
+                    MainActivity.IsNavDisabled = false;
+                    Activity.OnBackPressed();
+                    return true;
+                }
+            }
 
-        //    return base.OnOptionsItemSelected(item);
-        //}
+            return base.OnOptionsItemSelected(item);
+        }
     }
 }

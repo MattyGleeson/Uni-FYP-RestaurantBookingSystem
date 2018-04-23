@@ -119,6 +119,7 @@ namespace BookingSystemMobile.Fragments.Restaurant
         public override void OnDismiss(IDialogInterface dialog)
         {
             MainActivity.IsNavDisabled = false;
+            RestaurantViewFragment.IsActive = true;
             base.OnDismiss(dialog);
         }
     }

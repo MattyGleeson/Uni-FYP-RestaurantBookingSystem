@@ -3,7 +3,9 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/textlines">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -12,16 +14,16 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#333333"
             android:text="Caption"
             android:id="@+id/restaurant_view_menu_type"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="4dp" />
-        <!--<ImageView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
-            android:background="@drawable/chevron_right" />-->
+            android:background="@drawable/ic_chevron_right" />
     </LinearLayout>
 </FrameLayout>

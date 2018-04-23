@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Android.Support.V7.Widget;
 
 namespace BookingSystemMobile
 {
@@ -162,6 +163,18 @@ namespace BookingSystemMobile
             return base.OnOptionsItemSelected(item);
         }
 
+        public override void OnBackPressed()
+        {
+            if (IsTaskRoot && FragmentManager.BackStackEntryCount == 0)
+            {
+                ExitApp();
+            }
+            else
+            {
+                base.OnBackPressed();
+            }
+        }
+
         public void ToggleLogin()
         {
             navigationView.Menu.FindItem(Resource.Id.user_menu_logged_in).SetVisible(true);
@@ -174,15 +187,25 @@ namespace BookingSystemMobile
             navigationView.Menu.FindItem(Resource.Id.user_menu_logged_out).SetVisible(true);
         }
 
+        public void SetAsDrawerToolbar(Toolbar toolbar = null)
+        {
+            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+        }
+
+        public void SetAsNavigationToolbar(Toolbar toolbar = null)
+        {
+            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_chevron_left_white);
+        }
+
         private void ExitApp()
         {
             new Android.App.AlertDialog.Builder(this).
-                    SetIcon(Android.Resource.Attribute.AlertDialogIcon).
+                    SetIcon(Android.Resource.Drawable.IcDialogAlert).
                     SetTitle("Confirm").
                     SetMessage("Are you sure you want to exit?").
                     SetPositiveButton("Yes", (c, ev) =>
                     {
-                        Finish();
+                        FinishAffinity();
                     }).
                     SetNegativeButton("No", (c, ev) =>
                     {
@@ -190,62 +213,6 @@ namespace BookingSystemMobile
                     }).
                     Show();
         }
-
-        //private async Task<JsonValue> GetToken()
-        //{
-        //    HttpWebRequest request = (HttpWebRequest) HttpWebRequest.Create(new Uri(_authServiceBaseUrl + "token"));
-        //    request.ContentType = "application/json";
-        //    request.Method = "GET";
-
-        //    using (WebResponse response = await request.GetResponseAsync())
-        //    {
-        //        using (Stream stream = response.GetResponseStream())
-        //        {
-        //            JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-        //            Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-
-        //            return jsonDoc;
-        //        }
-        //    }
-        //}
-
-        //private async Task<T> ExecuteRequestAsync<T>(HttpRequestMessage request) where T : Dto
-        //{
-        //    using (HttpClient _client = new HttpClient())
-        //    {
-        //        _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //        JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
-        //        {
-        //            NullValueHandling = NullValueHandling.Ignore,
-        //            MissingMemberHandling = MissingMemberHandling.Ignore
-        //        };
-
-        //        HttpResponseMessage response = await _client.SendAsync(request);
-        //        response.EnsureSuccessStatusCode();
-        //        string content = await response.Content.ReadAsStringAsync();
-        //        return JsonConvert.DeserializeObject<T>(content, _serializerSettings);
-        //    }
-        //}
-
-        //private async Task<List<T>> ExecuteRequestAsyncList<T>(HttpRequestMessage request) where T : Dto
-        //{
-        //    using (HttpClient _client = new HttpClient())
-        //    {
-        //        _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //        JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
-        //        {
-        //            NullValueHandling = NullValueHandling.Ignore,
-        //            MissingMemberHandling = MissingMemberHandling.Ignore
-        //        };
-
-        //        HttpResponseMessage response = await _client.SendAsync(request);
-        //        response.EnsureSuccessStatusCode();
-        //        string content = await response.Content.ReadAsStringAsync();
-        //        return JsonConvert.DeserializeObject<List<T>>(content, _serializerSettings);
-        //    }
-        //}
     }
 }
 

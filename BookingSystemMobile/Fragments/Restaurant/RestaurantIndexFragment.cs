@@ -30,7 +30,7 @@ namespace BookingSystemMobile.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            //((MainActivity)Activity).SetAsDrawerToolbar();
+            ((MainActivity)Activity).SetAsDrawerToolbar();
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
             view = inflater.Inflate(Resource.Layout.restaurant_index, null);
 
