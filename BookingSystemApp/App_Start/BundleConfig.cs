@@ -30,11 +30,11 @@ namespace BookingSystemApp
                 "~/Scripts/jquery-ui-{version}.js",
                 "~/Content/js/jquery-ui-timepicker-addon.js"));
 
-            bundles.Add(new StyleBundle("~/Content/jqueryui").Include(
+            bundles.Add(new StyleBundle("~/Content/css/jqueryui").Include(
                 "~/Content/themes/base/all.css",
                 "~/Content/css/jquery-ui-timepicker-addon.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/css/Materialize").Include(
                       "~/Content/css/materialize.css",
                       "~/Content/css/site.css"));
 
