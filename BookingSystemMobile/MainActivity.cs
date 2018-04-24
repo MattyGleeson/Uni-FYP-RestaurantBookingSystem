@@ -20,6 +20,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Android.Support.V7.Widget;
+using BookingSystemMobile.Fragments.Restaurant;
 
 namespace BookingSystemMobile
 {
@@ -27,9 +28,6 @@ namespace BookingSystemMobile
     [Activity(Label = "@string/app_name")]
     public class MainActivity : AppCompatActivity
     {
-        private readonly string _webApiBaseUrl = "https://bookingsystemwebapi.azurewebsites.net/api/";
-        private readonly string _authServiceBaseUrl = "https://bookingauthservice.azurewebsites.net/";
-
         public static bool IsNavDisabled = false;
 
         DrawerLayout drawerLayout;
@@ -40,7 +38,7 @@ namespace BookingSystemMobile
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.main);
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             if (toolbar != null)
             {
                 SetSupportActionBar(toolbar);

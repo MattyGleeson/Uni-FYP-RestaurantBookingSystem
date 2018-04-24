@@ -120,6 +120,7 @@ namespace BookingSystemApp.Controllers
 
         public ActionResult Login()
         {
+            Session["PrevUrl"] = Request.UrlReferrer.ToString();
             return View();
         }
 
@@ -140,8 +141,10 @@ namespace BookingSystemApp.Controllers
                 {
                     Session[Global.UserIdSessionVar] = c.Id;
                 }
-                return RedirectToRoute(Request.UrlReferrer.ToString());
-                //return RedirectToAction("index", "home");
+
+                string url = (string) Session["PrevUrl"];
+
+                return Redirect(url);
             }
 
             return View(login);

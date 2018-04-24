@@ -169,6 +169,9 @@
     <AndroidResource Include="Resources\layout\restaurant_index_recycler.axml" />
     <AndroidResource Include="Resources\layout\restaurant_view.axml" />
     <AndroidResource Include="Resources\layout\restaurant_view_menu.axml" />
+    <AndroidResource Include="Resources\layout\restaurant_view_image.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml">
@@ -239,6 +242,7 @@
     <AndroidResource Include="Resources\drawable\ic_chevron_left_white.xml" />
     <AndroidResource Include="Resources\drawable\ic_chevron_right.xml" />
     <AndroidResource Include="Resources\drawable\textlines.xml" />
+    <AndroidResource Include="Resources\drawable\nophoto.jpg" />
     <Content Include="THIRD-PARTY-NOTICES.txt" />
   </ItemGroup>
   <ItemGroup />

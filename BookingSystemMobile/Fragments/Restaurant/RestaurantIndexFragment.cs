@@ -6,7 +6,7 @@ using BookingSystemMobile.Facades;
 using BookingSystemMobile.Fragments.Restaurant;
 using System.Collections.Generic;
 
-namespace BookingSystemMobile.Fragments
+namespace BookingSystemMobile.Fragments.Restaurant
 {
     public class RestaurantIndexFragment : Fragment
     {

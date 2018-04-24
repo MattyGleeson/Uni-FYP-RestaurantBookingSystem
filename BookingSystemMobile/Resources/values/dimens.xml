@@ -15,4 +15,6 @@
     <dimen name="drawer_width">240dp</dimen>
     <dimen name="list_image_height">100dp</dimen>
     <dimen name="list_image_width">100dp</dimen>
+
+    <dimen name="view_image_height">150dp</dimen>
 </resources>

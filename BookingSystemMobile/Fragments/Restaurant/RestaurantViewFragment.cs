@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Graphics;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -17,8 +18,8 @@ namespace BookingSystemMobile.Fragments.Restaurant
     {
         private readonly RestaurantFacade _restaurantFacade = new RestaurantFacade();
         private readonly MenuItemTypeFacade _menuItemTypeFacade = new MenuItemTypeFacade();
+        private readonly ImageFacade _imageFacade = new ImageFacade();
         private View view;
-        private RecyclerView menuItemsRecyclerView;
         private LibBookingService.Dtos.Restaurant restaurant;
 
         public static bool IsActive = true;
@@ -73,7 +74,8 @@ namespace BookingSystemMobile.Fragments.Restaurant
                         new MenuItem { Id = 4, Description = "A fresh bowl of caesar salad", Price = 4.38, ImageId = 4, Name = "Caesar Salad", DietInfo = new List<DietInfo> { new DietInfo { Name = "Vegan", Id = 2 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 1, Name = "Starter" } } },
                         new MenuItem { Id = 5, Description = null, Price = 3.59, ImageId = 5, Name = "Chocolate Fudge Cake", DietInfo = new List<DietInfo> { new DietInfo { Name = "Contains Dairy", Id = 4 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 3, Name = "Dessert" }, new MenuItemType { Id = 4, Name = "Special" } } },
                         new MenuItem { Id = 2, Description = "A fresh cod fillet served with thick cut chips and mushy peas", Price = 6.00, ImageId = 2, Name = "Fish and Chips", DietInfo = new List<DietInfo> { }, Types = new List<MenuItemType> { new MenuItemType { Id = 2, Name = "Main" } } }
-                    }
+                    },
+                    ImageIds = new List<int>()
                 };
 
 
@@ -86,20 +88,36 @@ namespace BookingSystemMobile.Fragments.Restaurant
                     new MenuItemType { Id = 4, Name = "Special" }
                 };
 
-                //List<RestaurantViewMenuVM> categories = new List<RestaurantViewMenuVM>();
+                LinearLayout imageLayout = view.FindViewById<LinearLayout>(Resource.Id.restaurant_view_images);
 
-                //foreach (var type in types)
-                //{
-                //    categories.Add(new RestaurantViewMenuVM
-                //    {
-                //        MenuItemType = type,
-                //        Items = restaurant.MenuItems.Where(m => m.Types.Where(t => t.Id == type.Id).Any()).ToList()
-                //    });
-                //}
+                if (restaurant.ImageIds.Any())
+                {
+                    foreach (int imageId in restaurant.ImageIds)
+                    {
+                        View imgView = LayoutInflater.From(Activity).Inflate(Resource.Layout.restaurant_view_image, null);
+                        ImageView img = imgView.FindViewById<ImageView>(Resource.Id.restaurant_view_img);
+                        Image dbImg = _imageFacade.LoadImage(imageId).Result;
 
+                        if (dbImg == null)
+                        {
+                            img.SetImageResource(Resource.Drawable.nophoto);
+                        }
+                        else
+                        {
+                            img.SetImageBitmap(BitmapFactory.DecodeByteArray(dbImg.FileContent, 0, dbImg.FileContent.Length));
+                        }
 
-                //menuItemsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.restaurant_view_menu);
-                //menuItemsRecyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
+                        imageLayout.AddView(img);
+                    }
+                }
+                else
+                {
+                    View imgView = LayoutInflater.From(Activity).Inflate(Resource.Layout.restaurant_view_image, null);
+                    ImageView img = imgView.FindViewById<ImageView>(Resource.Id.restaurant_view_img);
+                    img.SetImageResource(Resource.Drawable.nophoto);
+
+                    imageLayout.AddView(img);
+                }
 
                 view.FindViewById<TextView>(Resource.Id.restaurant_view_name).Text = restaurant.Name;
                 view.FindViewById<TextView>(Resource.Id.restaurant_view_phone).Text = restaurant.PhoneNo;

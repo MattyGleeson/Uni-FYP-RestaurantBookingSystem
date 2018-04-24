@@ -1954,6 +1954,9 @@ namespace BookingSystemMobile
 			// aapt resource value: 0x7f060093
 			public const int text_margin = 2131099795;
 			
+			// aapt resource value: 0x7f060099
+			public const int view_image_height = 2131099801;
+			
 			static Dimension()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -2219,26 +2222,26 @@ namespace BookingSystemMobile
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f02007b
-			public const int avd_hide_password_1 = 2130837627;
-			
 			// aapt resource value: 0x7f02007c
-			public const int avd_hide_password_2 = 2130837628;
+			public const int avd_hide_password_1 = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int avd_hide_password_3 = 2130837629;
+			public const int avd_hide_password_2 = 2130837629;
+			
+			// aapt resource value: 0x7f02007e
+			public const int avd_hide_password_3 = 2130837630;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
 			
-			// aapt resource value: 0x7f02007e
-			public const int avd_show_password_1 = 2130837630;
-			
 			// aapt resource value: 0x7f02007f
-			public const int avd_show_password_2 = 2130837631;
+			public const int avd_show_password_1 = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int avd_show_password_3 = 2130837632;
+			public const int avd_show_password_2 = 2130837632;
+			
+			// aapt resource value: 0x7f020081
+			public const int avd_show_password_3 = 2130837633;
 			
 			// aapt resource value: 0x7f020055
 			public const int design_bottom_navigation_item_background = 2130837589;
@@ -2307,52 +2310,55 @@ namespace BookingSystemMobile
 			public const int navigation_empty_icon = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int notification_action_background = 2130837611;
+			public const int nophoto = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int notification_bg = 2130837612;
+			public const int notification_action_background = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int notification_bg_low = 2130837613;
+			public const int notification_bg = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int notification_bg_low_normal = 2130837614;
+			public const int notification_bg_low = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int notification_bg_low_pressed = 2130837615;
+			public const int notification_bg_low_normal = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int notification_bg_normal = 2130837616;
+			public const int notification_bg_low_pressed = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int notification_bg_normal_pressed = 2130837617;
+			public const int notification_bg_normal = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int notification_icon_background = 2130837618;
-			
-			// aapt resource value: 0x7f020079
-			public const int notification_template_icon_bg = 2130837625;
-			
-			// aapt resource value: 0x7f02007a
-			public const int notification_template_icon_low_bg = 2130837626;
+			public const int notification_bg_normal_pressed = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int notification_tile_bg = 2130837619;
+			public const int notification_icon_background = 2130837619;
+			
+			// aapt resource value: 0x7f02007a
+			public const int notification_template_icon_bg = 2130837626;
+			
+			// aapt resource value: 0x7f02007b
+			public const int notification_template_icon_low_bg = 2130837627;
 			
 			// aapt resource value: 0x7f020074
-			public const int notify_panel_notification_icon_bg = 2130837620;
+			public const int notification_tile_bg = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int side_logo = 2130837621;
+			public const int notify_panel_notification_icon_bg = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int side_nav_bar = 2130837622;
+			public const int side_logo = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int splash_screen = 2130837623;
+			public const int side_nav_bar = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int textlines = 2130837624;
+			public const int splash_screen = 2130837624;
+			
+			// aapt resource value: 0x7f020079
+			public const int textlines = 2130837625;
 			
 			static Drawable()
 			{
@@ -2604,8 +2610,8 @@ namespace BookingSystemMobile
 			// aapt resource value: 0x7f070048
 			public const int list_item = 2131165256;
 			
-			// aapt resource value: 0x7f0700b3
-			public const int masked = 2131165363;
+			// aapt resource value: 0x7f0700b5
+			public const int masked = 2131165365;
 			
 			// aapt resource value: 0x7f070099
 			public const int media_actions = 2131165337;
@@ -2637,32 +2643,32 @@ namespace BookingSystemMobile
 			// aapt resource value: 0x7f070019
 			public const int multiply = 2131165209;
 			
-			// aapt resource value: 0x7f0700bc
-			public const int nav_account_bookings = 2131165372;
-			
-			// aapt resource value: 0x7f0700bb
-			public const int nav_account_details = 2131165371;
-			
 			// aapt resource value: 0x7f0700be
-			public const int nav_exit = 2131165374;
-			
-			// aapt resource value: 0x7f0700b4
-			public const int nav_home = 2131165364;
-			
-			// aapt resource value: 0x7f0700b8
-			public const int nav_login = 2131165368;
+			public const int nav_account_bookings = 2131165374;
 			
 			// aapt resource value: 0x7f0700bd
-			public const int nav_logout = 2131165373;
+			public const int nav_account_details = 2131165373;
+			
+			// aapt resource value: 0x7f0700c0
+			public const int nav_exit = 2131165376;
 			
 			// aapt resource value: 0x7f0700b6
-			public const int nav_menu = 2131165366;
+			public const int nav_home = 2131165366;
 			
-			// aapt resource value: 0x7f0700b9
-			public const int nav_register = 2131165369;
+			// aapt resource value: 0x7f0700ba
+			public const int nav_login = 2131165370;
 			
-			// aapt resource value: 0x7f0700b5
-			public const int nav_restaurants = 2131165365;
+			// aapt resource value: 0x7f0700bf
+			public const int nav_logout = 2131165375;
+			
+			// aapt resource value: 0x7f0700b8
+			public const int nav_menu = 2131165368;
+			
+			// aapt resource value: 0x7f0700bb
+			public const int nav_register = 2131165371;
+			
+			// aapt resource value: 0x7f0700b7
+			public const int nav_restaurants = 2131165367;
 			
 			// aapt resource value: 0x7f070087
 			public const int nav_view = 2131165319;
@@ -2715,20 +2721,26 @@ namespace BookingSystemMobile
 			// aapt resource value: 0x7f0700ab
 			public const int restaurant_index_recycler_name = 2131165355;
 			
-			// aapt resource value: 0x7f0700af
-			public const int restaurant_view_address = 2131165359;
-			
 			// aapt resource value: 0x7f0700b0
-			public const int restaurant_view_menu_container = 2131165360;
-			
-			// aapt resource value: 0x7f0700b1
-			public const int restaurant_view_menu_type = 2131165361;
+			public const int restaurant_view_address = 2131165360;
 			
 			// aapt resource value: 0x7f0700ad
-			public const int restaurant_view_name = 2131165357;
+			public const int restaurant_view_images = 2131165357;
+			
+			// aapt resource value: 0x7f0700b2
+			public const int restaurant_view_img = 2131165362;
+			
+			// aapt resource value: 0x7f0700b1
+			public const int restaurant_view_menu_container = 2131165361;
+			
+			// aapt resource value: 0x7f0700b3
+			public const int restaurant_view_menu_type = 2131165363;
 			
 			// aapt resource value: 0x7f0700ae
-			public const int restaurant_view_phone = 2131165358;
+			public const int restaurant_view_name = 2131165358;
+			
+			// aapt resource value: 0x7f0700af
+			public const int restaurant_view_phone = 2131165359;
 			
 			// aapt resource value: 0x7f070035
 			public const int right = 2131165237;
@@ -2916,11 +2928,11 @@ namespace BookingSystemMobile
 			// aapt resource value: 0x7f070018
 			public const int useLogo = 2131165208;
 			
-			// aapt resource value: 0x7f0700ba
-			public const int user_menu_logged_in = 2131165370;
+			// aapt resource value: 0x7f0700bc
+			public const int user_menu_logged_in = 2131165372;
 			
-			// aapt resource value: 0x7f0700b7
-			public const int user_menu_logged_out = 2131165367;
+			// aapt resource value: 0x7f0700b9
+			public const int user_menu_logged_out = 2131165369;
 			
 			// aapt resource value: 0x7f070090
 			public const int user_text = 2131165328;
@@ -2931,8 +2943,8 @@ namespace BookingSystemMobile
 			// aapt resource value: 0x7f07000e
 			public const int view_offset_helper = 2131165198;
 			
-			// aapt resource value: 0x7f0700b2
-			public const int visible = 2131165362;
+			// aapt resource value: 0x7f0700b4
+			public const int visible = 2131165364;
 			
 			// aapt resource value: 0x7f070027
 			public const int withText = 2131165223;
@@ -3198,22 +3210,25 @@ namespace BookingSystemMobile
 			public const int restaurant_view = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int restaurant_view_menu = 2130903107;
+			public const int restaurant_view_image = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int select_dialog_item_material = 2130903108;
+			public const int restaurant_view_menu = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int select_dialog_multichoice_material = 2130903109;
+			public const int select_dialog_item_material = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int select_dialog_singlechoice_material = 2130903110;
+			public const int select_dialog_multichoice_material = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int support_simple_spinner_dropdown_item = 2130903111;
+			public const int select_dialog_singlechoice_material = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int toolbar = 2130903112;
+			public const int support_simple_spinner_dropdown_item = 2130903112;
+			
+			// aapt resource value: 0x7f030049
+			public const int toolbar = 2130903113;
 			
 			static Layout()
 			{

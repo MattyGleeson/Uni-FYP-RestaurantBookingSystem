@@ -31,5 +31,10 @@ namespace LibBookingService.Dtos
         public virtual IEnumerable<Table> Tables { get; set; }
 
         public virtual IEnumerable<int> ImageIds { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
