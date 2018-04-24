@@ -102,7 +102,7 @@ namespace BookingSystemMobile.Facades.Core
         /// <returns></returns>
         protected async Task<T> ExecuteRequest<T>(HttpRequestMessage request) where T : Dto
         {
-            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var response = _client.SendAsync(request).Result;
             response.EnsureSuccessStatusCode();
             string content = await response.Content.ReadAsStringAsync();
@@ -117,7 +117,7 @@ namespace BookingSystemMobile.Facades.Core
         /// <returns></returns>
         protected async Task<IEnumerable<T>> ExecuteRequestList<T>(HttpRequestMessage request) where T : Dto
         {
-            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var response = _client.SendAsync(request).Result;
             response.EnsureSuccessStatusCode();
             string content = await response.Content.ReadAsStringAsync();
@@ -131,7 +131,7 @@ namespace BookingSystemMobile.Facades.Core
         /// <returns></returns>
         protected async Task<bool> ExecuteRemove(Uri uri)
         {
-            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             try
             {
                 HttpRequestMessage request = new HttpRequestMessage

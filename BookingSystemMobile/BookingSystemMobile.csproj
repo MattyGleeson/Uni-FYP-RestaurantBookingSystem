@@ -129,6 +129,7 @@
     <Compile Include="Fragments\Restaurant\RestaurantMenuItemDialogAdapter.cs" />
     <Compile Include="Fragments\Restaurant\RestaurantMenuItemDialogFragment.cs" />
     <Compile Include="Fragments\Restaurant\RestaurantViewFragment.cs" />
+    <Compile Include="Fragments\User\RegisterFragment.cs" />
     <Compile Include="Fragments\User\LoginFragment.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
@@ -174,6 +175,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\login.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\register.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

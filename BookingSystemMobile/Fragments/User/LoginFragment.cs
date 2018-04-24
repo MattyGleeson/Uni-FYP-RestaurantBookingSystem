@@ -7,7 +7,7 @@ using BookingSystemMobile.Facades.Core;
 using LibBookingService.Dtos;
 using System.Collections.Generic;
 
-namespace BookingSystemMobile.Fragments
+namespace BookingSystemMobile.Fragments.User
 {
     public class LoginFragment : Fragment
     {
@@ -35,12 +35,12 @@ namespace BookingSystemMobile.Fragments
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
             view = inflater.Inflate(Resource.Layout.login, null);
 
-            string username = view.FindViewById<TextView>(Resource.Id.login_username).Text;
-            string password = view.FindViewById<TextView>(Resource.Id.login_password).Text;
-
             Button login = view.FindViewById<Button>(Resource.Id.login_btn);
             login.Click += delegate
             {
+                string username = view.FindViewById<TextView>(Resource.Id.login_username).Text;
+                string password = view.FindViewById<TextView>(Resource.Id.login_password).Text;
+
                 if (username.Trim() != "" && password.Trim() != "")
                 {
                     _authFacade.GetToken(username, password);

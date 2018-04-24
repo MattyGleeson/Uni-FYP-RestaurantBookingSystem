@@ -22,7 +22,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textColorHint="#eee"
                     android:hint="@string/username"
                     android:id="@+id/login_username"
@@ -34,7 +34,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textColorHint="#eee"
                     android:hint="@string/password"
                     android:id="@+id/login_password"

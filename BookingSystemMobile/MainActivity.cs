@@ -21,7 +21,9 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Android.Support.V7.Widget;
 using BookingSystemMobile.Fragments.Restaurant;
+using BookingSystemMobile.Fragments.User;
 using BookingSystemMobile.Facades.Core;
+using Android.Widget;
 
 namespace BookingSystemMobile
 {
@@ -39,7 +41,7 @@ namespace BookingSystemMobile
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.main);
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             if (toolbar != null)
             {
                 SetSupportActionBar(toolbar);
@@ -133,7 +135,7 @@ namespace BookingSystemMobile
                     fragment = LoginFragment.NewInstance();
                     break;
                 case 4:
-                    //TODO: Register
+                    fragment = RegisterFragment.NewInstance();
                     break;
                 case 5:
                     //TODO: Details
@@ -148,8 +150,8 @@ namespace BookingSystemMobile
                         SetMessage("Are you sure you want to logout?").
                         SetPositiveButton("Yes", (c, ev) =>
                         {
-                            GenericFacade.Token = null;
-                            GenericFacade.UserName = null;
+                            GenericFacade.Token = "";
+                            GenericFacade.UserName = "";
                             ToggleLogout();
                         }).
                         SetNegativeButton("No", (c, ev) =>
@@ -201,20 +203,22 @@ namespace BookingSystemMobile
         {
             navigationView.Menu.FindItem(Resource.Id.user_menu_logged_in).SetVisible(true);
             navigationView.Menu.FindItem(Resource.Id.user_menu_logged_out).SetVisible(false);
+            FindViewById<TextView>(Resource.Id.user_text).Text = GenericFacade.UserName;
         }
 
         public void ToggleLogout()
         {
             navigationView.Menu.FindItem(Resource.Id.user_menu_logged_in).SetVisible(false);
             navigationView.Menu.FindItem(Resource.Id.user_menu_logged_out).SetVisible(true);
+            FindViewById<TextView>(Resource.Id.user_text).Text = "Not Authed";
         }
 
-        public void SetAsDrawerToolbar(Toolbar toolbar = null)
+        public void SetAsDrawerToolbar(Android.Support.V7.Widget.Toolbar toolbar = null)
         {
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
         }
 
-        public void SetAsNavigationToolbar(Toolbar toolbar = null)
+        public void SetAsNavigationToolbar(Android.Support.V7.Widget.Toolbar toolbar = null)
         {
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_chevron_left_white);
         }
