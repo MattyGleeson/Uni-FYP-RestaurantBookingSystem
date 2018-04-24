@@ -21,6 +21,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Android.Support.V7.Widget;
 using BookingSystemMobile.Fragments.Restaurant;
+using BookingSystemMobile.Facades.Core;
 
 namespace BookingSystemMobile
 {
@@ -129,10 +130,33 @@ namespace BookingSystemMobile
                     fragment = MenuIndexFragment.NewInstance();
                     break;
                 case 3:
-                    ToggleLogin();
+                    fragment = LoginFragment.NewInstance();
+                    break;
+                case 4:
+                    //TODO: Register
+                    break;
+                case 5:
+                    //TODO: Details
+                    break;
+                case 6:
+                    //TODO: Bookings
                     break;
                 case 7:
-                    ToggleLogout();
+                    new Android.App.AlertDialog.Builder(this).
+                        SetIcon(Android.Resource.Drawable.IcDialogAlert).
+                        SetTitle("Confirm").
+                        SetMessage("Are you sure you want to logout?").
+                        SetPositiveButton("Yes", (c, ev) =>
+                        {
+                            GenericFacade.Token = null;
+                            GenericFacade.UserName = null;
+                            ToggleLogout();
+                        }).
+                        SetNegativeButton("No", (c, ev) =>
+                        {
+
+                        }).
+                        Show();
                     break;
                 case 8:
                     ExitApp();

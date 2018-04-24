@@ -41,7 +41,7 @@ namespace BookingSystemMobile.Fragments
                 }
             };
 
-            //restaurants.AddRange(await _restaurantFacade.Get());
+            //restaurants.AddRange(_restaurantFacade.Get().Result);
             restaurants.AddRange(new List<LibBookingService.Dtos.Restaurant>
             {
                 new LibBookingService.Dtos.Restaurant { Id = 1, CompanyId = 2, Name = "Restaurant 1", PhoneNo = "01429354096", AddressStreet = "21 Restaurant Road", AddressTown = "Hartlepool", AddressCounty = "Cleveland", AddressPostalCode = "TS248GX" },

@@ -20,5 +20,6 @@
     <string name="user">User</string>
     <string name="menuItemDialogTitle">Menu Items</string>
     <string name="pleaseSelect">Please select</string>
-  
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>

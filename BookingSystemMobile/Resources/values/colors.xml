@@ -3,7 +3,7 @@
     <!--Get colors from: http://www.materialpalette.com/-->
     <color name="primary">#000033</color>
     <color name="primaryDark">#000033</color>
-    <color name="accent">#2E7D32</color>
+    <color name="accent">#000033</color>
     <color name="lightPrimary">#B3E5FC</color>
     <color name="textIcon">#FFFFFF</color>
     <color name="primaryText">#212121</color>
