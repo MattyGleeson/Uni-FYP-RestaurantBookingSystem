@@ -196,6 +196,7 @@ namespace CustomerService.Controllers
             return new LibBookingService.Dtos.Customer
             {
                 Id = c.Id,
+                UserName = c.UserName,
                 Title = c.Title,
                 Forename = c.Forename,
                 Surname = c.Surname,

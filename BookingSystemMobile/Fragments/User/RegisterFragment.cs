@@ -86,6 +86,7 @@ namespace BookingSystemMobile.Fragments.User
                         _authFacade.GetToken(customer.UserName, password);
 
                         GenericFacade.UserName = customer.UserName;
+                        GenericFacade.UserId = customer.Id;
 
                         string owinId = _authFacade.GetUserId();
 
@@ -138,8 +139,6 @@ namespace BookingSystemMobile.Fragments.User
             if (customer.AddressPostalCode.Trim() == "")
                 valid = false;
             if (customer.HomePhoneNo.Trim() == "")
-                valid = false;
-            if (customer.WorkPhoneNo.Trim() == "")
                 valid = false;
             if (customer.MobilePhoneNo.Trim() == "")
                 valid = false;

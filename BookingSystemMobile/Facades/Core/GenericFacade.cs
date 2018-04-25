@@ -67,6 +67,18 @@ namespace BookingSystemMobile.Facades.Core
             }
         }
 
+        public static int UserId
+        {
+            get
+            {
+                return int.Parse(CrossSecureStorage.Current.GetValue("AuthOwinId"));
+            }
+            set
+            {
+                CrossSecureStorage.Current.SetValue("AuthOwinId", value.ToString());
+            }
+        }
+
         /// <summary>
         /// Http client used to send http requests.
         /// </summary>

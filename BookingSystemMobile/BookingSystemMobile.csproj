@@ -121,6 +121,9 @@
     <Compile Include="Facades\PaymentFacade.cs" />
     <Compile Include="Facades\RestaurantFacade.cs" />
     <Compile Include="Facades\TableFacade.cs" />
+    <Compile Include="Fragments\Booking\BookingIndexFragment.cs" />
+    <Compile Include="Fragments\Booking\BookingIndexAdapter.cs" />
+    <Compile Include="Fragments\Booking\BookingViewFragment.cs" />
     <Compile Include="Fragments\Menu\MenuItemTypeDialogAdapter.cs" />
     <Compile Include="Fragments\Menu\MenuIndexFragment.cs" />
     <Compile Include="Fragments\Menu\MenuIndexAdapter.cs" />
@@ -129,6 +132,7 @@
     <Compile Include="Fragments\Restaurant\RestaurantMenuItemDialogAdapter.cs" />
     <Compile Include="Fragments\Restaurant\RestaurantMenuItemDialogFragment.cs" />
     <Compile Include="Fragments\Restaurant\RestaurantViewFragment.cs" />
+    <Compile Include="Fragments\User\UserDetailsFragment.cs" />
     <Compile Include="Fragments\User\RegisterFragment.cs" />
     <Compile Include="Fragments\User\LoginFragment.cs" />
     <Compile Include="MainActivity.cs" />
@@ -151,7 +155,7 @@
     <AndroidResource Include="Resources\layout\restaurant_index.axml" />
     <AndroidResource Include="Resources\layout\main.axml" />
     <AndroidResource Include="Resources\layout\nav_header.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\menu_index.axml">
       <SubType>Designer</SubType>
@@ -178,6 +182,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\register.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\user_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\booking_index.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\booking_index_recycler.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

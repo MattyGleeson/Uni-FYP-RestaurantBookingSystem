@@ -138,10 +138,10 @@ namespace BookingSystemMobile
                     fragment = RegisterFragment.NewInstance();
                     break;
                 case 5:
-                    //TODO: Details
+                    fragment = UserDetailsFragment.NewInstance();
                     break;
                 case 6:
-                    //TODO: Bookings
+                    fragment = BookingIndexFragment.NewInstance();
                     break;
                 case 7:
                     new Android.App.AlertDialog.Builder(this).
@@ -152,6 +152,7 @@ namespace BookingSystemMobile
                         {
                             GenericFacade.Token = "";
                             GenericFacade.UserName = "";
+                            GenericFacade.UserId = 0;
                             ToggleLogout();
                         }).
                         SetNegativeButton("No", (c, ev) =>

@@ -50,6 +50,7 @@ namespace BookingSystemMobile.Fragments.User
                     if (c != null)
                     {
                         GenericFacade.UserName = username;
+                        GenericFacade.UserId = c.Id;
                         Toast.MakeText(Activity, "Login successful", ToastLength.Long).Show();
 
                         Fragment fragment = HomeFragment.NewInstance();
