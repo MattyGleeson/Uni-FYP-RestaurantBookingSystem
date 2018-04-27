@@ -1,5 +1,6 @@
 using Android.App;
 using Android.OS;
+using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using BookingSystemMobile.Facades;
@@ -35,9 +36,12 @@ namespace BookingSystemMobile.Fragments.User
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
             view = inflater.Inflate(Resource.Layout.login, null);
 
+            SwipeRefreshLayout swipeRefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_refresh);
+
             Button login = view.FindViewById<Button>(Resource.Id.login_btn);
             login.Click += delegate
             {
+                swipeRefresh.Refreshing = true;
                 string username = view.FindViewById<TextView>(Resource.Id.login_username).Text;
                 string password = view.FindViewById<TextView>(Resource.Id.login_password).Text;
 
@@ -51,6 +55,9 @@ namespace BookingSystemMobile.Fragments.User
                     {
                         GenericFacade.UserName = username;
                         GenericFacade.UserId = c.Id;
+
+                        swipeRefresh.Refreshing = false;
+
                         Toast.MakeText(Activity, "Login successful", ToastLength.Long).Show();
 
                         Fragment fragment = HomeFragment.NewInstance();
@@ -65,6 +72,8 @@ namespace BookingSystemMobile.Fragments.User
                         Toast.MakeText(Activity, "Please enter a valid username and password", ToastLength.Long).Show();
                     }
                 }
+
+                swipeRefresh.Refreshing = false;
             };
 
             return view;

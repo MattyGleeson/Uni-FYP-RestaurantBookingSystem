@@ -29,33 +29,6 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#333333"
-                        android:text="Username"
-                        android:layout_gravity="center_horizontal"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#333333"
-                        android:id="@+id/user_details_username"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="#333333"
                         android:text="Name"
                         android:layout_gravity="center_horizontal"
                         android:textStyle="bold" />
@@ -64,34 +37,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#333333"
-                        android:id="@+id/user_details_name"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="#333333"
-                        android:text="Date of Birth"
-                        android:layout_gravity="center_horizontal"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#333333"
-                        android:id="@+id/user_details_dob"
+                        android:id="@+id/booking_view_restaurant_name"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
             </LinearLayout>
@@ -118,7 +64,38 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#333333"
-                        android:id="@+id/user_details_address"
+                        android:id="@+id/booking_view_restaurant_address"
+                        android:layout_gravity="center_horizontal" />
+                </LinearLayout>
+            </LinearLayout>
+            
+            <include
+                layout="@layout/horizontal_divider" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#333333"
+                        android:text="Booking Created"
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#333333"
+                        android:id="@+id/booking_view_created"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
             </LinearLayout>
@@ -137,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#333333"
-                        android:text="Home Phone No"
+                        android:text="Booking"
                         android:layout_gravity="center_horizontal"
                         android:textStyle="bold" />
                     <TextView
@@ -145,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#333333"
-                        android:id="@+id/user_details_home_phone_no"
+                        android:id="@+id/booking_view_booking"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
             </LinearLayout>
@@ -164,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#333333"
-                        android:text="Work Phone No"
+                        android:text="Number of Customers"
                         android:layout_gravity="center_horizontal"
                         android:textStyle="bold" />
                     <TextView
@@ -172,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#333333"
-                        android:id="@+id/user_details_work_phone_no"
+                        android:id="@+id/booking_view_customers"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
             </LinearLayout>
@@ -191,7 +168,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#333333"
-                        android:text="Mobile Phone No"
+                        android:text="Comments"
                         android:layout_gravity="center_horizontal"
                         android:textStyle="bold" />
                     <TextView
@@ -199,37 +176,14 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#333333"
-                        android:id="@+id/user_details_mobile_phone_no"
+                        android:id="@+id/booking_view_comments"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="#333333"
-                        android:text="Email Address"
-                        android:layout_gravity="center_horizontal"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#333333"
-                        android:id="@+id/user_details_email"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-            </LinearLayout>
+            
+            
+            
+            
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

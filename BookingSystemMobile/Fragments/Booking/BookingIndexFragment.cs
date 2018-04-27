@@ -53,11 +53,11 @@ namespace BookingSystemMobile.Fragments
                 new Booking
                 {
                     Id = 1,
-                    StartTime = TimeSpan.MinValue,
-                    EndTime = TimeSpan.MaxValue,
+                    StartTime = DateTime.Now.TimeOfDay,
+                    EndTime = DateTime.Now.TimeOfDay,
                     BookingDate = DateTime.Now,
                     BookingMadeDate = DateTime.Now,
-                    BookingMadeTime = TimeSpan.MinValue,
+                    BookingMadeTime = DateTime.Now.TimeOfDay,
                     Cancelled = false,
                     Comments = "Comment",
                     NoCustomers = 4,

@@ -43,7 +43,7 @@ namespace BookingSystemMobile.Fragments.Menu
 
             vh.Restaurant.Text = vh.Item.Restaurant.Name;
             vh.Date.Text = vh.Item.BookingDate.ToShortDateString();
-            vh.Time.Text = vh.Item.StartTime.ToString();
+            vh.Time.Text = vh.Item.StartTime.Hours + ":" + vh.Item.StartTime.Minutes;
             vh.NoCustomers.Text = vh.Item.NoCustomers.ToString();
             vh.Cancelled.Text = vh.Item.Cancelled.ToString();
         }
