@@ -69,7 +69,7 @@ namespace BookingSystemMobile.Fragments.User
                 customer.UserName = view.FindViewById<TextView>(Resource.Id.register_username).Text;
                 customer.Forename = view.FindViewById<TextView>(Resource.Id.register_forename).Text;
                 customer.Surname = view.FindViewById<TextView>(Resource.Id.register_surname).Text;
-                customer.DoB = view.FindViewById<DatePicker>(Resource.Id.register_surname).DateTime;
+                customer.DoB = view.FindViewById<DatePicker>(Resource.Id.register_dob).DateTime;
                 customer.AddressStreet = view.FindViewById<TextView>(Resource.Id.register_street).Text;
                 customer.AddressTown = view.FindViewById<TextView>(Resource.Id.register_town).Text;
                 customer.AddressCounty = view.FindViewById<TextView>(Resource.Id.register_county).Text;

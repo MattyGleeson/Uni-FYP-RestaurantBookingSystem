@@ -149,6 +149,11 @@ namespace BookingSystemMobile.Fragments.Restaurant
             }
         }
 
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        {
+            inflater.Inflate(Resource.Menu.restaurant_view_options, menu);
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (IsActive)
@@ -160,6 +165,13 @@ namespace BookingSystemMobile.Fragments.Restaurant
                     MainActivity.IsNavDisabled = false;
                     Activity.OnBackPressed();
                     return true;
+                }
+                else if (id == Resource.Id.book_table)
+                {
+                    MainActivity.IsNavDisabled = true;
+                    IsActive = false;
+                    Android.App.DialogFragment dialog = BookingNewDialogFragment.NewInstance(restaurant.Id);
+                    dialog.Show(FragmentManager, "fragmentDialog");
                 }
             }
 

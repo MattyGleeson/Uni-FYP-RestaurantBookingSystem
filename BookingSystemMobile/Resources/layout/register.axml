@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#333333"
-                android:text="Date of Birth" />
+                android:text="Title" />
             <Spinner
                 android:id="@+id/register_title"
                 android:layout_width="match_parent"
@@ -90,7 +90,14 @@
                     android:id="@+id/register_surname"
                     android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#333333"
+                android:text="Date of Birth" />
             <DatePicker
+                android:id="@+id/register_dob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp" />

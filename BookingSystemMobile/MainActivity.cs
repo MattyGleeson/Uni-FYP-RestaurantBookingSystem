@@ -41,65 +41,7 @@ namespace BookingSystemMobile
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.main);
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            if (toolbar != null)
-            {
-                SetSupportActionBar(toolbar);
-                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-                SupportActionBar.SetHomeButtonEnabled(true);
-            }
-
-            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-
-            //Set hamburger items menu
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-
-            //setup navigation view
-            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-
-            //handle navigation
-            navigationView.NavigationItemSelected += (sender, e) =>
-            {
-                if (previousItem != null)
-                    previousItem.SetChecked(false);
-
-                navigationView.SetCheckedItem(e.MenuItem.ItemId);
-
-                previousItem = e.MenuItem;
-
-                switch (e.MenuItem.ItemId)
-                {
-                    case Resource.Id.nav_home:
-                        ListItemClicked(0);
-                        break;
-                    case Resource.Id.nav_restaurants:
-                        ListItemClicked(1);
-                        break;
-                    case Resource.Id.nav_menu:
-                        ListItemClicked(2);
-                        break;
-                    case Resource.Id.nav_login:
-                        ListItemClicked(3);
-                        break;
-                    case Resource.Id.nav_register:
-                        ListItemClicked(4);
-                        break;
-                    case Resource.Id.nav_account_details:
-                        ListItemClicked(5);
-                        break;
-                    case Resource.Id.nav_account_bookings:
-                        ListItemClicked(6);
-                        break;
-                    case Resource.Id.nav_logout:
-                        ListItemClicked(7);
-                        break;
-                    case Resource.Id.nav_exit:
-                        ListItemClicked(8);
-                        break;
-                }
-                
-                drawerLayout.CloseDrawers();
-            };
+            SetupNavigationDrawer();
 
 
             //if first time you will want to go ahead and click first item.
@@ -214,9 +156,72 @@ namespace BookingSystemMobile
             FindViewById<TextView>(Resource.Id.user_text).Text = "Not Authed";
         }
 
-        public void SetAsDrawerToolbar(Android.Support.V7.Widget.Toolbar toolbar = null)
+        public void SetAsDrawerToolbar()
         {
+            SetupNavigationDrawer();
+        }
+
+        private void SetupNavigationDrawer()
+        {
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            if (toolbar != null)
+            {
+                SetSupportActionBar(toolbar);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                SupportActionBar.SetHomeButtonEnabled(true);
+            }
+
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+
+            //Set hamburger items menu
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+
+            //setup navigation view
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+
+            //handle navigation
+            navigationView.NavigationItemSelected += (sender, e) =>
+            {
+                if (previousItem != null)
+                    previousItem.SetChecked(false);
+
+                navigationView.SetCheckedItem(e.MenuItem.ItemId);
+
+                previousItem = e.MenuItem;
+
+                switch (e.MenuItem.ItemId)
+                {
+                    case Resource.Id.nav_home:
+                        ListItemClicked(0);
+                        break;
+                    case Resource.Id.nav_restaurants:
+                        ListItemClicked(1);
+                        break;
+                    case Resource.Id.nav_menu:
+                        ListItemClicked(2);
+                        break;
+                    case Resource.Id.nav_login:
+                        ListItemClicked(3);
+                        break;
+                    case Resource.Id.nav_register:
+                        ListItemClicked(4);
+                        break;
+                    case Resource.Id.nav_account_details:
+                        ListItemClicked(5);
+                        break;
+                    case Resource.Id.nav_account_bookings:
+                        ListItemClicked(6);
+                        break;
+                    case Resource.Id.nav_logout:
+                        ListItemClicked(7);
+                        break;
+                    case Resource.Id.nav_exit:
+                        ListItemClicked(8);
+                        break;
+                }
+
+                drawerLayout.CloseDrawers();
+            };
         }
 
         public void SetAsNavigationToolbar(Android.Support.V7.Widget.Toolbar toolbar = null)

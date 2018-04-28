@@ -127,6 +127,7 @@
     <Compile Include="Fragments\Booking\BookingIndexFragment.cs" />
     <Compile Include="Fragments\Booking\BookingIndexAdapter.cs" />
     <Compile Include="Fragments\Booking\BookingViewFragment.cs" />
+    <Compile Include="Fragments\Booking\BookingNewDialogFragment.cs" />
     <Compile Include="Fragments\Menu\MenuItemTypeDialogAdapter.cs" />
     <Compile Include="Fragments\Menu\MenuIndexFragment.cs" />
     <Compile Include="Fragments\Menu\MenuIndexAdapter.cs" />
@@ -202,6 +203,9 @@
     <AndroidResource Include="Resources\layout\horizontal_divider.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\booking_new.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml">
@@ -274,6 +278,12 @@
     <AndroidResource Include="Resources\drawable\textlines.xml" />
     <AndroidResource Include="Resources\drawable\nophoto.jpg" />
     <AndroidResource Include="Resources\menu\booking_view_options.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\menu\restaurant_view_options.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\menu\booking_new_options.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <Content Include="THIRD-PARTY-NOTICES.txt" />

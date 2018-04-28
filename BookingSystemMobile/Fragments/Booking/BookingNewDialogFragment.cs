@@ -15,17 +15,19 @@ using LibBookingService.Dtos;
 
 namespace BookingSystemMobile.Fragments.Restaurant
 {
-    public class RestaurantMenuItemDialogFragment : DialogFragment
+    public class BookingNewDialogFragment : DialogFragment
     {
         private readonly MenuFacade _menuFacade = new MenuFacade();
         private readonly RestaurantFacade _restaurantFacade = new RestaurantFacade();
+        private readonly BookingFacade bookingFacade = new BookingFacade();
+        private readonly PaymentFacade paymentFacade = new PaymentFacade();
+        
 
-        public static RestaurantMenuItemDialogFragment NewInstance(int id, int resId)
+        public static BookingNewDialogFragment NewInstance(int id)
         {
-            RestaurantMenuItemDialogFragment f = new RestaurantMenuItemDialogFragment();
+            BookingNewDialogFragment f = new BookingNewDialogFragment();
             Bundle args = new Bundle();
             args.PutInt("id", id);
-            args.PutInt("resId", resId);
             f.Arguments = args;
             return f;
         }
@@ -39,17 +41,17 @@ namespace BookingSystemMobile.Fragments.Restaurant
         {
             base.OnCreate(savedInstanceState);
             SetStyle(DialogFragmentStyle.Normal, Resource.Style.Theme_MyTheme);
+            
+            SetHasOptionsMenu(true);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.menu_index_view_items, null);
+            View view = inflater.Inflate(Resource.Layout.booking_new, null);
 
-            Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar_menu_items);
-            toolbar.SetTitle(Resource.String.menuItemDialogTitle);
-
-            SetHasOptionsMenu(true);
-
+            Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar_new_booking);
+            toolbar.SetTitle(Resource.String.bookingNewDialogTitle);
+            
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
 
             Android.Support.V7.App.ActionBar actionBar = ((AppCompatActivity)Activity).SupportActionBar;
@@ -61,11 +63,10 @@ namespace BookingSystemMobile.Fragments.Restaurant
             }
 
             int id = Arguments.GetInt("id");
-            int resId = Arguments.GetInt("resId");
 
-            if (id > 0 && resId > 0)
+            if (id > 0)
             {
-                //LibBookingService.Dtos.Restaurant restaurant = _restaurantFacade.FindById(resId).Result;
+                //LibBookingService.Dtos.Restaurant restaurant = _restaurantFacade.FindById(id).Result;
                 LibBookingService.Dtos.Restaurant restaurant = new LibBookingService.Dtos.Restaurant
                 {
                     Id = 1,
@@ -84,14 +85,7 @@ namespace BookingSystemMobile.Fragments.Restaurant
                     }
                 };
                 
-                RecyclerView recyclerView = view.FindViewById<RecyclerView>(Resource.Id.menu_index_view_item_types);
-                recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
-
-                List<MenuItem> menuItems = restaurant.MenuItems.ToList();
-                menuItems = menuItems.Where(m => m.Types.Where(t => t.Id == id).Any()).ToList();
-
-                RestaurantMenuItemDialogAdapter adapter = new RestaurantMenuItemDialogAdapter(menuItems);
-                recyclerView.SetAdapter(adapter);
+                
             }
 
             return view;
@@ -100,7 +94,7 @@ namespace BookingSystemMobile.Fragments.Restaurant
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             menu.Clear();
-            Activity.MenuInflater.Inflate(Resource.Menu.default_no_toolbar_options, menu);
+            Activity.MenuInflater.Inflate(Resource.Menu.booking_new_options, menu);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -109,7 +103,36 @@ namespace BookingSystemMobile.Fragments.Restaurant
 
             if (id == Android.Resource.Id.Home)
             {
-                Dismiss();
+                new Android.App.AlertDialog.Builder(Activity).
+                        SetIcon(Android.Resource.Drawable.IcDialogAlert).
+                        SetTitle("Confirm").
+                        SetMessage("Are you sure you want to cancel the booking?").
+                        SetPositiveButton("Yes", (c, ev) =>
+                        {
+                            Dismiss();
+                        }).
+                        SetNegativeButton("No", (c, ev) =>
+                        {
+
+                        }).
+                        Show();
+                return true;
+            }
+            else if (id == Resource.Id.save_booking)
+            {
+                new Android.App.AlertDialog.Builder(Activity).
+                        SetIcon(Android.Resource.Drawable.IcDialogAlert).
+                        SetTitle("Confirm").
+                        SetMessage("Do you wish to confirm the booking?").
+                        SetPositiveButton("Yes", (c, ev) =>
+                        {
+                            Dismiss();
+                        }).
+                        SetNegativeButton("No", (c, ev) =>
+                        {
+
+                        }).
+                        Show();
                 return true;
             }
 
