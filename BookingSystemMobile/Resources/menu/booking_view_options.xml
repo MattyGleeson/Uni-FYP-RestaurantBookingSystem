@@ -7,4 +7,9 @@
 		  android:orderInCategory="100"
 		  app:showAsAction="always|withText"
 	/>
+    <item android:id="@+id/cancel_booking"
+		  android:title="Cancel Booking"
+		  android:orderInCategory="100"
+		  app:showAsAction="always|withText"
+	/>
 </menu>

@@ -1,16 +1,20 @@
 using Android.App;
 using Android.Graphics;
 using Android.OS;
+using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using BookingSystemMobile.Facades;
+using BookingSystemMobile.Facades.Core;
 using BookingSystemMobile.Fragments.Menu;
 using BookingSystemMobile.Fragments.Restaurant;
 using LibBookingService.Dtos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookingSystemMobile.Fragments.Restaurant
 {
@@ -20,7 +24,11 @@ namespace BookingSystemMobile.Fragments.Restaurant
         private readonly MenuItemTypeFacade _menuItemTypeFacade = new MenuItemTypeFacade();
         private readonly ImageFacade _imageFacade = new ImageFacade();
         private View view;
+        private SwipeRefreshLayout swipeRefresh;
+        private BackgroundWorker backgroundWorker;
+
         private LibBookingService.Dtos.Restaurant restaurant;
+        private List<MenuItemType> types = new List<MenuItemType>();
 
         public static bool IsActive = true;
 
@@ -46,48 +54,27 @@ namespace BookingSystemMobile.Fragments.Restaurant
             SetHasOptionsMenu(true);
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
             view = inflater.Inflate(Resource.Layout.restaurant_view, null);
+            swipeRefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.restaurant_view_swipe);
 
-            Setup();
+            swipeRefresh.Refresh += delegate
+            {
+                backgroundWorker.RunWorkerAsync();
+            };
+
+            swipeRefresh.Refreshing = true;
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += Bworker_DoWork;
+            backgroundWorker.RunWorkerCompleted += Bworker_RunWorkerCompleted;
+            backgroundWorker.RunWorkerAsync();
 
             return view;
         }
 
-        private async void Setup()
+        private void Setup()
         {
-            int id = Arguments.GetInt("id");
-
-            if (id > 0)
+            if (restaurant != null)
             {
-                //restaurant = await _restaurantFacade.FindById(id);
-                restaurant = new LibBookingService.Dtos.Restaurant
-                {
-                    Id = 1,
-                    CompanyId = 2,
-                    Name = "Restaurant 1",
-                    PhoneNo = "01429354096",
-                    AddressStreet = "21 Restaurant Road",
-                    AddressTown = "Hartlepool",
-                    AddressCounty = "Cleveland",
-                    AddressPostalCode = "TS248GX",
-                    MenuItems = new List<MenuItem>
-                    {
-                        new MenuItem { Id = 4, Description = "A fresh bowl of caesar salad", Price = 4.38, ImageId = 4, Name = "Caesar Salad", DietInfo = new List<DietInfo> { new DietInfo { Name = "Vegan", Id = 2 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 1, Name = "Starter" } } },
-                        new MenuItem { Id = 5, Description = null, Price = 3.59, ImageId = 5, Name = "Chocolate Fudge Cake", DietInfo = new List<DietInfo> { new DietInfo { Name = "Contains Dairy", Id = 4 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 3, Name = "Dessert" }, new MenuItemType { Id = 4, Name = "Special" } } },
-                        new MenuItem { Id = 2, Description = "A fresh cod fillet served with thick cut chips and mushy peas", Price = 6.00, ImageId = 2, Name = "Fish and Chips", DietInfo = new List<DietInfo> { }, Types = new List<MenuItemType> { new MenuItemType { Id = 2, Name = "Main" } } }
-                    },
-                    ImageIds = new List<int>()
-                };
-
-
-                //List<MenuItemType> types = await _menuItemTypeFacade.Get();
-                List<MenuItemType> types = new List<MenuItemType>
-                {
-                    new MenuItemType { Id = 1, Name = "Starter" },
-                    new MenuItemType { Id = 2, Name = "Main" },
-                    new MenuItemType { Id = 3, Name = "Dessert" },
-                    new MenuItemType { Id = 4, Name = "Special" }
-                };
-
                 LinearLayout imageLayout = view.FindViewById<LinearLayout>(Resource.Id.restaurant_view_images);
 
                 if (restaurant.ImageIds.Any())
@@ -108,6 +95,8 @@ namespace BookingSystemMobile.Fragments.Restaurant
                         }
 
                         imageLayout.AddView(img);
+                        View divider = LayoutInflater.From(Activity).Inflate(Resource.Layout.vertical_divider_full, null);
+                        imageLayout.AddView(divider);
                     }
                 }
                 else
@@ -145,10 +134,30 @@ namespace BookingSystemMobile.Fragments.Restaurant
                         dialog.Show(FragmentManager, "fragmentDialog");
                     };
                 }
-
-                //RestaurantMenuItemAdapter adapter = new RestaurantMenuItemAdapter((List<RestaurantViewMenuVM>) categories);
-                //menuItemsRecyclerView.SetAdapter(adapter);
             }
+        }
+
+        private async Task GetValues()
+        {
+            int id = Arguments.GetInt("id");
+
+            if (id > 0)
+            {
+                restaurant = await _restaurantFacade.FindById(id);
+                types = await _menuItemTypeFacade.Get();
+
+            }
+        }
+
+        private void Bworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Setup();
+            swipeRefresh.Refreshing = false;
+        }
+
+        private async void Bworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            await GetValues();
         }
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
@@ -170,10 +179,17 @@ namespace BookingSystemMobile.Fragments.Restaurant
                 }
                 else if (id == Resource.Id.book_table)
                 {
-                    MainActivity.IsNavDisabled = true;
-                    IsActive = false;
-                    Android.App.DialogFragment dialog = BookingNewDialogFragment.NewInstance(restaurant.Id);
-                    dialog.Show(FragmentManager, "fragmentDialog");
+                    if (GenericFacade.UserName != null && GenericFacade.UserName != "")
+                    {
+                        MainActivity.IsNavDisabled = true;
+                        IsActive = false;
+                        Android.App.DialogFragment dialog = BookingNewDialogFragment.NewInstance(restaurant.Id);
+                        dialog.Show(FragmentManager, "fragmentDialog");
+                    }
+                    else
+                    {
+                        Toast.MakeText(Activity, "Please login before booking a table", ToastLength.Long).Show();
+                    }
                 }
             }
 

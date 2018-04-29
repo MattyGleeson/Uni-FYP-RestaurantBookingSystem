@@ -60,6 +60,7 @@ namespace BookingSystemApp.Controllers
         public ActionResult Create([Bind(Include = "BookingId,CustomerId,Amount,Comments,PaymentMethod")] PaymentVM payment)
         {
             Booking booking = (Booking)Session["Booking"];
+            List<int> ids = Session["MenuItems"] as List<int>;
 
             payment.CustomerId = (int)Session[Global.UserIdSessionVar];
             payment.BookingId = booking.Id;
@@ -68,6 +69,9 @@ namespace BookingSystemApp.Controllers
             {
                 booking.PaymentMadeDate = DateTime.Now.Date;
                 booking.PaymentTotal = Convert.ToDecimal(payment.Amount);
+
+                IEnumerable<BookingMenuItem> menuItems = ids.Select(m => new BookingMenuItem { MenuItemId = m, Quantity = 1 });
+                booking.MenuItems = menuItems;
 
                 Booking resBooking = _bookingFacade.Create(booking);
 

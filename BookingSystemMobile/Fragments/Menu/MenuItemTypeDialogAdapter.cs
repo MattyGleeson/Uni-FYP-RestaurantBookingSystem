@@ -42,8 +42,8 @@ namespace BookingSystemMobile.Fragments.Menu
             MenuItemViewHolder vh = holder as MenuItemViewHolder;
             vh.Item = Items[position];
 
-            //Image img = _imageFacade.LoadImage(vh.Item.ImageId.Value).Result;
-            //vh.Img.SetImageBitmap(BitmapFactory.DecodeByteArray(img.FileContent, 0, img.FileContent.Length));
+            Image img = _imageFacade.LoadImage(vh.Item.ImageId.Value).Result;
+            vh.Img.SetImageBitmap(BitmapFactory.DecodeByteArray(img.FileContent, 0, img.FileContent.Length));
 
             vh.Name.Text = vh.Item.Name;
             vh.Description.Text = vh.Item.Description;

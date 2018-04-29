@@ -2,6 +2,7 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using BookingSystemMobile.Facades;
 using LibBookingService.Dtos;
 using System.Collections.Generic;
 
@@ -9,6 +10,8 @@ namespace BookingSystemMobile.Fragments
 {
     public class HomeFragment : Fragment
     {
+        private readonly RestaurantFacade _restaurantFacade = new RestaurantFacade();
+
         private View view;
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -41,13 +44,13 @@ namespace BookingSystemMobile.Fragments
                 }
             };
 
-            //restaurants.AddRange(_restaurantFacade.Get().Result);
-            restaurants.AddRange(new List<LibBookingService.Dtos.Restaurant>
-            {
-                new LibBookingService.Dtos.Restaurant { Id = 1, CompanyId = 2, Name = "Restaurant 1", PhoneNo = "01429354096", AddressStreet = "21 Restaurant Road", AddressTown = "Hartlepool", AddressCounty = "Cleveland", AddressPostalCode = "TS248GX" },
-                new LibBookingService.Dtos.Restaurant { Id = 2, CompanyId = 2, Name = "Restaurant 2", PhoneNo = "01429409235", AddressStreet = "45 Business Road", AddressTown = "Newcastle", AddressCounty = "Tyne and Wear", AddressPostalCode = "NE11DF" }
-            });
-            
+            restaurants.AddRange(_restaurantFacade.Get().Result);
+            //restaurants.AddRange(new List<LibBookingService.Dtos.Restaurant>
+            //{
+            //    new LibBookingService.Dtos.Restaurant { Id = 1, CompanyId = 2, Name = "Restaurant 1", PhoneNo = "01429354096", AddressStreet = "21 Restaurant Road", AddressTown = "Hartlepool", AddressCounty = "Cleveland", AddressPostalCode = "TS248GX" },
+            //    new LibBookingService.Dtos.Restaurant { Id = 2, CompanyId = 2, Name = "Restaurant 2", PhoneNo = "01429409235", AddressStreet = "45 Business Road", AddressTown = "Newcastle", AddressCounty = "Tyne and Wear", AddressPostalCode = "NE11DF" }
+            //});
+
             var adapter = new ArrayAdapter<LibBookingService.Dtos.Restaurant>(Activity, Android.Resource.Layout.SimpleSpinnerDropDownItem, restaurants);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;

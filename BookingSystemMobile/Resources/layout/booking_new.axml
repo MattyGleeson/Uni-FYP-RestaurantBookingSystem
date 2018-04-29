@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#333333"
-                    android:text="Title" />
+                    android:text="Time" />
                 <Spinner
                     android:id="@+id/booking_new_time"
                     android:layout_width="match_parent"

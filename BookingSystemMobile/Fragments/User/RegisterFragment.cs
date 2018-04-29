@@ -86,7 +86,6 @@ namespace BookingSystemMobile.Fragments.User
                         _authFacade.GetToken(customer.UserName, password);
 
                         GenericFacade.UserName = customer.UserName;
-                        GenericFacade.UserId = customer.Id;
 
                         string owinId = _authFacade.GetUserId();
 
@@ -97,6 +96,8 @@ namespace BookingSystemMobile.Fragments.User
 
                         Customer newCustomer = _customerFacade.Create(customer).Result;
 
+                        GenericFacade.UserId = newCustomer.Id;
+
                         Toast.MakeText(Activity, "Registration successful", ToastLength.Long).Show();
 
                         Fragment fragment = HomeFragment.NewInstance();
@@ -105,6 +106,10 @@ namespace BookingSystemMobile.Fragments.User
                                 .Commit();
 
                         ((MainActivity)Activity).ToggleLogin();
+                    }
+                    else
+                    {
+                        Toast.MakeText(Activity, "An error occured whilst registering. Please try again later", ToastLength.Long).Show();
                     }
                 }
                 else

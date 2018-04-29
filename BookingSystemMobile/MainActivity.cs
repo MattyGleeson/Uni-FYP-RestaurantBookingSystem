@@ -42,14 +42,17 @@ namespace BookingSystemMobile
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.main);
             SetupNavigationDrawer();
-
-
+            
             //if first time you will want to go ahead and click first item.
             if (savedInstanceState == null)
             {
                 navigationView.SetCheckedItem(Resource.Id.nav_home);
                 ListItemClicked(0);
             }
+
+            GenericFacade.Token = "";
+            GenericFacade.UserName = "";
+            GenericFacade.UserId = 0;
         }
         
         int oldPosition = -1;

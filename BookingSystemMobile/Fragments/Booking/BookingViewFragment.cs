@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Graphics;
 using Android.OS;
+using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -10,7 +11,9 @@ using BookingSystemMobile.Fragments.Restaurant;
 using LibBookingService.Dtos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookingSystemMobile.Fragments.Restaurant
 {
@@ -20,6 +23,9 @@ namespace BookingSystemMobile.Fragments.Restaurant
         private readonly RestaurantFacade _restaurantFacade = new RestaurantFacade();
         private View view;
         private Booking booking;
+        private LibBookingService.Dtos.Restaurant restaurant;
+        private SwipeRefreshLayout swipeRefresh;
+        private BackgroundWorker backgroundWorker;
 
         public static bool IsActive = true;
 
@@ -45,87 +51,54 @@ namespace BookingSystemMobile.Fragments.Restaurant
             SetHasOptionsMenu(true);
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
             view = inflater.Inflate(Resource.Layout.booking_view, null);
+            swipeRefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.booking_view_swipe);
 
-            Setup();
+            swipeRefresh.Refresh += delegate
+            {
+                backgroundWorker.RunWorkerAsync();
+            };
+
+            swipeRefresh.Refreshing = true;
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += Bworker_DoWork;
+            backgroundWorker.RunWorkerCompleted += Bworker_RunWorkerCompleted;
+            backgroundWorker.RunWorkerAsync();
 
             return view;
         }
 
-        private async void Setup()
+        private void Setup()
+        {
+            view.FindViewById<TextView>(Resource.Id.booking_view_restaurant_name).Text = restaurant.Name;
+            view.FindViewById<TextView>(Resource.Id.booking_view_restaurant_address).Text = restaurant.AddressStreet + ", " + restaurant.AddressTown + ", " + restaurant.AddressCounty + ", " + restaurant.AddressPostalCode;
+
+            view.FindViewById<TextView>(Resource.Id.booking_view_created).Text = booking.BookingMadeDate.ToShortDateString() + " at " + booking.BookingMadeTime.Hours + ":" + booking.BookingMadeTime.Minutes;
+            view.FindViewById<TextView>(Resource.Id.booking_view_booking).Text = booking.BookingDate.ToShortDateString() + " at " + booking.StartTime.Hours + ":" + booking.StartTime.Minutes;
+            view.FindViewById<TextView>(Resource.Id.booking_view_customers).Text = booking.NoCustomers.ToString();
+            view.FindViewById<TextView>(Resource.Id.booking_view_comments).Text = booking.Comments;
+        }
+
+        private async Task GetValues()
         {
             int id = Arguments.GetInt("id");
 
             if (id > 0)
             {
-                //booking = _bookingFacade.FindById(id).Result;
-                //var restaurant = _restaurantFacade.FindById(booking.RestaurantId).Result;
-
-                booking = new Booking
-                {
-                    Id = 1,
-                    StartTime = DateTime.Now.TimeOfDay,
-                    EndTime = DateTime.Now.TimeOfDay,
-                    BookingDate = DateTime.Now,
-                    BookingMadeDate = DateTime.Now,
-                    BookingMadeTime = DateTime.Now.TimeOfDay,
-                    Cancelled = false,
-                    Comments = "Comment",
-                    NoCustomers = 4,
-                    PaymentTotal = Convert.ToDecimal(5.50),
-                    CustomerId = 1,
-                    MenuItems = new List<BookingMenuItem>
-                    {
-                        new BookingMenuItem
-                        {
-                            Id = 1,
-                            BookingId = 1,
-                            MenuItemId = 1,
-                            Quantity = 1,
-                            TotalPrice = 5.50
-                        }
-                    },
-                    Tables = new List<Table>
-                    {
-                        new Table
-                        {
-                            Id = 1,
-                            Active = true,
-                            NoSeats = 4,
-                            TableNo = 1,
-                            AdditionalNotes = "Notes",
-                            RestaurantId = 1
-                        }
-                    },
-                    Payments = new List<Payment>
-                    {
-                        new Payment
-                        {
-                            Id = 1,
-                            Comments = "Comment",
-                            Amount = Convert.ToDecimal(5.50),
-                            BookingId = 1,
-                            CustomerId = 1,
-                            PaymentMethod = new PaymentMethod
-                            {
-                                Id = 1,
-                                Active = true,
-                                Name = "PayPal"
-                            }
-                        }
-                    },
-                    Restaurant = new LibBookingService.Dtos.Restaurant { Id = 1, CompanyId = 2, Name = "Restaurant 1", PhoneNo = "01429354096", AddressStreet = "21 Restaurant Road", AddressTown = "Hartlepool", AddressCounty = "Cleveland", AddressPostalCode = "TS248GX" },
-                    RestaurantId = 1
-                };
-                var restaurant = new LibBookingService.Dtos.Restaurant { Id = 1, CompanyId = 2, Name = "Restaurant 1", PhoneNo = "01429354096", AddressStreet = "21 Restaurant Road", AddressTown = "Hartlepool", AddressCounty = "Cleveland", AddressPostalCode = "TS248GX" };
-
-                view.FindViewById<TextView>(Resource.Id.booking_view_restaurant_name).Text = restaurant.Name;
-                view.FindViewById<TextView>(Resource.Id.booking_view_restaurant_address).Text = restaurant.AddressStreet + ", " + restaurant.AddressTown + ", " + restaurant.AddressCounty + ", " + restaurant.AddressPostalCode;
-
-                view.FindViewById<TextView>(Resource.Id.booking_view_created).Text = booking.BookingMadeDate.ToShortDateString() + " at " + booking.BookingMadeTime.Hours + ":" + booking.BookingMadeTime.Minutes;
-                view.FindViewById<TextView>(Resource.Id.booking_view_booking).Text = booking.BookingDate.ToShortDateString() + " at " + booking.StartTime.Hours + ":" + booking.StartTime.Minutes;
-                view.FindViewById<TextView>(Resource.Id.booking_view_customers).Text = booking.NoCustomers.ToString();
-                view.FindViewById<TextView>(Resource.Id.booking_view_comments).Text = booking.Comments;
+                booking = await _bookingFacade.FindById(id);
+                restaurant = await _restaurantFacade.FindById(booking.RestaurantId);
             }
+        }
+
+        private void Bworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Setup();
+            swipeRefresh.Refreshing = false;
+        }
+
+        private async void Bworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            await GetValues();
         }
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
@@ -158,6 +131,35 @@ namespace BookingSystemMobile.Fragments.Restaurant
                             .Replace(Resource.Id.content_frame, fragment)
                             .AddToBackStack(null)
                             .Commit();
+                }
+                else if (id == Resource.Id.cancel_booking)
+                {
+                    new Android.App.AlertDialog.Builder(Activity).
+                            SetIcon(Android.Resource.Drawable.IcDialogAlert).
+                            SetTitle("Confirm").
+                            SetMessage("Are you sure you want to cancel the booking?").
+                            SetPositiveButton("Yes", (c, ev) =>
+                            {
+                                bool res = _bookingFacade.Cancel(booking.Id).Result;
+
+                                if (res)
+                                {
+                                    Toast.MakeText(Activity, "Booking Cancelled", ToastLength.Long).Show();
+                                    Fragment fragment = BookingIndexFragment.NewInstance();
+                                    FragmentManager.BeginTransaction()
+                                            .Replace(Resource.Id.content_frame, fragment)
+                                            .Commit();
+                                }
+                                else
+                                {
+                                    Toast.MakeText(Activity, "An error occured whilst cancelling. Please try again later", ToastLength.Long).Show();
+                                }
+                            }).
+                            SetNegativeButton("No", (c, ev) =>
+                            {
+
+                            }).
+                            Show();
                 }
             }
 

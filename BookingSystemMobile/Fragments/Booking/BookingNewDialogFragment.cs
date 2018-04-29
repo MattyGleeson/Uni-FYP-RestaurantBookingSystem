@@ -87,33 +87,33 @@ namespace BookingSystemMobile.Fragments.Restaurant
 
             if (id > 0)
             {
-                //LibBookingService.Dtos.Restaurant restaurant = _restaurantFacade.FindById(id).Result;
-                LibBookingService.Dtos.Restaurant restaurant = new LibBookingService.Dtos.Restaurant
-                {
-                    Id = 1,
-                    CompanyId = 2,
-                    Name = "Restaurant 1",
-                    PhoneNo = "01429354096",
-                    AddressStreet = "21 Restaurant Road",
-                    AddressTown = "Hartlepool",
-                    AddressCounty = "Cleveland",
-                    AddressPostalCode = "TS248GX",
-                    MenuItems = new List<MenuItem>
-                    {
-                        new MenuItem { Id = 4, Description = "A fresh bowl of caesar salad", Price = 4.38, ImageId = 4, Name = "Caesar Salad", DietInfo = new List<DietInfo> { new DietInfo { Name = "Vegan", Id = 2 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 1, Name = "Starter" } } },
-                        new MenuItem { Id = 5, Description = null, Price = 3.59, ImageId = 5, Name = "Chocolate Fudge Cake", DietInfo = new List<DietInfo> { new DietInfo { Name = "Contains Dairy", Id = 4 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 3, Name = "Dessert" }, new MenuItemType { Id = 4, Name = "Special" } } },
-                        new MenuItem { Id = 2, Description = "A fresh cod fillet served with thick cut chips and mushy peas", Price = 6.00, ImageId = 2, Name = "Fish and Chips", DietInfo = new List<DietInfo> { }, Types = new List<MenuItemType> { new MenuItemType { Id = 2, Name = "Main" }, new MenuItemType { Id = 4, Name = "Special" } } }
-                    }
-                };
+                LibBookingService.Dtos.Restaurant restaurant = _restaurantFacade.FindById(id).Result;
+                //LibBookingService.Dtos.Restaurant restaurant = new LibBookingService.Dtos.Restaurant
+                //{
+                //    Id = 1,
+                //    CompanyId = 2,
+                //    Name = "Restaurant 1",
+                //    PhoneNo = "01429354096",
+                //    AddressStreet = "21 Restaurant Road",
+                //    AddressTown = "Hartlepool",
+                //    AddressCounty = "Cleveland",
+                //    AddressPostalCode = "TS248GX",
+                //    MenuItems = new List<MenuItem>
+                //    {
+                //        new MenuItem { Id = 4, Description = "A fresh bowl of caesar salad", Price = 4.38, ImageId = 4, Name = "Caesar Salad", DietInfo = new List<DietInfo> { new DietInfo { Name = "Vegan", Id = 2 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 1, Name = "Starter" } } },
+                //        new MenuItem { Id = 5, Description = null, Price = 3.59, ImageId = 5, Name = "Chocolate Fudge Cake", DietInfo = new List<DietInfo> { new DietInfo { Name = "Contains Dairy", Id = 4 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 3, Name = "Dessert" }, new MenuItemType { Id = 4, Name = "Special" } } },
+                //        new MenuItem { Id = 2, Description = "A fresh cod fillet served with thick cut chips and mushy peas", Price = 6.00, ImageId = 2, Name = "Fish and Chips", DietInfo = new List<DietInfo> { }, Types = new List<MenuItemType> { new MenuItemType { Id = 2, Name = "Main" }, new MenuItemType { Id = 4, Name = "Special" } } }
+                //    }
+                //};
 
-                //IEnumerable<MenuItemType> types = _menuItemTypeFacade.Get().Result;
-                IEnumerable<MenuItemType> types = new List<MenuItemType>
-                {
-                    new MenuItemType { Id = 1, Name = "Starter" },
-                    new MenuItemType { Id = 2, Name = "Main" },
-                    new MenuItemType { Id = 3, Name = "Dessert" },
-                    new MenuItemType { Id = 4, Name = "Special" }
-                }.AsEnumerable();
+                IEnumerable<MenuItemType> types = _menuItemTypeFacade.Get().Result;
+                //IEnumerable<MenuItemType> types = new List<MenuItemType>
+                //{
+                //    new MenuItemType { Id = 1, Name = "Starter" },
+                //    new MenuItemType { Id = 2, Name = "Main" },
+                //    new MenuItemType { Id = 3, Name = "Dessert" },
+                //    new MenuItemType { Id = 4, Name = "Special" }
+                //}.AsEnumerable();
 
                 newBooking.RestaurantId = restaurant.Id;
 
@@ -124,7 +124,12 @@ namespace BookingSystemMobile.Fragments.Restaurant
                 Spinner paymentMethod = view.FindViewById<Spinner>(Resource.Id.booking_new_payment_method);
 
                 List<TimeSpan> times = GetTimes();
-                List<PaymentMethod> paymentMethods = _paymentFacade.GetPaymentMethod().Result;
+
+                List<PaymentMethod> paymentMethods = new List<PaymentMethod>
+                {
+                    new PaymentMethod { Name = "Please select a payment method" }
+                };
+                paymentMethods.AddRange(_paymentFacade.GetPaymentMethod().Result);
 
                 var timeAdapter = new ArrayAdapter<TimeSpan>(Activity, Android.Resource.Layout.SimpleSpinnerDropDownItem, times);
                 timeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
@@ -132,7 +137,7 @@ namespace BookingSystemMobile.Fragments.Restaurant
 
                 var paymentMethodAdapter = new ArrayAdapter<PaymentMethod>(Activity, Android.Resource.Layout.SimpleSpinnerDropDownItem, paymentMethods);
                 paymentMethodAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-                time.Adapter = paymentMethodAdapter;
+                paymentMethod.Adapter = paymentMethodAdapter;
 
                 int initialSpinnerPosition = time.SelectedItemPosition;
                 time.ItemSelected += (sender, args) =>
@@ -267,6 +272,7 @@ namespace BookingSystemMobile.Fragments.Restaurant
                 {
                     newBooking.BookingMadeDate = DateTime.Now;
                     newBooking.BookingMadeTime = DateTime.Now.TimeOfDay;
+                    newBooking.BookingDate = date;
                     newBooking.EndTime = newBooking.StartTime.Add(new TimeSpan(1, 29, 59));
 
                     Table table = _bookingFacade.GetAvailableTable(newBooking).Result;
@@ -296,27 +302,35 @@ namespace BookingSystemMobile.Fragments.Restaurant
                         newBooking.PaymentTotal = Convert.ToDecimal(totalPayment);
                         newBooking.PaymentMadeDate = DateTime.Now;
 
-                        new Android.App.AlertDialog.Builder(Activity).
-                            SetIcon(Android.Resource.Drawable.IcDialogAlert).
-                            SetTitle("Confirm").
-                            SetMessage("Do you wish to confirm the booking?").
-                            SetPositiveButton("Yes", (c, ev) =>
+                        if (newPayment.Amount > 0)
+                        {
+                            if (newPayment.PaymentMethod != null)
                             {
-                                Booking svdBooking = _bookingFacade.Create(newBooking).Result;
+                                List<BookingMenuItem> menuItems = new List<BookingMenuItem>();
+                                foreach (KeyValuePair<MenuItem, int> entry in miCounts)
+                                {
+                                    if (entry.Value > 0)
+                                    {
+                                        menuItems.Add(new BookingMenuItem
+                                        {
+                                            MenuItemId = entry.Key.Id,
+                                            Quantity = entry.Value
+                                        });
+                                    }
+                                }
+                                newBooking.MenuItems = menuItems.AsEnumerable();
 
-                                newPayment.BookingId = svdBooking.Id;
-
-                                Payment svdPayment = _paymentFacade.Create(newPayment).Result;
-
-                                Toast.MakeText(Activity, "Booking Confirmed", ToastLength.Long).Show();
-
-                                Dismiss();
-                            }).
-                            SetNegativeButton("No", (c, ev) =>
+                                CompleteSave();
+                            }
+                            else
                             {
-
-                            }).
-                            Show();
+                                Toast.MakeText(Activity, "Please make sure a payment method is selected", ToastLength.Long).Show();
+                            }
+                        }
+                        else
+                        {
+                            CompleteSave();
+                        }
                     }
                     else
                     {
@@ -331,6 +345,39 @@ namespace BookingSystemMobile.Fragments.Restaurant
             }
 
             return base.OnOptionsItemSelected(item);
+        }
+
+        private void CompleteSave()
+        {
+            string message = "Do you wish to confirm the booking?";
+
+            if (newPayment.Amount > 0)
+                message += " - (£" + newPayment.Amount + ")";
+
+            new Android.App.AlertDialog.Builder(Activity).
+                SetIcon(Android.Resource.Drawable.IcDialogAlert).
+                SetTitle("Confirm").
+                SetMessage(message).
+                SetPositiveButton("Yes", (c, ev) =>
+                {
+                    Booking svdBooking = _bookingFacade.Create(newBooking).Result;
+
+                    newPayment.BookingId = svdBooking.Id;
+
+                    if (newPayment.Amount > 0)
+                    {
+                        Payment svdPayment = _paymentFacade.Create(newPayment).Result;
+                    }
+
+                    Toast.MakeText(Activity, "Booking Confirmed", ToastLength.Long).Show();
+
+                    Dismiss();
+                }).
+                SetNegativeButton("No", (c, ev) =>
+                {
+
+                }).
+                Show();
         }
 
         public override void OnDismiss(IDialogInterface dialog)

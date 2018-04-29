@@ -15,5 +15,10 @@ namespace LibBookingService.Dtos
         public virtual bool Active { get; set; }
 
         public virtual IEnumerable<Payment> Payments { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

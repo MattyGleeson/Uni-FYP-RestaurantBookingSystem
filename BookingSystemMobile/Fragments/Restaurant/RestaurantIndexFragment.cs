@@ -1,10 +1,14 @@
 using Android.App;
 using Android.OS;
+using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using BookingSystemMobile.Facades;
 using BookingSystemMobile.Fragments.Restaurant;
+using Java.Lang;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace BookingSystemMobile.Fragments.Restaurant
 {
@@ -13,7 +17,11 @@ namespace BookingSystemMobile.Fragments.Restaurant
         private readonly RestaurantFacade _restaurantFacade = new RestaurantFacade();
         private View view;
         private RecyclerView recyclerView;
+        private SwipeRefreshLayout swipeRefresh;
+
         private List<LibBookingService.Dtos.Restaurant> restaurants = new List<LibBookingService.Dtos.Restaurant>();
+
+        private BackgroundWorker backgroundWorker;
 
         public static RestaurantIndexFragment NewInstance()
         {
@@ -24,8 +32,6 @@ namespace BookingSystemMobile.Fragments.Restaurant
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -33,27 +39,36 @@ namespace BookingSystemMobile.Fragments.Restaurant
             ((MainActivity)Activity).SetAsDrawerToolbar();
             var ignored = base.OnCreateView(inflater, container, savedInstanceState);
             view = inflater.Inflate(Resource.Layout.restaurant_index, null);
+            swipeRefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.restaurant_index_swipe);
 
-            Setup();
+            swipeRefresh.Refresh += delegate
+            {
+                backgroundWorker.RunWorkerAsync();
+            };
+
+            swipeRefresh.Refreshing = true;
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += Bworker_DoWork;
+            backgroundWorker.RunWorkerCompleted += Bworker_RunWorkerCompleted;
+            backgroundWorker.RunWorkerAsync();
 
             return view;
         }
 
-        private async void Setup()
+        private void Setup()
         {
-            //restaurants = await _restaurantFacade.Get();
-            restaurants = new List<LibBookingService.Dtos.Restaurant>
-            {
-                new LibBookingService.Dtos.Restaurant { Id = 1, CompanyId = 2, Name = "Restaurant 1", PhoneNo = "01429354096", AddressStreet = "21 Restaurant Road", AddressTown = "Hartlepool", AddressCounty = "Cleveland", AddressPostalCode = "TS248GX" },
-                new LibBookingService.Dtos.Restaurant { Id = 2, CompanyId = 2, Name = "Restaurant 2", PhoneNo = "01429409235", AddressStreet = "45 Business Road", AddressTown = "Newcastle", AddressCounty = "Tyne and Wear", AddressPostalCode = "NE11DF" }
-            };
-
             recyclerView = view.FindViewById<RecyclerView>(Resource.Id.restaurant_index);
             recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
 
             RestaurantIndexAdapter adapter = new RestaurantIndexAdapter(restaurants);
             adapter.ItemClick += MAdapter_ItemClick;
             recyclerView.SetAdapter(adapter);
+        }
+
+        private async Task GetValues()
+        {
+            restaurants = await _restaurantFacade.Get();
         }
 
         private void MAdapter_ItemClick(object sender, int i)
@@ -64,8 +79,17 @@ namespace BookingSystemMobile.Fragments.Restaurant
                     .Replace(Resource.Id.content_frame, fragment)
                     .AddToBackStack(null)
                     .Commit();
-            //Android.App.DialogFragment dialog = MenuItemTypeDialogFragment.NewInstance(menuItemTypes[i].Id);
-            //dialog.Show(FragmentManager, "fragmentDialog");
+        }
+
+        private void Bworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Setup();
+            swipeRefresh.Refreshing = false;
+        }
+
+        private async void Bworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            await GetValues();
         }
     }
 }

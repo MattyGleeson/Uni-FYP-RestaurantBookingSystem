@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -18,6 +21,12 @@ namespace BookingSystemMobile.Fragments.Menu
     public class MenuItemTypeDialogFragment : DialogFragment
     {
         private readonly MenuFacade _menuFacade = new MenuFacade();
+
+        private List<MenuItem> menuItems = new List<MenuItem>();
+
+        private View view;
+        private SwipeRefreshLayout swipeRefresh;
+        private BackgroundWorker backgroundWorker;
 
         public static MenuItemTypeDialogFragment NewInstance(int id)
         {
@@ -41,7 +50,7 @@ namespace BookingSystemMobile.Fragments.Menu
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.menu_index_view_items, null);
+            view = inflater.Inflate(Resource.Layout.menu_index_view_items, null);
 
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar_menu_items);
             toolbar.SetTitle(Resource.String.menuItemDialogTitle);
@@ -58,28 +67,52 @@ namespace BookingSystemMobile.Fragments.Menu
                 actionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_clear_white);
             }
 
+            swipeRefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.menu_index_view_item_types_swipe);
+
+            swipeRefresh.Refresh += delegate
+            {
+                backgroundWorker.RunWorkerAsync();
+            };
+
+            swipeRefresh.Refreshing = true;
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += Bworker_DoWork;
+            backgroundWorker.RunWorkerCompleted += Bworker_RunWorkerCompleted;
+            backgroundWorker.RunWorkerAsync();
+            
+            return view;
+        }
+
+        private void Setup()
+        {
+            RecyclerView recyclerView = view.FindViewById<RecyclerView>(Resource.Id.menu_index_view_item_types);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
+
+            MenuItemTypeDialogAdapter adapter = new MenuItemTypeDialogAdapter(menuItems);
+            recyclerView.SetAdapter(adapter);
+        }
+
+        private async Task GetValues()
+        {
             int id = Arguments.GetInt("id");
 
             if (id > 0)
             {
-                //List<MenuItem> menuItems = _menuFacade.Get().Result.ToList();
-                List<MenuItem> menuItems = new List<MenuItem>
-                {
-                    new MenuItem { Id = 4, Description = "A fresh bowl of caesar salad", Price = 4.38, ImageId = 4, Name = "Caesar Salad", DietInfo = new List<DietInfo> { new DietInfo { Name = "Vegan", Id = 2 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 1, Name = "Starter" } } },
-                    new MenuItem { Id = 5, Description = null, Price = 3.59, ImageId = 5, Name = "Chocolate Fudge Cake", DietInfo = new List<DietInfo> { new DietInfo { Name = "Contains Dairy", Id = 4 } }, Types = new List<MenuItemType> { new MenuItemType { Id = 3, Name = "Dessert" }, new MenuItemType { Id = 4, Name = "Special" } } },
-                    new MenuItem { Id = 2, Description = "A fresh cod fillet served with thick cut chips and mushy peas", Price = 6.00, ImageId = 2, Name = "Fish and Chips", DietInfo = new List<DietInfo> { }, Types = new List<MenuItemType> { new MenuItemType { Id = 2, Name = "Main" } } }
-                };
-
-                RecyclerView recyclerView = view.FindViewById<RecyclerView>(Resource.Id.menu_index_view_item_types);
-                recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
-
+                menuItems = await _menuFacade.Get();
                 menuItems = menuItems.Where(m => m.Types.Where(t => t.Id == id).Any()).ToList();
-
-                MenuItemTypeDialogAdapter adapter = new MenuItemTypeDialogAdapter(menuItems);
-                recyclerView.SetAdapter(adapter);
             }
+        }
 
-            return view;
+        private void Bworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Setup();
+            swipeRefresh.Refreshing = false;
+        }
+
+        private async void Bworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            await GetValues();
         }
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
