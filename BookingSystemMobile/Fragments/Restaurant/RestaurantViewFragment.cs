@@ -128,8 +128,10 @@ namespace BookingSystemMobile.Fragments.Restaurant
                 foreach (var cat in types)
                 {
                     View viewCat = LayoutInflater.From(Activity).Inflate(Resource.Layout.restaurant_view_menu, null);
-                    LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
-                    layout.TopMargin = 16;
+                    LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent)
+                    {
+                        TopMargin = 16
+                    };
                     viewCat.LayoutParameters = layout;
                     viewCat.FindViewById<TextView>(Resource.Id.restaurant_view_menu_type).Text = cat.Name;
 

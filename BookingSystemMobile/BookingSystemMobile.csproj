@@ -206,6 +206,13 @@
     <AndroidResource Include="Resources\layout\booking_new.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\booking_new_menu.axml" />
+    <AndroidResource Include="Resources\layout\vertical_divider.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\vertical_divider_full.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml">
@@ -286,6 +293,8 @@
     <AndroidResource Include="Resources\menu\booking_new_options.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_minus.xml" />
+    <AndroidResource Include="Resources\drawable\ic_plus.xml" />
     <Content Include="THIRD-PARTY-NOTICES.txt" />
   </ItemGroup>
   <ItemGroup />

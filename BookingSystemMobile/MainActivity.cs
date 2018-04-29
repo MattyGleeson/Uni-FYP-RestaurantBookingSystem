@@ -28,7 +28,7 @@ using Android.Widget;
 namespace BookingSystemMobile
 {
     //[Activity(Label = "@string/app_name", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, Icon = "@drawable/Icon")]
-    [Activity(Label = "@string/app_name")]
+    [Activity(Label = "@string/app_name", ConfigurationChanges = Android.Content.PM.ConfigChanges.ScreenSize | Android.Content.PM.ConfigChanges.Orientation)]
     public class MainActivity : AppCompatActivity
     {
         public static bool IsNavDisabled = false;
