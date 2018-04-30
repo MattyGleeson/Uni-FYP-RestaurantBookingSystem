@@ -14,6 +14,7 @@ namespace BookingService.Controllers
     public class PaymentController : ApiController
     {
         private BookingSystemDb _db;
+        private readonly bool isTesting = false;
 
         /// <summary>
         /// Default constructor that sets the database to be an instance of BookingSystemDb
@@ -29,6 +30,7 @@ namespace BookingService.Controllers
         /// <param name="db"></param>
         public PaymentController(BookingSystemDb db)
         {
+            isTesting = true;
             _db = db;
         }
 
@@ -126,8 +128,11 @@ namespace BookingService.Controllers
                     Comments = payment.Comments
                 });
                 await _db.SaveChangesAsync();
-                
-                _db.Entry(newPayment).Reload();
+
+                if (!isTesting)
+                {
+                    _db.Entry(newPayment).Reload();
+                }
 
                 return Request.CreateResponse(HttpStatusCode.OK, CreatePaymentFromDbPayment(newPayment));
             }

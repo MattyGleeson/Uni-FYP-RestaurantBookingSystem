@@ -14,6 +14,7 @@ namespace BookingService.Controllers
     public class BookingController : ApiController
     {
         private BookingSystemDb _db;
+        private readonly bool isTesting = false;
 
         /// <summary>
         /// Default constructor that sets the database to be an instance of BookingSystemDb
@@ -29,6 +30,7 @@ namespace BookingService.Controllers
         /// <param name="db"></param>
         public BookingController(BookingSystemDb db)
         {
+            isTesting = true;
             this._db = db;
         }
 
@@ -234,7 +236,10 @@ namespace BookingService.Controllers
                     }
                 }
 
-                _db.Entry(newBoooking).Reload();
+                if (!isTesting)
+                {
+                    _db.Entry(newBoooking).Reload();
+                }
 
                 return Request.CreateResponse(HttpStatusCode.OK, CreateBoookingFromDbBooking(newBoooking));
             }
