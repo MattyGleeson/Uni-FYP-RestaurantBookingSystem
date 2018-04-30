@@ -12,9 +12,9 @@ namespace BookingSystemApp.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
-        public void Index()
-        {
+        //[TestMethod]
+        //public void Index()
+        //{
             //// Arrange
             //HomeController controller = new HomeController();
 
@@ -23,11 +23,11 @@ namespace BookingSystemApp.Tests.Controllers
 
             //// Assert
             //Assert.IsNotNull(result);
-        }
+        //}
 
-        [TestMethod]
-        public void About()
-        {
+        //[TestMethod]
+        //public void About()
+        //{
             // Arrange
             //HomeController controller = new HomeController();
 
@@ -36,11 +36,11 @@ namespace BookingSystemApp.Tests.Controllers
 
             //// Assert
             //Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
+        //}
 
-        [TestMethod]
-        public void Contact()
-        {
+        //[TestMethod]
+        //public void Contact()
+        //{
             // Arrange
             //HomeController controller = new HomeController();
 
@@ -49,6 +49,6 @@ namespace BookingSystemApp.Tests.Controllers
 
             //// Assert
             //Assert.IsNotNull(result);
-        }
+        //}
     }
 }

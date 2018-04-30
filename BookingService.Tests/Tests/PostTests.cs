@@ -10,13 +10,13 @@ using System.Net;
 using BookingService.Tests.Tests;
 using DatabaseContext.Data;
 
-namespace SelectionBoxService.Tests.Tests
+namespace BookingService.Tests.Tests
 {
     [TestClass]
     public class PostTests : GenericTest
     {
         [TestMethod]
-        public async Task ServiceTestPostNoProducts()
+        public async Task ServiceTestPostBooking()
         {
             HttpResponseMessage response = await bookingController.Post(new LibBookingService.Dtos.Booking
             {
@@ -40,7 +40,7 @@ namespace SelectionBoxService.Tests.Tests
         }
 
         [TestMethod]
-        public async Task ServiceTestPostSingleTable()
+        public async Task ServiceTestPostBookingSingleTable()
         {
             HttpResponseMessage response = await bookingController.Post(new LibBookingService.Dtos.Booking
             {
@@ -75,7 +75,7 @@ namespace SelectionBoxService.Tests.Tests
         }
 
         [TestMethod]
-        public async Task ServiceTestPostFull()
+        public async Task ServiceTestPostFullBooking()
         {
             HttpResponseMessage response = await bookingController.Post(new LibBookingService.Dtos.Booking
             {
@@ -138,7 +138,7 @@ namespace SelectionBoxService.Tests.Tests
         }
 
         [TestMethod]
-        public async Task ServiceTestPostNull()
+        public async Task ServiceTestPostNullBooking()
         {
             HttpResponseMessage response = await bookingController.Post(null);
 

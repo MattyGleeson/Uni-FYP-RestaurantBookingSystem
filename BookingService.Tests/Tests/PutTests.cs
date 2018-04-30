@@ -7,13 +7,13 @@ using System.Web.Http;
 using System.Threading.Tasks;
 using BookingService.Tests.Tests;
 
-namespace SelectionBoxService.Tests.Tests
+namespace BookingService.Tests.Tests
 {
     [TestClass]
     public class PutTests : GenericTest
     {
         [TestMethod]
-        public async Task ServiceTestPutChangeNoCustomers()
+        public async Task ServiceTestPutBookingChangeNoCustomers()
         {
             HttpResponseMessage response = await bookingController.Update(1, new LibBookingService.Dtos.Booking
             {
@@ -34,7 +34,7 @@ namespace SelectionBoxService.Tests.Tests
         }
 
         [TestMethod]
-        public async Task ServiceTestPutNoChanges()
+        public async Task ServiceTestPutBookingNoChanges()
         {
             HttpResponseMessage response = await bookingController.Update(1, new LibBookingService.Dtos.Booking
             {

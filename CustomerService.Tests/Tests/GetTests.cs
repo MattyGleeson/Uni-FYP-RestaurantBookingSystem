@@ -9,30 +9,29 @@ using System.Linq;
 using System.Data.Entity.Infrastructure;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BookingService.Tests.Tests;
 using DatabaseContext.Data;
-using BookingService.Tests.Data;
-using BookingService.Controllers;
+using CustomerService.Tests.Data;
+using CustomerService.Controllers;
 
-namespace BookingService.Tests.Tests
+namespace CustomerService.Tests.Tests
 {
     [TestClass]
     public class GetTests : GenericTest
     {
         [TestMethod]
-        public async Task ServiceTestGetBookings()
+        public async Task ServiceTestGetCustomer()
         {
-            HttpResponseMessage response = await bookingController.Get();
-            IEnumerable<LibBookingService.Dtos.Booking> bookings;
-            IEnumerable<Booking> dbBookings = mockDb.Object.Bookings.ToList();
+            HttpResponseMessage response = await customerController.Get(1);
+            LibBookingService.Dtos.Customer customer;
+            Customer dbCustomer = mockDb.Object.Customers.ToList().First();
 
-            Assert.IsTrue(response.TryGetContentValue(out bookings));
-            Assert.AreEqual(bookings.Count(), dbBookings.Count());
+            Assert.IsTrue(response.TryGetContentValue(out customer));
+            Assert.AreEqual(customer.Id, dbCustomer.Id);
             Assert.IsTrue(true);
         }
 
         [TestMethod]
-        public async Task ServiceTestGetBookingsNoData()
+        public async Task ServiceTestGetCustomersNoData()
         {
             SampleData Data = new SampleData(false);
 
@@ -53,13 +52,13 @@ namespace BookingService.Tests.Tests
             Mock<DbSet<PaymentMethod>> MockPaymentMethodsSet = data.PaymentMethods;
             Mock<DbSet<Customer>> MockCustomersSet = data.Customers;
             
-            BookingController Controller = new BookingController(MockDb.Object)
+            CustomerController Controller = new CustomerController(MockDb.Object)
             {
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
             };
 
-            HttpResponseMessage response = await Controller.Get();
+            HttpResponseMessage response = await Controller.Get(1);
 
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(response.StatusCode, HttpStatusCode.NoContent);

@@ -6,15 +6,15 @@ using System.Data.Entity;
 using Moq;
 using System.Web.Http;
 
-namespace BookingService.Tests.Tests
+namespace CustomerService.Tests.Tests
 {
     [TestClass]
     public class DeleteTests : GenericTest
     {
         [TestMethod]
-        public async Task ServiceTestRemoveBooking()
+        public async Task ServiceTestRemoveCustomer()
         {
-            HttpResponseMessage response = await bookingController.Delete(1);
+            HttpResponseMessage response = await customerController.Delete(1);
 
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
