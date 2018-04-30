@@ -1,5 +1,6 @@
 ﻿using BookingSystemApp.Controllers.ControllerExtensions;
 using BookingSystemApp.Facades;
+using BookingSystemApp.Facades.Core;
 using BookingSystemApp.View_Models;
 using LibBookingService.Dtos;
 using System;
@@ -56,6 +57,12 @@ namespace BookingSystemApp.Controllers
         {
             if (RestaurantId == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            if (Session[Global.RolesSessionVar] != null && ((IList<string>)Session[Global.RolesSessionVar]).Contains(Global.AdminRole))
+            {
+                AddToastMessage("Error", "An admin cannot create a booking", Toast.ToastType.Warning);
+                return Redirect(Request.UrlReferrer.ToString());
+            }
 
             if (Session[Global.UserIdSessionVar] == null)
             {

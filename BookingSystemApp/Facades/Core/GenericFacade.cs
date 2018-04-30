@@ -30,6 +30,10 @@ namespace BookingSystemApp.Facades.Core
             get
             {
                 HttpContext c = HttpContext.Current;
+
+                if (c.Session["AuthIsAdmin"] == null)
+                    return false;
+
                 return (bool)c.Session["AuthIsAdmin"];
             }
             set
