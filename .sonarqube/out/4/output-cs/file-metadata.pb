@@ -1,0 +1,36 @@
+{
+yC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\App_Start\WebApiConfig.csç
+äC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ApiDescriptionExtensions.csç
+äC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\App_Start\HelpPageConfig.csè
+åC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\Controllers\HelpController.csç
+äC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\HelpPageAreaRegistration.csî
+ëC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\HelpPageConfigurationExtensions.cs°
+ûC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs¢
+üC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs°
+ûC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.csü
+úC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.csõ
+òC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs¢
+üC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs£
+†C:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.csó
+îC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\ModelDescription.cs†
+ùC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.csô
+ñC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\ModelNameAttribute.csñ
+ìC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\ModelNameHelper.csö
+óC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\ParameterAnnotation.csõ
+òC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\ParameterDescription.cs°
+ûC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cså
+âC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\Models\HelpPageApiModel.csù
+öC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.csó
+îC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\SampleGeneration\HelpPageSampleKey.csë
+éC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\SampleGeneration\ImageSample.csì
+êC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\SampleGeneration\InvalidSample.csï
+íC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\SampleGeneration\ObjectGenerator.csï
+íC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\SampleGeneration\SampleDirection.csê
+çC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\SampleGeneration\TextSample.csç
+äC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Areas\HelpPage\XmlDocumentationProvider.csÑ
+ÅC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Controllers\CategoryController.csÑ
+ÅC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Controllers\DietInfoController.cs
+}C:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Controllers\MenuController.csp
+nC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Global.asax.cs|
+zC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\MenuService\Properties\AssemblyInfo.csX
+TC:\Users\matty\AppData\Local\Temp\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs

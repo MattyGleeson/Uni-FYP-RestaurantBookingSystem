@@ -1,0 +1,34 @@
+|
+zC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\App_Start\WebApiConfig.csé
+ãC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ApiDescriptionExtensions.csé
+ãC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\App_Start\HelpPageConfig.csê
+çC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\Controllers\HelpController.csé
+ãC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\HelpPageAreaRegistration.csï
+íC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\HelpPageConfigurationExtensions.cs¢
+üC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs£
+†C:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs¢
+üC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs†
+ùC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.csú
+ôC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs£
+†C:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs§
+°C:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.csò
+ïC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\ModelDescription.cs°
+ûC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.csö
+óC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\ModelNameAttribute.csó
+îC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\ModelNameHelper.csõ
+òC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\ParameterAnnotation.csú
+ôC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\ParameterDescription.cs¢
+üC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.csç
+äC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\Models\HelpPageApiModel.csû
+õC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.csò
+ïC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\SampleGeneration\HelpPageSampleKey.csí
+èC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\SampleGeneration\ImageSample.csî
+ëC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\SampleGeneration\InvalidSample.csñ
+ìC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\SampleGeneration\ObjectGenerator.csñ
+ìC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\SampleGeneration\SampleDirection.csë
+éC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\SampleGeneration\TextSample.csé
+ãC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Areas\HelpPage\XmlDocumentationProvider.csÅ
+C:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Controllers\ImageController.csq
+oC:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Global.asax.cs}
+{C:\Users\matty\Documents\Development\Uni\Year 5\FYP\Uni-FYP-RestaurantBookingSystem\ImageService\Properties\AssemblyInfo.csX
+TC:\Users\matty\AppData\Local\Temp\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs

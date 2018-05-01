@@ -1,0 +1,7 @@
+organization=mattygleeson-github
+projectKey=FYP-Restaurant-Booking-System
+serverUrl=https://sonarcloud.io
+serverVersion=7.1.1.10702
+dashboardUrl=https://sonarcloud.io/dashboard/index/FYP-Restaurant-Booking-System
+ceTaskId=AWMY-PFBXhRh5gha-HnH
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWMY-PFBXhRh5gha-HnH
