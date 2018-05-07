@@ -74,7 +74,7 @@ namespace MenuService.Controllers
         [HttpGet]
         public async Task<HttpResponseMessage> GetByRestaurant(int id)
         {
-            IEnumerable<MenuItem> res = await _db.RestaurantMenuItems.Where(b => !b.Deleted).Select(b => b.MenuItem).Where(b => !b.Deleted).ToListAsync();
+            IEnumerable<MenuItem> res = await _db.RestaurantMenuItems.Where(b => !b.Deleted && b.Restaurant_id == id).Select(b => b.MenuItem).Where(b => !b.Deleted).ToListAsync();
 
             IEnumerable<LibBookingService.Dtos.MenuItem> menuItems = res.Select(b => CreateMenuItemFromDbMenuItem(b)).OrderBy(b => b.Name);
 

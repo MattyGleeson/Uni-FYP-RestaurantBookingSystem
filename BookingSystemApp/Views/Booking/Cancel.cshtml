@@ -18,7 +18,7 @@
 
     <div class="row">
         @Html.LabelFor(model => model.StartTime, "Time")<br />
-        @Html.DisplayFor(model => model.StartTime)
+        @Html.DisplayFor(model => model.StartTime.Hours):@Html.DisplayFor(model => model.StartTime.Minutes)
     </div>
 
     <div class="row">

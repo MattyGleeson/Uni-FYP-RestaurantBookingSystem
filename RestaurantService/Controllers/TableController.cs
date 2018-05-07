@@ -80,7 +80,8 @@ namespace RestaurantService.Controllers
                     Restaurant_id = table.RestaurantId,
                     TableNo = table.TableNo,
                     NoSeats = table.NoSeats,
-                    AdditionalNotes = table.AdditionalNotes
+                    AdditionalNotes = table.AdditionalNotes,
+                    Active = true
                 });
                 await _db.SaveChangesAsync();
 
