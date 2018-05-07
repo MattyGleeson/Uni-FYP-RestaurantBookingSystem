@@ -188,21 +188,24 @@ namespace BookingSystemApp.Controllers.Admin
                     Price = menuItem.Price
                 });
 
-                var fileName = Path.GetFileName(menuItem.Image.FileName);
-                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                Stream imgFileStream = menuItem.Image.InputStream;
-                byte[] documentBytes = new byte[imgFileStream.Length];
-                imgFileStream.Read(documentBytes, 0, documentBytes.Length);
-
-                Image img = _imageFacade.UploadMenuItemImage(new Image
+                if (menuItem.Image != null && menuItem.Image.FileName != null && menuItem.Image.FileName != "")
                 {
-                    Name = fileName,
-                    Size = menuItem.Image.ContentLength,
-                    Type = menuItem.Image.ContentType,
-                    FileContent = documentBytes,
-                    CreatedOn = DateTime.Now,
-                    Source = res.Id
-                });
+                    var fileName = Path.GetFileName(menuItem.Image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    Stream imgFileStream = menuItem.Image.InputStream;
+                    byte[] documentBytes = new byte[imgFileStream.Length];
+                    imgFileStream.Read(documentBytes, 0, documentBytes.Length);
+
+                    Image img = _imageFacade.UploadMenuItemImage(new Image
+                    {
+                        Name = fileName,
+                        Size = menuItem.Image.ContentLength,
+                        Type = menuItem.Image.ContentType,
+                        FileContent = documentBytes,
+                        CreatedOn = DateTime.Now,
+                        Source = res.Id
+                    });
+                }
 
                 return RedirectToAction("Details", new { Id = res.Id });
             }
