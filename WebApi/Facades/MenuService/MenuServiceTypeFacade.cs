@@ -16,8 +16,8 @@ namespace WebApi.Facades.MenuService
     /// </summary>
     public class MenuServiceTypeFacade : GenericServiceFacade
     {
-        private readonly string _baseUrl = "https://bookingmenuservice.azurewebsites.net/Category/";
-        //private readonly string _baseUrl = "http://localhost:57656/Category/";
+        //private readonly string _baseUrl = "https://bookingmenuservice.azurewebsites.net/Category/";
+        private readonly string _baseUrl = "http://localhost:57656/Category/";
 
         /// <summary>
         /// Default constructor.

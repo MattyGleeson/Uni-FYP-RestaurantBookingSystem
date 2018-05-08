@@ -16,8 +16,8 @@ namespace WebApi.Facades
     /// </summary>
     public class CustomerServiceFacade : GenericServiceFacade
     {
-        private readonly string _baseUrl = "https://bookingcustomerservice.azurewebsites.net/";
-        //private readonly string _baseUrl = "http://localhost:55826/";
+        //private readonly string _baseUrl = "https://bookingcustomerservice.azurewebsites.net/";
+        private readonly string _baseUrl = "http://localhost:55826/";
 
         /// <summary>
         /// Default constructor.
